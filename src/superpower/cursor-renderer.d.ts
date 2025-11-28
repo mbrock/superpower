@@ -193,8 +193,8 @@ export interface CursorRenderer {
   _VSCODE_NLS_LANGUAGE: string | undefined
   _VSCODE_FILE_ROOT: string
 
-  // Superpower: extracted service container
-  __superpower__: any
+  // Extracted via CDP breakpoint hack
+  instantiationService: any
 
   // Cursor extras
   _CURSOR_SENTRY: unknown

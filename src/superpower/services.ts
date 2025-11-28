@@ -8,7 +8,7 @@ import type { CursorRenderer } from "./cursor-renderer"
 export async function getServices() {
   const cdp = await CDP.connect<CursorRenderer>((t) => t.url.includes("workbench.html"))
 
-  const exists = await cdp.run((g) => "__superpower__" in g)
+  const exists = await cdp.run((g) => "instantiationService" in g)
   if (!exists) {
     await extractAndCache(cdp)
   }
@@ -45,7 +45,7 @@ async function extractAndCache(cdp: CDP<CursorRenderer>) {
     })
 
     const { callFrames } = await cdp.waitForPause()
-    await cdp.evalOnFrame(callFrames[0].callFrameId, `globalThis.__superpower__ = this`, false)
+    await cdp.evalOnFrame(callFrames[0].callFrameId, `globalThis.instantiationService = this.instantiationService`, false)
   } finally {
     await cdp.send("Debugger.removeBreakpoint", { breakpointId }).catch(() => {})
     await cdp.resume().catch(() => {})
