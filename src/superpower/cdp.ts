@@ -359,6 +359,168 @@ export class CDP<TRemote = typeof globalThis> {
     const expression = `(${fn.toString()}).apply(null, [this, ...${serializedArgs}])`
     return this.evalOnFrame<Awaited<T>>(callFrameId, expression)
   }
+
+  // ============================================================================
+  // Breakpoint extraction
+  // ============================================================================
+
+  /**
+   * Extract a value by pausing on an event handler and running code in that context.
+   * Automatically resumes after extraction. Safe cleanup on error.
+   *
+   * @param eventType - DOM event to intercept (e.g. "mouseout", "mousemove")
+   * @param extract - Function to run while paused, receives `this` from the handler
+   * @returns The value returned by extract()
+   */
+  async extractOnEvent<T>(
+    eventType: string,
+    extract: (frameThis: unknown) => T,
+    options: { timeout?: number } = {}
+  ): Promise<Awaited<T>> {
+    const { timeout = 5000 } = options
+
+    await this.send("Runtime.enable")
+    await this.send("DOM.enable")
+    await this.debuggerEnable()
+
+    // Find the event listener
+    const docResult = await this.send<{ result: { objectId: string } }>(
+      "Runtime.evaluate",
+      { expression: "document", returnByValue: false }
+    )
+
+    const { listeners } = await this.send<{
+      listeners: { type: string; scriptId: string; lineNumber: number; columnNumber: number }[]
+    }>("DOMDebugger.getEventListeners", {
+      objectId: docResult.result.objectId,
+      depth: 1,
+    })
+
+    const target = listeners.find((l) => l.type === eventType)
+    if (!target) {
+      throw new Error(`No "${eventType}" listener found on document`)
+    }
+
+    // Set breakpoint
+    const bp = await this.send<{ breakpointId: string }>("Debugger.setBreakpoint", {
+      location: {
+        scriptId: target.scriptId,
+        lineNumber: target.lineNumber,
+        columnNumber: target.columnNumber,
+      },
+    })
+
+    try {
+      // Dispatch synthetic event
+      await this.run(
+        (g, et) => {
+          setTimeout(() => {
+            g.document.dispatchEvent(new MouseEvent(et, { bubbles: true, clientX: 100, clientY: 100 }))
+          }, 50)
+        },
+        eventType
+      )
+
+      // Wait for pause
+      const paused = await this.waitForPause(timeout)
+      const frameId = paused.callFrames[0].callFrameId
+
+      // Run extraction
+      return await this.runOnFrame(frameId, extract)
+    } finally {
+      // Always clean up
+      await this.send("Debugger.removeBreakpoint", { breakpointId: bp.breakpointId }).catch(() => {})
+      await this.debuggerResume().catch(() => {})
+    }
+  }
+
+  /**
+   * Cache a value from an event handler context to a global variable.
+   * Only extracts once - subsequent calls return immediately if global exists.
+   */
+  async cacheFromEvent(
+    globalName: string,
+    eventType: string,
+    options: { timeout?: number; force?: boolean } = {}
+  ): Promise<void> {
+    const { force = false } = options
+
+    // Check if already cached
+    if (!force) {
+      const exists = await this.eval<boolean>(`typeof ${globalName} !== 'undefined'`)
+      if (exists) return
+    }
+
+    // Extract and cache - use evalOnFrame directly to interpolate globalName
+    const { timeout = 5000 } = options
+
+    await this.send("Runtime.enable")
+    await this.send("DOM.enable")
+    await this.debuggerEnable()
+
+    const docResult = await this.send<{ result: { objectId: string } }>(
+      "Runtime.evaluate",
+      { expression: "document", returnByValue: false }
+    )
+
+    const { listeners } = await this.send<{
+      listeners: { type: string; scriptId: string; lineNumber: number; columnNumber: number }[]
+    }>("DOMDebugger.getEventListeners", {
+      objectId: docResult.result.objectId,
+      depth: 1,
+    })
+
+    const target = listeners.find((l) => l.type === eventType)
+    if (!target) {
+      throw new Error(`No "${eventType}" listener found on document`)
+    }
+
+    const bp = await this.send<{ breakpointId: string }>("Debugger.setBreakpoint", {
+      location: {
+        scriptId: target.scriptId,
+        lineNumber: target.lineNumber,
+        columnNumber: target.columnNumber,
+      },
+    })
+
+    try {
+      await this.run(
+        (g, et) => {
+          setTimeout(() => {
+            g.document.dispatchEvent(new MouseEvent(et, { bubbles: true, clientX: 100, clientY: 100 }))
+          }, 50)
+        },
+        eventType
+      )
+
+      const paused = await this.waitForPause(timeout)
+      const frameId = paused.callFrames[0].callFrameId
+
+      // Cache `this` to the global - don't return by value (it's huge)
+      await this.send("Debugger.evaluateOnCallFrame", {
+        callFrameId: frameId,
+        expression: `globalThis.${globalName} = this`,
+        returnByValue: false,
+      })
+    } finally {
+      await this.send("Debugger.removeBreakpoint", { breakpointId: bp.breakpointId }).catch(() => {})
+      await this.debuggerResume().catch(() => {})
+    }
+  }
+
+  /**
+   * Run a function with access to a cached global variable.
+   */
+  async runWithGlobal<T, A extends unknown[]>(
+    globalName: string,
+    fn: (cached: unknown, ...args: A) => T,
+    ...args: A
+  ): Promise<Awaited<T>> {
+    const serializedArgs = JSON.stringify(args)
+    return this.eval<Awaited<T>>(
+      `(${fn.toString()})(${globalName}, ...${serializedArgs})`
+    )
+  }
 }
 
 // ============================================================================
