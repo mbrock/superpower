@@ -1,20 +1,19 @@
 import * as vscode from "vscode"
 import { log } from "./extension"
 import { CDP } from "./superpower/cdp"
-import type { CursorRenderer } from "./superpower/cursor-renderer"
+import type { VSCodeRenderer } from "./superpower/vscode-renderer"
 
 export async function testCDP() {
   try {
     log("Connecting to CDP...")
 
-    // Connect to the Cursor workbench with full typing
-    const cursor = await CDP.connect<CursorRenderer>((t) =>
+    const client = await CDP.connect<VSCodeRenderer>((t) =>
       t.url.includes("workbench.html"),
     )
-    log(`Connected to: ${cursor.target.title}`)
+    log(`Connected to: ${client.target.title}`)
 
     // Run a typed function - `r` is the remote globalThis
-    const info = await cursor.run((r) => ({
+    const info = await client.run((r) => ({
       title: r.document.title,
       windowId: r.vscode.context.configuration()?.windowId,
       platform: r.vscode.process.platform,

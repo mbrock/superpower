@@ -26,7 +26,10 @@ interface EvalResult {
   exceptionDetails?: { text: string; exception?: { description: string } }
 }
 
-type PendingRequest = { resolve: (value: unknown) => void; reject: (error: Error) => void }
+type PendingRequest = {
+  resolve: (value: unknown) => void
+  reject: (error: Error) => void
+}
 type EventHandler = (params: unknown) => void
 
 export interface PausedEvent {
@@ -34,7 +37,10 @@ export interface PausedEvent {
   reason: string
 }
 
-export async function getTargets(host = DEFAULT_HOST, port = DEFAULT_PORT): Promise<CDPTarget[]> {
+export async function getTargets(
+  host = DEFAULT_HOST,
+  port = DEFAULT_PORT,
+): Promise<CDPTarget[]> {
   return (await fetch(`http://${host}:${port}/json/list`)).json()
 }
 
@@ -45,7 +51,10 @@ export class CDP<TRemote = typeof globalThis> {
   private events = new Map<string, EventHandler[]>()
   private ready: Promise<void>
 
-  private constructor(public readonly target: CDPTarget, ws: WebSocket) {
+  private constructor(
+    public readonly target: CDPTarget,
+    ws: WebSocket,
+  ) {
     this.ws = ws
     this.ws.onmessage = (e) => {
       const msg: CDPMessage = JSON.parse(e.data.toString())
@@ -53,7 +62,9 @@ export class CDP<TRemote = typeof globalThis> {
         const req = this.pending.get(msg.id)
         if (req) {
           this.pending.delete(msg.id)
-          msg.error ? req.reject(new Error(msg.error.message)) : req.resolve(msg.result)
+          msg.error
+            ? req.reject(new Error(msg.error.message))
+            : req.resolve(msg.result)
         }
       }
       if (msg.method) {
@@ -61,28 +72,45 @@ export class CDP<TRemote = typeof globalThis> {
       }
     }
     this.ws.onerror = () => {
-      for (const r of this.pending.values()) r.reject(new Error("WebSocket error"))
+      for (const r of this.pending.values())
+        r.reject(new Error("WebSocket error"))
       this.pending.clear()
     }
     this.ready = new Promise((resolve, reject) => {
       if (this.ws.readyState === WebSocket.OPEN) resolve()
-      else { this.ws.onopen = () => resolve(); this.ws.onerror = () => reject(new Error("Failed to connect")) }
+      else {
+        this.ws.onopen = () => resolve()
+        this.ws.onerror = () => reject(new Error("Failed to connect"))
+      }
     })
   }
 
-  static async connect<T = typeof globalThis>(predicate: (t: CDPTarget) => boolean, host = DEFAULT_HOST, port = DEFAULT_PORT): Promise<CDP<T>> {
+  static async connect<T = typeof globalThis>(
+    predicate: (t: CDPTarget) => boolean,
+    host = DEFAULT_HOST,
+    port = DEFAULT_PORT,
+  ): Promise<CDP<T>> {
     const targets = await getTargets(host, port)
     const target = targets.find(predicate)
     if (!target) throw new Error(`No matching target at ${host}:${port}`)
-    const client = new CDP<T>(target, new WebSocket(target.webSocketDebuggerUrl))
+    const client = new CDP<T>(
+      target,
+      new WebSocket(target.webSocketDebuggerUrl),
+    )
     await client.ready
     return client
   }
 
-  send<T = unknown>(method: string, params: Record<string, unknown> = {}): Promise<T> {
+  send<T = unknown>(
+    method: string,
+    params: Record<string, unknown> = {},
+  ): Promise<T> {
     return new Promise((resolve, reject) => {
       const id = this.nextId++
-      this.pending.set(id, { resolve: resolve as (v: unknown) => void, reject })
+      this.pending.set(id, {
+        resolve: resolve as (v: unknown) => void,
+        reject,
+      })
       this.ws.send(JSON.stringify({ id, method, params }))
     })
   }
@@ -101,34 +129,61 @@ export class CDP<TRemote = typeof globalThis> {
 
   once<T = unknown>(event: string, timeout = 5000): Promise<T> {
     return new Promise((resolve, reject) => {
-      const timer = setTimeout(() => { unsub(); reject(new Error(`Timeout: ${event}`)) }, timeout)
-      const unsub = this.on(event, (p) => { clearTimeout(timer); unsub(); resolve(p as T) })
+      const timer = setTimeout(() => {
+        unsub()
+        reject(new Error(`Timeout: ${event}`))
+      }, timeout)
+      const unsub = this.on(event, (p) => {
+        clearTimeout(timer)
+        unsub()
+        resolve(p as T)
+      })
     })
   }
 
   close() {
     this.ws.close()
-    for (const r of this.pending.values()) r.reject(new Error("Connection closed"))
+    for (const r of this.pending.values())
+      r.reject(new Error("Connection closed"))
     this.pending.clear()
   }
 
   async eval<T = unknown>(expression: string): Promise<T> {
-    const r = await this.send<EvalResult>("Runtime.evaluate", { expression, returnByValue: true, awaitPromise: true })
-    if (r.exceptionDetails) throw new Error(r.exceptionDetails.exception?.description || r.exceptionDetails.text)
+    const r = await this.send<EvalResult>("Runtime.evaluate", {
+      expression,
+      returnByValue: true,
+      awaitPromise: true,
+    })
+    if (r.exceptionDetails)
+      throw new Error(
+        r.exceptionDetails.exception?.description || r.exceptionDetails.text,
+      )
     return r.result?.value as T
   }
 
-  async run<T, A extends unknown[]>(fn: (g: TRemote, ...args: A) => T, ...args: A): Promise<Awaited<T>> {
-    return this.eval<Awaited<T>>(`(${fn.toString()}).apply(null, [globalThis, ...${JSON.stringify(args)}])`)
+  async run<T, A extends unknown[]>(
+    fn: (g: TRemote, ...args: A) => T,
+    ...args: A
+  ): Promise<Awaited<T>> {
+    return this.eval<Awaited<T>>(
+      `(${fn.toString()}).apply(null, [globalThis, ...${JSON.stringify(args)}])`,
+    )
   }
 
-  async runOnFrame<T, A extends unknown[]>(frameId: string, fn: (g: TRemote, frameThis: unknown, ...args: A) => T, ...args: A): Promise<Awaited<T>> {
+  async runOnFrame<T, TThis = unknown, A extends unknown[] = []>(
+    frameId: string,
+    fn: (g: TRemote, frameThis: TThis, ...args: A) => T,
+    ...args: A
+  ): Promise<Awaited<T>> {
     const r = await this.send<EvalResult>("Debugger.evaluateOnCallFrame", {
       callFrameId: frameId,
       expression: `(${fn.toString()}).apply(null, [globalThis, this, ...${JSON.stringify(args)}])`,
       returnByValue: true,
     })
-    if (r.exceptionDetails) throw new Error(r.exceptionDetails.exception?.description || r.exceptionDetails.text)
+    if (r.exceptionDetails)
+      throw new Error(
+        r.exceptionDetails.exception?.description || r.exceptionDetails.text,
+      )
     return r.result?.value as Awaited<T>
   }
 
@@ -137,7 +192,10 @@ export class CDP<TRemote = typeof globalThis> {
       expression: `(${fn.toString()})(globalThis)`,
       returnByValue: false,
     })
-    if (r.exceptionDetails) throw new Error(r.exceptionDetails.exception?.description || r.exceptionDetails.text)
+    if (r.exceptionDetails)
+      throw new Error(
+        r.exceptionDetails.exception?.description || r.exceptionDetails.text,
+      )
     return r.result?.objectId!
   }
 
@@ -148,7 +206,12 @@ export class CDP<TRemote = typeof globalThis> {
   DOMDebugger = {
     getEventListeners: async (objectId: string) => {
       const { listeners } = await this.send<{
-        listeners: { type: string; scriptId: string; lineNumber: number; columnNumber: number }[]
+        listeners: {
+          type: string
+          scriptId: string
+          lineNumber: number
+          columnNumber: number
+        }[]
       }>("DOMDebugger.getEventListeners", { objectId, depth: 1 })
       return listeners
     },
@@ -161,38 +224,67 @@ export class CDP<TRemote = typeof globalThis> {
   Debugger = {
     enable: () => this.send("Debugger.enable"),
     resume: () => this.send("Debugger.resume"),
-    waitForPause: (timeout = 5000) => this.once<PausedEvent>("Debugger.paused", timeout),
-    setBreakpoint: async (scriptId: string, lineNumber: number, columnNumber: number) => {
-      const { breakpointId } = await this.send<{ breakpointId: string }>("Debugger.setBreakpoint", {
-        location: { scriptId, lineNumber, columnNumber },
-      })
+    waitForPause: (timeout = 5000) =>
+      this.once<PausedEvent>("Debugger.paused", timeout),
+    setBreakpoint: async (
+      scriptId: string,
+      lineNumber: number,
+      columnNumber: number,
+    ) => {
+      const { breakpointId } = await this.send<{ breakpointId: string }>(
+        "Debugger.setBreakpoint",
+        {
+          location: { scriptId, lineNumber, columnNumber },
+        },
+      )
       return breakpointId
     },
     removeBreakpoint: (breakpointId: string) =>
-      this.send("Debugger.removeBreakpoint", { breakpointId }).catch(() => {}),
+      this.send("Debugger.removeBreakpoint", { breakpointId }).catch(
+        () => {},
+      ),
   }
 }
 
-if (import.meta.main) {
+async function main() {
   const [cmd, ...rest] = Bun.argv.slice(2)
   const arg = rest.join(" ")
 
   if (cmd === "list" || cmd === "ls") {
-    for (const t of await getTargets()) console.log(`[${t.type}] ${t.title}\n  ${t.url}`)
+    for (const t of await getTargets())
+      console.log(`[${t.type}] ${t.title}\n  ${t.url}`)
   } else if (cmd === "eval" || cmd === "e") {
     const c = await CDP.connect((t) => t.type === "page")
-    try { const r = await c.eval(arg); if (r !== undefined) console.log(typeof r === "object" ? JSON.stringify(r, null, 2) : r) }
-    finally { c.close() }
+    try {
+      const r = await c.eval(arg)
+      if (r !== undefined)
+        console.log(typeof r === "object" ? JSON.stringify(r, null, 2) : r)
+    } finally {
+      c.close()
+    }
   } else if (cmd === "repl") {
     const c = await CDP.connect((t) => t.type === "page")
     console.log(`Connected: ${c.target.title}\n`)
     process.stdout.write("> ")
     for await (const line of console) {
-      if (line.trim()) try { const r = await c.eval(line); if (r !== undefined) console.log(typeof r === "object" ? JSON.stringify(r, null, 2) : r) } catch (e) { console.error(e instanceof Error ? e.message : e) }
+      if (line.trim())
+        try {
+          const r = await c.eval(line)
+          if (r !== undefined)
+            console.log(
+              typeof r === "object" ? JSON.stringify(r, null, 2) : r,
+            )
+        } catch (e) {
+          console.error(e instanceof Error ? e.message : e)
+        }
       process.stdout.write("> ")
     }
     c.close()
   } else {
     console.log("CDP client\n  bun cdp.ts list|eval <expr>|repl")
   }
+}
+
+if (import.meta.main) {
+  main()
 }

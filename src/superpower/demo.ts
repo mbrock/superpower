@@ -4,17 +4,15 @@
  */
 
 import { CDP } from "./cdp"
-import type { CursorRenderer } from "./cursor-renderer"
+import type { VSCodeRenderer } from "./vscode-renderer"
 
-// Connect to Cursor's workbench with full typing
-const cursor = await CDP.connect<CursorRenderer>((t) =>
+const client = await CDP.connect<VSCodeRenderer>((t) =>
   t.url.includes("workbench.html"),
 )
 
-console.log("Connected to:", cursor.target.title)
+console.log("Connected to:", client.target.title)
 
-// `r` is fully typed as CursorRenderer
-const info = await cursor.run((r) => ({
+const info = await client.run((r) => ({
   title: r.document.title,
   windowId: r.vscode.context.configuration()?.windowId,
   platform: r.vscode.process.platform,
@@ -26,20 +24,19 @@ const info = await cursor.run((r) => ({
 console.log("\n📊 Window Info:")
 console.log(info)
 
-// Pass additional arguments after the function
-await cursor.run(
-  (r, msg) => r.console.log(`%c${msg}`, "color: #ff69b4; font-size: 20px"),
+await client.run(
+  (_, msg) => console.log(`%c${msg}`, "color: #ff69b4; font-size: 20px"),
   "Hello from CDP! 🎉",
 )
 
-console.log("\n📝 Logged a message to the Cursor console")
+console.log("\n📝 Logged a message to the devtools console")
 
 // Access theme info
-const tokenCount = await cursor.run((r) => {
+const tokenCount = await client.run((r) => {
   const style = r.document.querySelector(".vscode-tokens-styles")
   return style?.textContent?.match(/\.mtk\d+/g)?.length ?? 0
 })
 
 console.log(`\n🎨 Theme has ${tokenCount} token color classes`)
 
-cursor.close()
+client.close()

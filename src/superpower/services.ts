@@ -1,12 +1,12 @@
 /**
- * Access VS Code/Cursor internal services via CDP.
+ * Access VS Code internal services via CDP.
  */
 
 import { CDP } from "./cdp"
-import type { CursorRenderer } from "./cursor-renderer"
+import type { VSCodeRenderer } from "./vscode-renderer"
 
 export async function getServices() {
-  const cdp = await CDP.connect<CursorRenderer>((t) =>
+  const cdp = await CDP.connect<VSCodeRenderer>((t) =>
     t.url.includes("workbench.html"),
   )
 
@@ -21,7 +21,7 @@ export async function getServices() {
   }
 }
 
-async function extractAndCache(cdp: CDP<CursorRenderer>) {
+async function extractAndCache(cdp: CDP<VSCodeRenderer>) {
   await cdp.DOM.enable()
   await cdp.Runtime.enable()
   await cdp.Debugger.enable()
