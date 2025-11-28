@@ -17,6 +17,11 @@
         "command": "linenGlow.createSuperpowerLauncher",
         "title": "Create Superpower Launcher (CDP)",
         "category": "Linen Glow"
+      },
+      {
+        "command": "linenGlow.testCDP",
+        "title": "Test CDP Connection",
+        "category": "Linen Glow"
       }
     ],
     "themes": [
@@ -47,6 +52,7 @@
     "@types/vscode": "^1.105.0",
     "@vscode/vsce": "^3.0.0",
     "csstype": "^3.2.3",
+    "monaco-editor": "^0.55.1",
     "prettier": "^3.0.0"
   },
   "peerDependencies": {
