@@ -19,8 +19,18 @@
         "category": "Linen Glow"
       },
       {
+        "command": "linenGlow.toggleCDP",
+        "title": "Toggle CDP Connection",
+        "category": "Linen Glow"
+      },
+      {
         "command": "linenGlow.testCDP",
         "title": "Test CDP Connection",
+        "category": "Linen Glow"
+      },
+      {
+        "command": "linenGlow.showServices",
+        "title": "Show VS Code Services Status",
         "category": "Linen Glow"
       }
     ],

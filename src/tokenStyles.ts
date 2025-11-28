@@ -1,12 +1,8 @@
-import type { PropertiesHyphen } from "csstype";
+import type { PropertiesHyphen } from "csstype"
 
-// OKLCH color helpers
-// oklch(L% C H / alpha) - L: lightness, C: chroma, H: hue (degrees)
 const oklch = (l: number, c: number, h: number, a: number = 1) =>
   `oklch(${l}% ${c} ${h} / ${a})`
 
-// Define our palette in OKLCH
-// Keeping consistent lightness/chroma for harmony
 export const palette = {
   // Hues: purple ~300, cyan ~195, teal ~165, orange ~70, warm ~85
   purple: (a: number) => oklch(65, 0.25, 300, a),
@@ -65,9 +61,9 @@ export const tokenStyles: Record<string, CSS> = {
   enumMember: {
     "background-color": palette.orange(0.12),
   },
-};
+}
 
-export type CSS = PropertiesHyphen & { [selector: `&${string}`]: CSS}
+export type CSS = PropertiesHyphen & { [selector: `&${string}`]: CSS }
 
 export function cssToString(css: CSS): string {
   return Object.entries(css)
