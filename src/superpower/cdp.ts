@@ -12,10 +12,6 @@
 const DEFAULT_HOST = "localhost"
 const DEFAULT_PORT = 9222
 
-// ============================================================================
-// Types
-// ============================================================================
-
 export interface CDPTarget {
   id: string
   title: string
@@ -43,10 +39,6 @@ type PendingRequest = {
 }
 
 type EventHandler = (params: unknown) => void
-
-// ============================================================================
-// Debugger Types
-// ============================================================================
 
 export interface RemoteObject {
   type: "object" | "function" | "undefined" | "string" | "number" | "boolean" | "symbol" | "bigint"
@@ -85,11 +77,6 @@ export interface PropertyDescriptor {
   enumerable: boolean
 }
 
-// ============================================================================
-// Low-level functions
-// ============================================================================
-
-/** Get list of debuggable targets */
 export async function getTargets(
   host = DEFAULT_HOST,
   port = DEFAULT_PORT
@@ -107,10 +94,6 @@ export async function findTarget(
   const targets = await getTargets(host, port)
   return targets.find(predicate)
 }
-
-// ============================================================================
-// CDP Client class
-// ============================================================================
 
 export interface CDPOptions {
   host?: string
@@ -261,11 +244,6 @@ export class CDP<TRemote = typeof globalThis> {
     return this.ws.readyState === WebSocket.OPEN
   }
 
-  // ============================================================================
-  // Runtime domain
-  // ============================================================================
-
-  /** Evaluate a raw JS expression */
   async eval<T = unknown>(expression: string): Promise<T> {
     const result = await this.send<EvalResult>("Runtime.evaluate", {
       expression,
@@ -308,31 +286,22 @@ export class CDP<TRemote = typeof globalThis> {
     return { result: result.result, internalProperties: result.internalProperties }
   }
 
-  // ============================================================================
-  // Debugger domain
-  // ============================================================================
-
-  /** Enable the Debugger domain */
   async debuggerEnable(): Promise<void> {
     await this.send("Debugger.enable")
   }
 
-  /** Pause execution */
   async debuggerPause(): Promise<void> {
     await this.send("Debugger.pause")
   }
 
-  /** Resume execution */
   async debuggerResume(): Promise<void> {
     await this.send("Debugger.resume")
   }
 
-  /** Wait for pause and get call frames */
   async waitForPause(timeout = 5000): Promise<PausedEvent> {
     return this.once<PausedEvent>("Debugger.paused", timeout)
   }
 
-  /** Evaluate expression on a specific call frame */
   async evalOnFrame<T = unknown>(callFrameId: string, expression: string): Promise<T> {
     const result = await this.send<EvalResult>("Debugger.evaluateOnCallFrame", {
       callFrameId,
@@ -360,18 +329,7 @@ export class CDP<TRemote = typeof globalThis> {
     return this.evalOnFrame<Awaited<T>>(callFrameId, expression)
   }
 
-  // ============================================================================
-  // Breakpoint extraction
-  // ============================================================================
-
-  /**
-   * Extract a value by pausing on an event handler and running code in that context.
-   * Automatically resumes after extraction. Safe cleanup on error.
-   *
-   * @param eventType - DOM event to intercept (e.g. "mouseout", "mousemove")
-   * @param extract - Function to run while paused, receives `this` from the handler
-   * @returns The value returned by extract()
-   */
+  /** Pause on an event handler, run extraction function, resume. Safe cleanup on error. */
   async extractOnEvent<T>(
     eventType: string,
     extract: (frameThis: unknown) => T,
@@ -434,10 +392,7 @@ export class CDP<TRemote = typeof globalThis> {
     }
   }
 
-  /**
-   * Cache a value from an event handler context to a global variable.
-   * Only extracts once - subsequent calls return immediately if global exists.
-   */
+  /** Cache `this` from an event handler to a global. Only extracts once unless force=true. */
   async cacheFromEvent(
     globalName: string,
     eventType: string,
@@ -508,9 +463,7 @@ export class CDP<TRemote = typeof globalThis> {
     }
   }
 
-  /**
-   * Run a function with access to a cached global variable.
-   */
+  /** Run a function with access to a cached global variable. */
   async runWithGlobal<T, A extends unknown[]>(
     globalName: string,
     fn: (cached: unknown, ...args: A) => T,
@@ -523,10 +476,6 @@ export class CDP<TRemote = typeof globalThis> {
   }
 }
 
-// ============================================================================
-// CLI
-// ============================================================================
-
 if (import.meta.main) {
   const [cmd, ...rest] = Bun.argv.slice(2)
   const arg = rest.join(" ")
@@ -535,10 +484,8 @@ if (import.meta.main) {
     async list() {
       const targets = await getTargets()
       for (const t of targets) {
-        const icon =
-          t.type === "page" ? "📄" : t.type === "worker" ? "⚙️" : "❓"
-        console.log(`${icon} ${t.type.padEnd(8)} ${t.title}`)
-        console.log(`   ${t.url}`)
+        console.log(`[${t.type}] ${t.title}`)
+        console.log(`  ${t.url}`)
       }
     },
 
@@ -547,9 +494,7 @@ if (import.meta.main) {
       try {
         const result = await client.eval(arg)
         if (result !== undefined) {
-          console.log(
-            typeof result === "object" ? JSON.stringify(result, null, 2) : result
-          )
+          console.log(typeof result === "object" ? JSON.stringify(result, null, 2) : result)
         }
       } finally {
         client.close()
@@ -558,31 +503,21 @@ if (import.meta.main) {
 
     async repl() {
       const client = await CDP.connectPage()
-      console.log(`Connected to: ${client.target.title}`)
-      console.log("Type JS to evaluate. Ctrl+D to exit.\n")
-
-      const prompt = "\x1b[36m❯\x1b[0m "
-      process.stdout.write(prompt)
-
+      console.log(`Connected: ${client.target.title}\n`)
+      process.stdout.write("> ")
       try {
         for await (const line of console) {
           if (line.trim()) {
             try {
               const result = await client.eval(line)
               if (result !== undefined) {
-                console.log(
-                  typeof result === "object"
-                    ? JSON.stringify(result, null, 2)
-                    : result
-                )
+                console.log(typeof result === "object" ? JSON.stringify(result, null, 2) : result)
               }
             } catch (e) {
-              console.error(
-                "\x1b[31m" + (e instanceof Error ? e.message : e) + "\x1b[0m"
-              )
+              console.error(e instanceof Error ? e.message : e)
             }
           }
-          process.stdout.write(prompt)
+          process.stdout.write("> ")
         }
       } finally {
         client.close()
@@ -590,29 +525,15 @@ if (import.meta.main) {
     },
 
     async help() {
-      console.log(`
-\x1b[1mCDP - Chrome DevTools Protocol client\x1b[0m
+      console.log(`CDP client
 
-\x1b[33mCLI:\x1b[0m
-  bun cdp.ts list              List CDP targets
-  bun cdp.ts eval <expr>       Evaluate JS in first page
-  bun cdp.ts repl              Interactive REPL
-
-\x1b[33mAPI:\x1b[0m
-  import { CDP } from "./cdp"
-
-  const client = await CDP.connect(t => t.url.includes("myapp"))
-  await client.run((g) => g.document.title)
-  await client.run((g, msg) => g.console.log(msg), "Hello!")
-  client.close()
-
-\x1b[90mTarget must have remote debugging enabled (--remote-debugging-port=9222)\x1b[0m
-`)
+  bun cdp.ts list          List targets
+  bun cdp.ts eval <expr>   Evaluate JS
+  bun cdp.ts repl          Interactive REPL`)
     },
   }
 
   commands.ls = commands.list
   commands.e = commands.eval
-
   await (commands[cmd] || commands.help)()
 }

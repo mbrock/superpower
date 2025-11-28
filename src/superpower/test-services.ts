@@ -1,23 +1,14 @@
 #!/usr/bin/env bun
-/**
- * Test the services API
- *
- * Run with: bun src/superpower/test-services.ts
- */
-
 import { getServices } from "./services"
 
 const svc = await getServices()
-console.log("✅ Got services!\n")
 
-// Direct access to services on the cached object
 const editor = await svc.run((s) => ({
   groups: s.editorGroupsService?.count,
   active: s.editorGroupsService?.activeGroup?.activeEditor?.getName?.(),
 }))
-console.log("📝 Editor:", editor)
+console.log("editor:", editor)
 
-// Get config via instantiation service
 const config = await svc.run((s) => {
   for (const [k, v] of s.instantiationService._services._entries.entries()) {
     if (String(k) === "configurationService") {
@@ -29,10 +20,9 @@ const config = await svc.run((s) => {
     }
   }
 })
-console.log("⚙️ Config:", config)
+console.log("config:", config)
 
-// Toggle sidebar
-console.log("\n⚡ Toggling sidebar...")
+console.log("toggling sidebar...")
 await svc.run((s) => {
   for (const [k, v] of s.instantiationService._services._entries.entries()) {
     if (String(k) === "commandService") {
@@ -40,6 +30,5 @@ await svc.run((s) => {
     }
   }
 })
-console.log("✅ Done!")
 
 svc.close()
