@@ -1,0 +1,5124 @@
+{
+  "_timestamp": "2025-11-28T16:50:30.844Z",
+  "_callFrameContext": "coo",
+  "thisObject": {
+    "className": "coo",
+    "keys": [
+      "_store",
+      "layoutService",
+      "contextKeyService",
+      "experimentService",
+      "storageService",
+      "instantiationService",
+      "editorGroupsService",
+      "appLayoutService",
+      "logService",
+      "pointerInsideHotzone",
+      "pointerInsideOverlay",
+      "isHoverRevealed",
+      "hideTimer",
+      "showTimer",
+      "lastWidth",
+      "containerEl",
+      "hotzoneHostEl",
+      "auxPartEl",
+      "leftHotzoneEl",
+      "rightHotzoneEl",
+      "unifiedPartEl",
+      "unifiedClassMutationObserver",
+      "overlayRootEl",
+      "auxResizeObs",
+      "observedAuxEl",
+      "rafHotzones"
+    ]
+  },
+  "instantiationService": {
+    "className": "yLo",
+    "keys": [
+      "_services",
+      "_strict",
+      "_parent",
+      "_enableTracing",
+      "_isDisposed",
+      "_servicesToMaybeDispose",
+      "_children",
+      "_activeInstantiations",
+      "_globalGraph"
+    ]
+  },
+  "registeredServices": {
+    "mainProcessService": {
+      "className": "Czf",
+      "keys": [
+        "_store",
+        "mainProcessConnection"
+      ]
+    },
+    "productService": {
+      "className": "Object",
+      "keys": [
+        "_serviceBrand",
+        "quality",
+        "licenseName",
+        "licenseUrl",
+        "serverGreeting",
+        "serverLicense",
+        "vscodeVersion",
+        "serverLicensePrompt",
+        "serverApplicationName",
+        "serverDataFolderName",
+        "tunnelApplicationName",
+        "serverDownloadUrlTemplate",
+        "win32x64AppId",
+        "win32arm64AppId",
+        "win32x64UserAppId",
+        "win32arm64UserAppId",
+        "win32TunnelMutex",
+        "win32TunnelServiceMutex",
+        "licenseFileName",
+        "reportIssueUrl",
+        "webviewContentExternalBaseUrlTemplate",
+        "aiConfig",
+        "statsigClientKey",
+        "statsigLogEventProxyUrl",
+        "downloadUrl",
+        "updateUrl",
+        "backupUpdateUrl",
+        "releaseNotesUrl",
+        "extensionReplacementMapForImports",
+        "nodejsRepository"
+      ]
+    },
+    "environmentService": {
+      "className": "dx",
+      "keys": [
+        "_args",
+        "paths",
+        "productService",
+        "configuration"
+      ]
+    },
+    "loggerService": {
+      "className": "LVf",
+      "keys": [
+        "_store",
+        "logLevel",
+        "logsHome",
+        "_loggers",
+        "_onDidChangeLoggers",
+        "onDidChangeLoggers",
+        "_onDidChangeLogLevel",
+        "onDidChangeLogLevel",
+        "_onDidChangeVisibility",
+        "onDidChangeVisibility",
+        "windowId",
+        "channel"
+      ]
+    },
+    "logService": {
+      "className": "Ezf",
+      "keys": [
+        "_store",
+        "logger"
+      ]
+    },
+    "clientNumericMetricsService": {
+      "className": "Qro",
+      "keys": [
+        "_store",
+        "productService",
+        "state",
+        "sessionId",
+        "flushTimer",
+        "pending",
+        "experimentService",
+        "aiClientService",
+        "featureFlagHash"
+      ]
+    },
+    "clientDebugLogService": {
+      "className": "Bzf",
+      "keys": [
+        "logs",
+        "logSizes",
+        "MAX_SIZE_PER_LOG_ID",
+        "clientLoggerService"
+      ]
+    },
+    "defaultAccountService": {
+      "className": "Rpf",
+      "keys": [
+        "_store",
+        "_defaultAccount",
+        "initBarrier",
+        "_onDidChangeDefaultAccount",
+        "onDidChangeDefaultAccount"
+      ]
+    },
+    "policy": {
+      "className": "Yko",
+      "keys": [
+        "_store",
+        "policyDefinitions",
+        "policies",
+        "_onDidChange",
+        "onDidChange",
+        "policyServices",
+        "logService"
+      ]
+    },
+    "sharedProcessService": {
+      "className": "Bko",
+      "keys": [
+        "_store",
+        "windowId",
+        "logService",
+        "restoredBarrier",
+        "withSharedProcessConnection"
+      ]
+    },
+    "utilityProcessWorkerWorkbenchService": {
+      "className": "Eko",
+      "keys": [
+        "_store",
+        "windowId",
+        "logService",
+        "mainProcessService",
+        "_utilityProcessWorkerService",
+        "restoredBarrier"
+      ]
+    },
+    "signService": {
+      "type": "function"
+    },
+    "fileService": {
+      "className": "qko",
+      "keys": [
+        "_store",
+        "logService",
+        "BUFFER_SIZE",
+        "_onDidChangeFileSystemProviderRegistrations",
+        "onDidChangeFileSystemProviderRegistrations",
+        "_onWillActivateFileSystemProvider",
+        "onWillActivateFileSystemProvider",
+        "_onDidChangeFileSystemProviderCapabilities",
+        "onDidChangeFileSystemProviderCapabilities",
+        "provider",
+        "_onDidRunOperation",
+        "onDidRunOperation",
+        "internalOnDidFilesChange",
+        "_onDidUncorrelatedFilesChange",
+        "onDidFilesChange",
+        "_onDidWatchError",
+        "onDidWatchError",
+        "activeWatchers",
+        "writeQueue",
+        "notebookCellExistsChecker"
+      ]
+    },
+    "remoteAuthorityResolverService": {
+      "className": "Uko",
+      "keys": [
+        "_store",
+        "remoteResourceLoader",
+        "_onDidChangeConnectionData",
+        "onDidChangeConnectionData",
+        "_resolveAuthorityRequests",
+        "_connectionTokens",
+        "_canonicalURIRequests",
+        "_canonicalURIProvider"
+      ]
+    },
+    "IUriIdentityService": {
+      "className": "bound NLs",
+      "keys": [
+        "asCanonicalUri",
+        "constructor"
+      ]
+    },
+    "IUserDataProfilesService": {
+      "className": "bru",
+      "keys": [
+        "_store",
+        "profilesHome",
+        "channel",
+        "_profiles",
+        "_onDidChangeProfiles",
+        "onDidChangeProfiles",
+        "onDidResetWorkspaces"
+      ]
+    },
+    "IUserDataProfileService": {
+      "className": "Pzf",
+      "keys": [
+        "_store",
+        "_onDidChangeCurrentProfile",
+        "onDidChangeCurrentProfile",
+        "_currentProfile"
+      ]
+    },
+    "remoteSocketFactoryService": {
+      "className": "cZh",
+      "keys": [
+        "factories"
+      ]
+    },
+    "remoteAgentService": {
+      "className": "Vko",
+      "keys": [
+        "_store",
+        "remoteSocketFactoryService",
+        "userDataProfileService",
+        "_environmentService",
+        "_remoteAuthorityResolverService",
+        "_connection",
+        "_environment"
+      ]
+    },
+    "storageService": {
+      "className": "czf",
+      "keys": [
+        "_store",
+        "_onDidChangeValue",
+        "_onDidChangeTarget",
+        "onDidChangeTarget",
+        "_onWillSaveState",
+        "onWillSaveState",
+        "runFlushWhenIdle",
+        "_workspaceKeyTargets",
+        "_profileKeyTargets",
+        "_applicationKeyTargets",
+        "onDiskShouldSaveCallbacks",
+        "flushWhenIdleScheduler",
+        "remoteService",
+        "environmentService",
+        "profileStorageDisposables",
+        "workspaceStorageDisposables",
+        "isSmokeTest",
+        "applicationStorageProfile",
+        "applicationStorage",
+        "profileStorageProfile",
+        "profileStorage",
+        "workspaceStorageId",
+        "workspaceStorage",
+        "userDataProfileService",
+        "initializationPromise"
+      ]
+    },
+    "nativeKeyboardLayoutService": {
+      "className": "Gko",
+      "keys": [
+        "_store",
+        "_onDidChangeKeyboardLayout",
+        "onDidChangeKeyboardLayout",
+        "_keyboardLayoutService",
+        "_initPromise",
+        "_keyboardMapping",
+        "_keyboardLayoutInfo"
+      ]
+    },
+    "contextService": {
+      "className": "ozf",
+      "keys": [
+        "_store",
+        "userDataProfileService",
+        "userDataProfilesService",
+        "fileService",
+        "remoteAgentService",
+        "uriIdentityService",
+        "logService",
+        "initialized",
+        "applicationConfiguration",
+        "remoteUserConfiguration",
+        "_onDidChangeConfiguration",
+        "onDidChangeConfiguration",
+        "_onWillChangeWorkspaceFolders",
+        "onWillChangeWorkspaceFolders",
+        "_onDidChangeWorkspaceFolders",
+        "onDidChangeWorkspaceFolders",
+        "_onDidChangeWorkspaceName",
+        "onDidChangeWorkspaceName",
+        "_onDidChangeWorkbenchState",
+        "onDidChangeWorkbenchState",
+        "isWorkspaceTrusted",
+        "_restrictedSettings",
+        "_onDidChangeRestrictedSettings",
+        "onDidChangeRestrictedSettings",
+        "configurationRegistry",
+        "initRemoteUserConfigurationBarrier",
+        "completeWorkspaceBarrier",
+        "defaultConfiguration",
+        "policyConfiguration",
+        "configurationCache"
+      ]
+    },
+    "configurationService": {
+      "className": "ozf",
+      "keys": [
+        "_store",
+        "userDataProfileService",
+        "userDataProfilesService",
+        "fileService",
+        "remoteAgentService",
+        "uriIdentityService",
+        "logService",
+        "initialized",
+        "applicationConfiguration",
+        "remoteUserConfiguration",
+        "_onDidChangeConfiguration",
+        "onDidChangeConfiguration",
+        "_onWillChangeWorkspaceFolders",
+        "onWillChangeWorkspaceFolders",
+        "_onDidChangeWorkspaceFolders",
+        "onDidChangeWorkspaceFolders",
+        "_onDidChangeWorkspaceName",
+        "onDidChangeWorkspaceName",
+        "_onDidChangeWorkbenchState",
+        "onDidChangeWorkbenchState",
+        "isWorkspaceTrusted",
+        "_restrictedSettings",
+        "_onDidChangeRestrictedSettings",
+        "onDidChangeRestrictedSettings",
+        "configurationRegistry",
+        "initRemoteUserConfigurationBarrier",
+        "completeWorkspaceBarrier",
+        "defaultConfiguration",
+        "policyConfiguration",
+        "configurationCache"
+      ]
+    },
+    "workspaceTrustEnablementService": {
+      "className": "Urs",
+      "keys": [
+        "_store",
+        "configurationService",
+        "environmentService"
+      ]
+    },
+    "workspaceTrustManagementService": {
+      "className": "Wrs",
+      "keys": [
+        "_store",
+        "configurationService",
+        "remoteAuthorityResolverService",
+        "storageService",
+        "uriIdentityService",
+        "environmentService",
+        "workspaceService",
+        "workspaceTrustEnablementService",
+        "fileService",
+        "storageKey",
+        "_onDidChangeTrust",
+        "onDidChangeTrust",
+        "_onDidChangeTrustedFolders",
+        "onDidChangeTrustedFolders",
+        "_canonicalStartupFiles",
+        "_canonicalUrisResolved",
+        "_canonicalWorkspace",
+        "_workspaceResolvedPromise",
+        "_workspaceResolvedPromiseResolve",
+        "_workspaceTrustInitializedPromise",
+        "_workspaceTrustInitializedPromiseResolve",
+        "_storedTrustState",
+        "_trustTransitionManager",
+        "_trustStateInfo",
+        "_isTrusted"
+      ]
+    },
+    "layoutService": {
+      "className": "OGf",
+      "keys": [
+        "_store",
+        "parent",
+        "_onDidChangeZenMode",
+        "onDidChangeZenMode",
+        "_onDidChangeMainEditorCenteredLayout",
+        "onDidChangeMainEditorCenteredLayout",
+        "_onDidChangePanelAlignment",
+        "onDidChangePanelAlignment",
+        "_onDidChangeWindowMaximized",
+        "onDidChangeWindowMaximized",
+        "_onDidChangePanelPosition",
+        "onDidChangePanelPosition",
+        "_onDidChangePartVisibility",
+        "onDidChangePartVisibility",
+        "_onDidChangeNotificationsVisibility",
+        "onDidChangeNotificationsVisibility",
+        "_onDidLayoutMainContainer",
+        "onDidLayoutMainContainer",
+        "_onDidChangeWorkbenchInsets",
+        "onDidChangeWorkbenchInsets",
+        "_onDidLayoutActiveContainer",
+        "onDidLayoutActiveContainer",
+        "_onDidLayoutContainer",
+        "onDidLayoutContainer",
+        "_onDidAddContainer",
+        "onDidAddContainer",
+        "_onDidChangeActiveContainer",
+        "onDidChangeActiveContainer",
+        "wasMaximized",
+        "panelHeightPercentageBeforeMaximize"
+      ]
+    },
+    "languageConfigurationService": {
+      "className": "bound CWn",
+      "keys": [
+        "getLanguageConfiguration",
+        "onDidChange",
+        "register",
+        "constructor"
+      ]
+    },
+    "treeSitterTokenizationStoreService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "tooltipService": {
+      "className": "bound R7n",
+      "keys": [
+        "registerEvent",
+        "constructor"
+      ]
+    },
+    "editorProgressService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "diffProviderFactoryService": {
+      "className": "bound BHn",
+      "keys": [
+        "createDiffProvider",
+        "constructor"
+      ]
+    },
+    "IActionViewItemService": {
+      "className": "bound o8a",
+      "keys": [
+        "register",
+        "onDidChange",
+        "lookUp",
+        "constructor"
+      ]
+    },
+    "actionBadgeService": {
+      "className": "l8a",
+      "keys": [
+        "_onDidChangeBadge",
+        "onDidChangeBadge",
+        "_badgesByActionId"
+      ]
+    },
+    "uiOverlayService": {
+      "className": "O8a",
+      "keys": [
+        "_store",
+        "docsLinkDialog",
+        "mentionLinkToolbar",
+        "memoriesPopup",
+        "inviteModal",
+        "wrappedModal",
+        "isTestingChangelogComponent",
+        "isTestingUpdateButton",
+        "focusSettingsSearch",
+        "usageBasedPricingModal",
+        "subscriptionTiersModal",
+        "upgradeConfirmationModal",
+        "reportFeedbackModal",
+        "starsFeedbackPopups",
+        "docsModal",
+        "worktreeSetupConfigModal",
+        "forceComposerDropdownRerender",
+        "errorMetadata",
+        "shouldBlockNewPanelsFromPoppingUpIfTimeIsLessThan",
+        "feedbackState",
+        "settingsOpenData",
+        "dialogData",
+        "shareChatModal"
+      ]
+    },
+    "IEditorCancelService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "actionWidgetService": {
+      "className": "bound MLe",
+      "keys": [
+        "hide",
+        "constructor"
+      ]
+    },
+    "ICodeLensCache": {
+      "className": "bound Zjr",
+      "keys": [
+        "get",
+        "put",
+        "constructor"
+      ]
+    },
+    "ILanguageFeatureDebounceService": {
+      "className": "bound czn",
+      "keys": [
+        "for",
+        "constructor"
+      ]
+    },
+    "IPeekViewService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "IOutlineModelService": {
+      "className": "bound bjn",
+      "keys": [
+        "getOrCreate",
+        "getDebounceValue",
+        "constructor"
+      ]
+    },
+    "notebookDocumentService": {
+      "className": "bound ygl",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "ISymbolNavigationService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "IInlayHintsCache": {
+      "className": "bound RRo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "treeViewsDndService": {
+      "className": "bound epl",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "ISuggestMemories": {
+      "className": "bound _Kn",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "composerCheckpointStorageService": {
+      "className": "bound uMe",
+      "keys": [
+        "storeCheckpoint",
+        "retrieveCheckpoint",
+        "constructor"
+      ]
+    },
+    "composerMessageStorageService": {
+      "className": "bound ece",
+      "keys": [
+        "getInitialMessages",
+        "retrieveMessage",
+        "storeMessage",
+        "deleteMessage",
+        "constructor"
+      ]
+    },
+    "composerCodeBlockDiffStorageService": {
+      "className": "bound Gme",
+      "keys": [
+        "retrieveDiff",
+        "storeDiff",
+        "constructor"
+      ]
+    },
+    "modelConfigService": {
+      "className": "bound fYn",
+      "keys": [
+        "getModelConfig",
+        "getAvailableDefaultModels",
+        "doesModelSupportAgent",
+        "doesModelSupportThinking",
+        "constructor"
+      ]
+    },
+    "composerStorageService": {
+      "className": "gYn",
+      "keys": [
+        "_store",
+        "storageService",
+        "state",
+        "dataHandleTracker",
+        "enableDataHandleDebugging",
+        "visualizeLoadedHandles"
+      ]
+    },
+    "backgroundComposerDataService": {
+      "className": "bound EYn",
+      "keys": [
+        "isBackgroundWindow",
+        "bcIdForThisWindow",
+        "setWorkspacePersistentData",
+        "setData",
+        "constructor"
+      ]
+    },
+    "adminSettingsService": {
+      "className": "XYn",
+      "keys": [
+        "_store",
+        "cursorAuthenticationService",
+        "storageService",
+        "cached"
+      ]
+    },
+    "devConsoleService": {
+      "className": "bound QYn",
+      "keys": [
+        "register",
+        "getDebugFunctions",
+        "onDidRegisterFunction",
+        "constructor"
+      ]
+    },
+    "gitContextService": {
+      "className": "bound nXn",
+      "keys": [
+        "waitForGitContextProvider",
+        "onDidRunGitStatus",
+        "getGitUpstreamURL",
+        "registerGitContextProvider",
+        "getGitTelemetryAttributes",
+        "getGitRoot",
+        "getCurrentBranch",
+        "getLastCommits",
+        "constructor",
+        "getSubmodules",
+        "getGitUser",
+        "executeGitCommand",
+        "getDefaultBranch",
+        "getFullCommit"
+      ]
+    },
+    "experimentService": {
+      "className": "eZn",
+      "keys": [
+        "_store",
+        "storageService",
+        "environmentService",
+        "productService",
+        "metricsService",
+        "contextKeyService",
+        "clientNumericMetricsService",
+        "_statsigDisabled",
+        "_statsig",
+        "_dataAdapter",
+        "_initialized",
+        "_featureFlagOverrides",
+        "_experimentOverrides",
+        "_dynamicConfigOverrides",
+        "_featureGateProperties",
+        "_experimentParamProperties",
+        "_dynamicConfigParamProperties",
+        "_isCalculatingHash",
+        "_needsRecalculation",
+        "_onDidChangeGates",
+        "onDidChangeGates",
+        "_constructionTime",
+        "_isTestMode"
+      ]
+    },
+    "composerCodeBlockPartialInlineDiffFatesStorageService": {
+      "className": "bound K0e",
+      "keys": [
+        "storePartialInlineDiffFates",
+        "constructor"
+      ]
+    },
+    "composerEventService": {
+      "className": "zLl",
+      "keys": [
+        "_store",
+        "_onContextRemovedEmitter",
+        "onContextRemoved",
+        "_onShouldShowPreviewEmitter",
+        "onShouldShowPreview",
+        "_onShouldForceTextEmitter",
+        "onShouldForceText",
+        "_onDidAiEditFileEmitter",
+        "onDidAiEditFile",
+        "_onDidAcceptDiffWithoutInlineEmitter",
+        "onDidAcceptDiffWithoutInline",
+        "_onDidFinishAiEditToolCallEmitter",
+        "onDidFinishAiEditToolCall",
+        "_onDidSendRequestEmitter",
+        "onDidSendRequest",
+        "_onMaybeRunOnComposerSettledEmitter",
+        "onMaybeRunOnComposerSettled",
+        "_onDidContextChangeEmitter",
+        "onDidContextChange",
+        "_onDidPasteEmitter",
+        "onDidPaste",
+        "_onDidPasteImageEmitter",
+        "onDidPasteImage",
+        "_onShouldSwapComposersEmitter",
+        "onShouldSwapComposers",
+        "_onDidChangeUnifiedModeEmitter",
+        "onDidChangeUnifiedMode",
+        "_onDidComposerViewsServiceFinishInitializingEmitter",
+        "onDidComposerViewsServiceFinishInitializing",
+        "_onDidComposerServiceFinishInitializingEmitter"
+      ]
+    },
+    "filesConfigurationService": {
+      "className": "nZn",
+      "keys": [
+        "_store",
+        "configurationService",
+        "contextService",
+        "environmentService",
+        "uriIdentityService",
+        "fileService",
+        "markerService",
+        "textResourceConfigurationService",
+        "_onDidChangeAutoSaveConfiguration",
+        "onDidChangeAutoSaveConfiguration",
+        "_onDidChangeAutoSaveDisabled",
+        "onDidChangeAutoSaveDisabled",
+        "_onDidChangeFilesAssociation",
+        "onDidChangeFilesAssociation",
+        "_onDidChangeReadonly",
+        "onDidChangeReadonly",
+        "autoSaveConfigurationCache",
+        "autoSaveAfterShortDelayOverrides",
+        "autoSaveDisabledOverrides",
+        "readonlyIncludeMatcher",
+        "readonlyExcludeMatcher",
+        "sessionReadonlyOverrides",
+        "autoSaveAfterShortDelayContext",
+        "currentGlobalAutoSaveConfiguration",
+        "currentFilesAssociationConfiguration",
+        "currentHotExitConfiguration"
+      ]
+    },
+    "composerTextModelService": {
+      "className": "bound sZn",
+      "keys": [
+        "createModelReference",
+        "constructor"
+      ]
+    },
+    "composerFileService": {
+      "className": "bound $6",
+      "keys": [
+        "exists",
+        "saveFile",
+        "stat",
+        "saveFiles",
+        "constructor"
+      ]
+    },
+    "composerMessageRequestContextStorageService": {
+      "className": "bound Q0e",
+      "keys": [
+        "retrieveContext",
+        "deleteContext",
+        "storeContext",
+        "constructor"
+      ]
+    },
+    "composerDataService": {
+      "className": "Bp",
+      "keys": [
+        "_store",
+        "_storageService",
+        "_workspaceContextService",
+        "_reactiveStorageService",
+        "_instantiationService",
+        "composerTextModelService",
+        "_composerEventService",
+        "_composerFileService",
+        "_paneCompositePartService",
+        "_viewsService",
+        "_viewDescriptorService",
+        "_commandService",
+        "_composerCheckpointStorageService",
+        "_composerMessageStorageService",
+        "_composerCodeBlockDiffStorageService",
+        "_composerMessageRequestContextStorageService",
+        "_composerCodeBlockPartialInlineDiffFatesStorageService",
+        "_modelConfigService",
+        "_gitContextService",
+        "_notificationService",
+        "instantiationService",
+        "reactiveStorageService",
+        "_fileService",
+        "_worktreeManagerService",
+        "_experimentService",
+        "_configurationService",
+        "_planReferencesIndex",
+        "loadedComposers",
+        "_onDidChangeLastFocusedComposerId",
+        "onDidChangeLastFocusedComposerId"
+      ]
+    },
+    "AISettingsService": {
+      "className": "bound oZn",
+      "keys": [
+        "addClosePopupListener",
+        "getUseApiKeyForModel",
+        "getServerModelName",
+        "getAvailableModelsReactiveWithStatus",
+        "getUseOpenAIKey",
+        "addOpenAIKeyListener",
+        "doesModelSupportImages",
+        "addPopupListener",
+        "refreshAPIKeyModels",
+        "onDidChangeUseOpenAIKey",
+        "getAvailableModelsReactive",
+        "handleAvailableModelsChange",
+        "isDefaultModel",
+        "isUserAddedModel",
+        "doesModelSupportAgent",
+        "removeOpenAIKeyListener",
+        "constructor"
+      ]
+    },
+    "reactiveContextKeyService": {
+      "className": "bound cZn",
+      "keys": [
+        "bindInitialKeys",
+        "constructor"
+      ]
+    },
+    "IMarkerNavigationService": {
+      "className": "bound mKr",
+      "keys": [
+        "registerProvider",
+        "constructor"
+      ]
+    },
+    "aiConnectRequestService": {
+      "className": "bound yAl",
+      "keys": [
+        "transport",
+        "onDidChangeTransport",
+        "registerConnectTransportProvider",
+        "constructor"
+      ]
+    },
+    "cppEventLoggerService": {
+      "className": "bound _Zn",
+      "keys": [
+        "recordClipboardChange",
+        "registerExtHostEventLogger",
+        "recordChangedEditor",
+        "recordDebouncedCursorPosition",
+        "recordScrollEvent",
+        "recordCmdKEvent",
+        "recordEditorCloseEvent",
+        "recordAiEvent",
+        "constructor"
+      ]
+    },
+    "cmdKStateService": {
+      "className": "CZn",
+      "keys": [
+        "_store",
+        "contextKeyService",
+        "_onDiffAttachmentChanged",
+        "onDiffAttachmentChanged",
+        "_onPromptBarAdded",
+        "onPromptBarAdded",
+        "_onPromptBarRemoved",
+        "onPromptBarRemoved",
+        "_onPropertyChanged",
+        "onPropertyChanged",
+        "_onDataPropertyChanged",
+        "onDataPropertyChanged",
+        "_editPromptBarContextKey",
+        "_promptBars"
+      ]
+    },
+    "inlineDiffService": {
+      "className": "bound xZn",
+      "keys": [
+        "onDidAcceptDiff",
+        "onDidRejectDiff",
+        "onDidRemoveDiffFromUndoRedo",
+        "onDidAcceptPartialDiff",
+        "onDidRejectPartialDiff",
+        "onDidAddDiffFromUndoRedo",
+        "updateInlineDiff",
+        "pushUndoElement",
+        "getHandlerByDiffId",
+        "acceptDiff",
+        "recordAcceptEvent",
+        "reportEditFate",
+        "removeInlineDiff",
+        "addActiveDiff",
+        "addLinesToDiff",
+        "finishDiffSuccess",
+        "cancelDiff",
+        "recordCancelEvent",
+        "rejectDiff",
+        "recordRejectEvent",
+        "recordAfterRejectEvent",
+        "constructor"
+      ]
+    },
+    "everythingProviderService": {
+      "className": "bound CAl",
+      "keys": [
+        "registerEverythingProvider",
+        "registerEverythingProviderAllLocal",
+        "waitForEverythingProvider",
+        "constructor"
+      ]
+    },
+    "keybindingEditingService": {
+      "className": "bound zZn",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "composerModesService": {
+      "className": "bound wgs",
+      "keys": [
+        "getComposerUnifiedMode",
+        "getMode",
+        "getModeModel",
+        "getModeThinkingLevel",
+        "getAllModes",
+        "getComposerAutoRun",
+        "getComposerFullAutoRun",
+        "isModeChatLike",
+        "doesModeSupportCodebase",
+        "getModeUseMax",
+        "getModeAutoRun",
+        "getModeFullAutoRun",
+        "constructor"
+      ]
+    },
+    "ICustomEditorLabelService": {
+      "className": "bound Vct",
+      "keys": [
+        "getName",
+        "onDidChange",
+        "constructor"
+      ]
+    },
+    "WorkbenchAssignmentService": {
+      "className": "bound wts",
+      "keys": [
+        "getTreatment",
+        "constructor"
+      ]
+    },
+    "languageService": {
+      "className": "Dts",
+      "keys": [
+        "_store",
+        "_onDidRequestBasicLanguageFeatures",
+        "onDidRequestBasicLanguageFeatures",
+        "_onDidRequestRichLanguageFeatures",
+        "onDidRequestRichLanguageFeatures",
+        "_onDidChange",
+        "onDidChange",
+        "_requestedBasicLanguages",
+        "_requestedRichLanguages",
+        "_registry",
+        "languageIdCodec",
+        "logService",
+        "_configurationService",
+        "_extensionService"
+      ]
+    },
+    "workingCopyService": {
+      "className": "bound cwt",
+      "keys": [
+        "onDidChangeDirty",
+        "onDidRegister",
+        "onDidUnregister",
+        "onDidChangeContent",
+        "registerWorkingCopy",
+        "isDirty",
+        "onDidSave",
+        "constructor"
+      ]
+    },
+    "untitledTextEditorService": {
+      "className": "bound wns",
+      "keys": [
+        "onDidChangeEncoding",
+        "constructor"
+      ]
+    },
+    "workingCopyFileService": {
+      "className": "bound Uns",
+      "keys": [
+        "addFileOperationParticipant",
+        "onDidRunWorkingCopyFileOperation",
+        "registerWorkingCopyProvider",
+        "onWillRunWorkingCopyFileOperation",
+        "addSaveParticipant",
+        "constructor"
+      ]
+    },
+    "IEditorBreadcrumbsService": {
+      "className": "bound x8l",
+      "keys": [
+        "register",
+        "constructor"
+      ]
+    },
+    "browserAutomationService": {
+      "className": "bound Fss",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IWorkspaceExtensionsConfigService": {
+      "className": "bound Nrs",
+      "keys": [
+        "getExtensionsConfigs",
+        "onDidChangeExtensionsConfigs",
+        "getUnwantedRecommendations",
+        "constructor"
+      ]
+    },
+    "workspaceTrustRequestService": {
+      "className": "bound Vrs",
+      "keys": [
+        "requestWorkspaceTrust",
+        "constructor"
+      ]
+    },
+    "extensionManifestPropertiesService": {
+      "className": "bound $rs",
+      "keys": [
+        "getExtensionKind",
+        "canExecuteOnWorkspace",
+        "prefersExecuteOnUI",
+        "constructor"
+      ]
+    },
+    "IAuthenticationUsageService": {
+      "className": "bound qrs",
+      "keys": [
+        "initializeExtensionUsageCache",
+        "addAccountUsage",
+        "constructor"
+      ]
+    },
+    "ICodeCompareModelService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "INotebookOriginalModelReferenceFactory": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "INotebookOriginalCellModelFactory": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "cursorCredsService": {
+      "className": "bound tcs",
+      "keys": [
+        "getBackendUrl",
+        "setGeoCppBackendUrl",
+        "getRepoBackendUrl",
+        "constructor"
+      ]
+    },
+    "repositoryService": {
+      "className": "bound ccs",
+      "keys": [
+        "setIsUriCursorIgnored",
+        "isIndexedRepository",
+        "onDidRequestRepoIndex",
+        "onDidRequestRepoInterrupt",
+        "onDidChangeIndexingGrepEnabled",
+        "onDidChangeIndexingStatus",
+        "registerDiffProvider",
+        "registerIndexingProvider",
+        "fireOnDidChangeIndexingStatus",
+        "registerGrepProvider",
+        "getNewRepoInfo",
+        "maybeGetQueryOnlyRepoAccess",
+        "constructor"
+      ]
+    },
+    "cursorIgnoreService": {
+      "className": "bound ucs",
+      "keys": [
+        "shouldBlockUriFromReading",
+        "shouldIgnoreUriSync",
+        "onDidCursorIgnoreChange",
+        "addOnCursorIgnoreLoadedCallback",
+        "shouldIgnoreUri",
+        "constructor"
+      ]
+    },
+    "aiFileInfoService": {
+      "className": "bound Fht",
+      "keys": [
+        "getLastActiveFileEditor",
+        "getLastIdeEditorsState",
+        "onDidChangeIdeEditorsState",
+        "updateIdeEditorsState",
+        "getCurrentFileInfo",
+        "constructor"
+      ]
+    },
+    "composerNotificationService": {
+      "className": "bound iPc",
+      "keys": [
+        "notification_reactive",
+        "getCurrentNotification",
+        "constructor"
+      ]
+    },
+    "diffingService": {
+      "className": "bound nPc",
+      "keys": [
+        "registerDiffingProvider",
+        "constructor"
+      ]
+    },
+    "aiErrorService": {
+      "className": "bound kgs",
+      "keys": [
+        "addErrorPopupHandler",
+        "shouldShowImmediateErrorMessage",
+        "constructor"
+      ]
+    },
+    "composerCodeBlockService": {
+      "className": "bound p_",
+      "keys": [
+        "getCodeBlockStatus",
+        "getComposerCodeBlock",
+        "getCodeBlockNewModelLines",
+        "getCodeBlockOriginalModelLines",
+        "getCodeBlocksOfStatuses",
+        "getLastAppliedCodeBlocks",
+        "getAllInlineDiffs",
+        "getCodeBlockDiffStats",
+        "getInlineDiff",
+        "setCodeBlockStatusIncludingPreviouslyChained",
+        "getUrisOfCodeblocksWithDiffsInLastAiBubbles",
+        "computeLineDiffs",
+        "setGeneratingCodeBlocksToAborted",
+        "getLastAppliedCodeBlock",
+        "getCodeBlockLinesByDiff",
+        "getFileContent",
+        "registerNewCodeBlock",
+        "getUrisOfCodeblocksWithDiffsInAiBubbles",
+        "setCodeBlockStatus",
+        "getInlineDiffForChaining",
+        "updateComposerCodeBlock",
+        "updateCodeBlockLastAppliedAt",
+        "constructor",
+        "getLastCreatedCodeBlockId"
+      ]
+    },
+    "fastEditService": {
+      "className": "bound Egs",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IFastSemSearchService": {
+      "className": "bound Igs",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "githubPRService": {
+      "className": "bound Dgs",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "mcpProviderService": {
+      "className": "bound Pgs",
+      "keys": [
+        "onDidChangeProviders",
+        "getAllProviders",
+        "registerMcpProvider",
+        "getMcpProvider",
+        "constructor"
+      ]
+    },
+    "mcpService": {
+      "className": "bound Lgs",
+      "keys": [
+        "allServers",
+        "getInstructionsForComposer",
+        "getToolsForComposer",
+        "constructor"
+      ]
+    },
+    "mcpInstallationService": {
+      "className": "bound Mgs",
+      "keys": [
+        "mcpSuccessNotification_reactive",
+        "constructor"
+      ]
+    },
+    "mcpWellKnownDetectionService": {
+      "className": "bound Bgs",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "networkAccessNotificationService": {
+      "className": "bound Vgs",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "playwrightMcpSuggestionService": {
+      "className": "bound Hgs",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "composerUtilsService": {
+      "className": "bound GL",
+      "keys": [
+        "isComposerEmpty",
+        "shouldSuggestPlanMode",
+        "shouldSuggestReviewCta",
+        "shouldSuggestQuickSearch",
+        "shouldShowCancel",
+        "ensureCapabilitiesAreLoaded",
+        "runCapabilitiesForProcess",
+        "clearErrorDetailsAndServiceStatusUpdatesFromLatestAIMessages",
+        "getShouldWebSearchBeEnabled",
+        "clearText",
+        "abortGenerationUUID",
+        "computeDiffAndFormat",
+        "computeDiff",
+        "getFileLinesContent",
+        "handleStreamComposer",
+        "getShouldAutoSaveAgenticEdits",
+        "constructor"
+      ]
+    },
+    "memoriesService": {
+      "className": "bound $gs",
+      "keys": [
+        "enabled",
+        "constructor",
+        "privacyModeAllowsMemories",
+        "checkIfMemoryNeeded"
+      ]
+    },
+    "toolsV2HandlerRegistryService": {
+      "className": "bound Jgs",
+      "keys": [
+        "registerHandler",
+        "markInitializationComplete",
+        "getAvailableTools",
+        "getHandler",
+        "constructor"
+      ]
+    },
+    "simpleTestService": {
+      "className": "bound Ggs",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "composerProjectService": {
+      "className": "bound Ygs",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "gitIgnoreService": {
+      "className": "bound Xgs",
+      "keys": [
+        "onDidGitIgnoreChange",
+        "constructor"
+      ]
+    },
+    "knowledgeBaseService": {
+      "className": "bound Qgs",
+      "keys": [
+        "onDidChangeItems",
+        "constructor"
+      ]
+    },
+    "magicLinkService": {
+      "className": "bound Zgs",
+      "keys": [
+        "getMagicURIForText",
+        "constructor"
+      ]
+    },
+    "updateNotificationService": {
+      "className": "tms",
+      "keys": [
+        "_store",
+        "storageService",
+        "showing",
+        "version",
+        "shouldShowReleaseNotes",
+        "lastUpdateHiddenTimeInUnixSeconds",
+        "lastUpdateHiddenVersion"
+      ]
+    },
+    "aiApplyToFileActionsService": {
+      "className": "bound nms",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "backgroundComposerCachedDetailsStorageService": {
+      "className": "bound Q2e",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "backgroundComposerEventService": {
+      "className": "bound OPc",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "backgroundComposerStorageService": {
+      "className": "bound Z2e",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "worktreeComposerDataService": {
+      "className": "bound ams",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "tokenStreamingDiffService": {
+      "className": "bound hms",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "aiWebCmdKService": {
+      "className": "bound mms",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "agentLayoutEventService": {
+      "className": "bound YPc",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "composerApplyService": {
+      "className": "bound mse",
+      "keys": [
+        "processCodeBlocks",
+        "updateLastCheckpointWithFileIfNotTracked",
+        "turnApplyToInlineDiff",
+        "constructor"
+      ]
+    },
+    "bugbotResultsService": {
+      "className": "bound Ocs",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "agentExecProviderService": {
+      "className": "bound $fs",
+      "keys": [
+        "registerHandler",
+        "constructor"
+      ]
+    },
+    "composerContextService": {
+      "className": "bound ygs",
+      "keys": [
+        "getContextId",
+        "refreshReactiveContext",
+        "removeNonPersistentContext",
+        "constructor"
+      ]
+    },
+    "composerPlanService": {
+      "className": "bound bgs",
+      "keys": [
+        "hasRejectedPlan",
+        "constructor"
+      ]
+    },
+    "toolCallHumanReviewService": {
+      "className": "bound Q7t",
+      "keys": [
+        "isToolformerCurrentlyWaitingForTerminalReview",
+        "getReviewModelForBubbleWithReview",
+        "isToolformerCurrentlyWaitingForReview",
+        "getEditReviewModelForBubble",
+        "getTerminalReviewModelForBubble",
+        "isToolformerCurrentlyWaitingForMCPReview",
+        "getReviewModelForLastBubbleUnderReviewUntracked",
+        "constructor"
+      ]
+    },
+    "debugServerService": {
+      "className": "bound _ms",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "composerCheckpointService": {
+      "className": "bound Dj",
+      "keys": [
+        "updateComposerBubbleCheckpoint",
+        "getFileContentsGivenBubbleId",
+        "constructor"
+      ]
+    },
+    "composerDecisionsService": {
+      "className": "bound Jms",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "ripGrepExecutorService": {
+      "className": "bound Qms",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "composerTerminalService": {
+      "className": "bound eps",
+      "keys": [
+        "registerToolExecution",
+        "setAICommandRunning",
+        "unregisterToolExecution",
+        "constructor"
+      ]
+    },
+    "toolCallEventService": {
+      "className": "bound ops",
+      "keys": [
+        "trackToolCallStart",
+        "updateToolCallAsParallel",
+        "submitParallelToolCallEvents",
+        "trackToolCallEnd",
+        "constructor"
+      ]
+    },
+    "subagentCreationService": {
+      "className": "bound bps",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "cursorRulesService": {
+      "className": "bound Dps",
+      "keys": [
+        "getRulesForFiles",
+        "getGlobalRules",
+        "dedupeRules",
+        "getExplicitRules",
+        "constructor"
+      ]
+    },
+    "toolV2Service": {
+      "className": "bound Mps",
+      "keys": [
+        "toolWrappedStream",
+        "constructor"
+      ]
+    },
+    "[composerSuggestionsService]": {
+      "className": "bound Nps",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "composerChatService": {
+      "className": "bound Pj",
+      "keys": [
+        "submitChatMaybeAbortCurrent",
+        "scheduleErrorTrackingTimeout",
+        "clearPendingSimulatedThinkingMessages",
+        "abortReplayIfRunning",
+        "constructor",
+        "getCutoffConversationAndSummary",
+        "getPopulatedContext",
+        "getNewMessageContext",
+        "populateConversationWithContext"
+      ]
+    },
+    "terminalCppService": {
+      "className": "bound Oys",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IComposerPortalService": {
+      "className": "bound iqt",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "quickAgentService": {
+      "className": "bound lbs",
+      "keys": [
+        "onDidChangeQuickAgentComposerId",
+        "constructor"
+      ]
+    },
+    "usageDataService": {
+      "className": "bound ubs",
+      "keys": [
+        "displayMessage",
+        "planUsage",
+        "spendLimitUsage",
+        "freeBestOfNPromotion",
+        "isLoading",
+        "error",
+        "addConsumer",
+        "refetch",
+        "constructor"
+      ]
+    },
+    "recentFilesTrackerService": {
+      "className": "bound dbs",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "openBrowserUrlsService": {
+      "className": "bound fbs",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IExtensionStatusBarItemService": {
+      "className": "bound ZXr",
+      "keys": [
+        "getEntries",
+        "onDidChange",
+        "setOrUpdateEntry",
+        "unsetEntry",
+        "constructor"
+      ]
+    },
+    "IAuthenticationAccessService": {
+      "className": "bound tQr",
+      "keys": [
+        "onDidChangeExtensionSessionAccess",
+        "isAccessAllowed",
+        "constructor"
+      ]
+    },
+    "embeddingsService": {
+      "className": "bound aXh",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "ILanguageStatusService": {
+      "className": "bound KQh",
+      "keys": [
+        "addStatus",
+        "onDidChange",
+        "getLanguageStatus",
+        "constructor"
+      ]
+    },
+    "extensionUrlHandler": {
+      "className": "beo",
+      "keys": [
+        "extensionService",
+        "dialogService",
+        "commandService",
+        "hostService",
+        "storageService",
+        "configurationService",
+        "notificationService",
+        "productService",
+        "extensionHandlers",
+        "uriBuffer",
+        "userTrustedExtensionsStorage",
+        "disposable"
+      ]
+    },
+    "IUserActivityService": {
+      "className": "bound Eeo",
+      "keys": [
+        "markActive",
+        "onDidChangeIsActive",
+        "constructor"
+      ]
+    },
+    "remoteExplorerService": {
+      "className": "bound rto",
+      "keys": [
+        "enablePortsFeatures",
+        "constructor"
+      ]
+    },
+    "IAuthenticationService": {
+      "className": "bound ato",
+      "keys": [
+        "onDidChangeSessions",
+        "onDidRegisterAuthenticationProvider",
+        "onDidUnregisterAuthenticationProvider",
+        "getProviderIds",
+        "isAuthenticationProviderRegistered",
+        "registerAuthenticationProvider",
+        "getAccounts",
+        "getSessions",
+        "getProvider",
+        "constructor"
+      ]
+    },
+    "editHistoryService": {
+      "className": "bound clf",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IShadowWorkspaceService": {
+      "className": "bound wto",
+      "keys": [
+        "registerShadowWorkspaceManager",
+        "provideClient",
+        "getServerSocketPath",
+        "constructor"
+      ]
+    },
+    "IAiEmbeddingVectorService": {
+      "className": "bound Nto",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IChatStatusItemService": {
+      "className": "bound Llf",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "shellExecService": {
+      "className": "Fto",
+      "keys": [
+        "_remoteAgentService",
+        "_logService",
+        "_sessionHost"
+      ]
+    },
+    "symbolContextService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "textEditorService": {
+      "className": "Uto",
+      "keys": [
+        "_store",
+        "untitledTextEditorService",
+        "instantiationService",
+        "uriIdentityService",
+        "fileService",
+        "editorResolverService",
+        "editorInputCache",
+        "fileEditorFactory"
+      ]
+    },
+    "editorService": {
+      "className": "ACs",
+      "keys": [
+        "_store",
+        "editorGroupService",
+        "instantiationService",
+        "fileService",
+        "configurationService",
+        "contextService",
+        "uriIdentityService",
+        "editorResolverService",
+        "workspaceTrustRequestService",
+        "hostService",
+        "textEditorService",
+        "markerService",
+        "_onDidActiveEditorChange",
+        "onDidActiveEditorChange",
+        "_onDidVisibleEditorsChange",
+        "onDidVisibleEditorsChange",
+        "_onDidEditorsChange",
+        "onDidEditorsChange",
+        "_onWillOpenEditor",
+        "onWillOpenEditor",
+        "_onDidCloseEditor",
+        "onDidCloseEditor",
+        "_onDidOpenEditorFail",
+        "onDidOpenEditorFail",
+        "_onDidMostRecentlyActiveEditorsChange",
+        "onDidMostRecentlyActiveEditorsChange",
+        "lastActiveEditor",
+        "activeOutOfWorkspaceWatchers",
+        "closeOnFileDelete",
+        "editorGroupsContainer"
+      ]
+    },
+    "AIFeedbackOpenService": {
+      "className": "bound Vto",
+      "keys": [
+        "addPopupListener",
+        "addClosePopupListener",
+        "constructor"
+      ]
+    },
+    "autoSelectService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "workingCopyEditorService": {
+      "className": "bound $io",
+      "keys": [
+        "registerHandler",
+        "onDidRegisterHandler",
+        "constructor"
+      ]
+    },
+    "agentClientService": {
+      "className": "bound jio",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "auxiliaryWindowService": {
+      "className": "bound Yxo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "editorGroupsService": {
+      "className": "ano",
+      "keys": [
+        "_store",
+        "themeService",
+        "theme",
+        "id",
+        "memento",
+        "_parts",
+        "instantiationService",
+        "storageService",
+        "auxiliaryWindowService",
+        "contextKeyService",
+        "mapPartToInstantiationService",
+        "_onDidCreateAuxiliaryEditorPart",
+        "onDidCreateAuxiliaryEditorPart",
+        "workspaceMemento",
+        "_isReady",
+        "whenReadyPromise",
+        "whenReady",
+        "whenRestoredPromise",
+        "whenRestored",
+        "editorWorkingSets",
+        "_onDidActiveGroupChange",
+        "onDidChangeActiveGroup",
+        "_onDidAddGroup",
+        "onDidAddGroup",
+        "_onDidRemoveGroup",
+        "onDidRemoveGroup",
+        "_onDidMoveGroup",
+        "onDidMoveGroup",
+        "_onDidActivateGroup",
+        "onDidActivateGroup"
+      ]
+    },
+    "viewsService": {
+      "className": "_no",
+      "keys": [
+        "_store",
+        "viewDescriptorService",
+        "paneCompositeService",
+        "contextKeyService",
+        "layoutService",
+        "editorService",
+        "_onDidChangeViewVisibility",
+        "onDidChangeViewVisibility",
+        "_onDidChangeViewContainerVisibility",
+        "onDidChangeViewContainerVisibility",
+        "_onDidChangeFocusedView",
+        "onDidChangeFocusedView",
+        "viewContainerDisposables",
+        "viewDisposable",
+        "enabledViewContainersContextKeys",
+        "visibleViewContextKeys",
+        "viewPaneContainers",
+        "focusedViewContextKey"
+      ]
+    },
+    "paneCompositePartService": {
+      "className": "bound Eno",
+      "keys": [
+        "getProgressIndicator",
+        "onDidPaneCompositeClose",
+        "onDidPaneCompositeOpen",
+        "getPaneComposite",
+        "openPaneComposite",
+        "getActivePaneComposite",
+        "getPinnedPaneCompositeIds",
+        "constructor"
+      ]
+    },
+    "bannerService": {
+      "className": "xno",
+      "keys": [
+        "_store",
+        "themeService",
+        "theme",
+        "id",
+        "memento",
+        "options",
+        "layoutService",
+        "_onDidVisibilityChange",
+        "onDidVisibilityChange",
+        "_onDidChange",
+        "contextKeyService",
+        "instantiationService",
+        "height",
+        "minimumWidth",
+        "maximumWidth",
+        "_onDidChangeSize",
+        "visible",
+        "focusedActionIndex",
+        "markdownRenderer",
+        "parent",
+        "titleArea",
+        "element",
+        "contentArea",
+        "partLayout",
+        "_dimension",
+        "_contentPosition"
+      ]
+    },
+    "statusbarService": {
+      "className": "Lno",
+      "keys": [
+        "_store",
+        "themeService",
+        "theme",
+        "id",
+        "memento",
+        "_parts",
+        "instantiationService",
+        "_onDidCreateAuxiliaryStatusbarPart",
+        "onDidCreateAuxiliaryStatusbarPart",
+        "mainPart",
+        "onDidChangeEntryVisibility"
+      ]
+    },
+    "menuService": {
+      "className": "bound YHn",
+      "keys": [
+        "createMenu",
+        "constructor"
+      ]
+    },
+    "undoRedoService": {
+      "className": "bound Nno",
+      "keys": [
+        "canUndo",
+        "canRedo",
+        "removeElements",
+        "getLastElement",
+        "pushElement",
+        "getUriComparisonKey",
+        "getElements",
+        "createSnapshot",
+        "constructor"
+      ]
+    },
+    "editSessionIdentityService": {
+      "className": "bound Fno",
+      "keys": [
+        "addEditSessionIdentityCreateParticipant",
+        "registerEditSessionIdentityProvider",
+        "constructor"
+      ]
+    },
+    "canonicalUriIdentityService": {
+      "className": "bound Bff",
+      "keys": [
+        "registerCanonicalUriProvider",
+        "constructor"
+      ]
+    },
+    "IFileDecorationsService": {
+      "className": "bound Ono",
+      "keys": [
+        "registerDecorationsProvider",
+        "onDidChangeDecorations",
+        "getDecoration",
+        "constructor"
+      ]
+    },
+    "dialogService": {
+      "className": "bound Bno",
+      "keys": [
+        "onWillShowDialog",
+        "onDidShowDialog",
+        "constructor"
+      ]
+    },
+    "progressService": {
+      "className": "bound Uno",
+      "keys": [
+        "withProgress",
+        "constructor"
+      ]
+    },
+    "codeEditorService": {
+      "className": "bound Hno",
+      "keys": [
+        "registerDecorationType",
+        "registerCodeEditorOpenHandler",
+        "onWillCreateCodeEditor",
+        "onWillCreateDiffEditor",
+        "listCodeEditors",
+        "listDiffEditors",
+        "willCreateCodeEditor",
+        "onDidChangeTransientModelProperty",
+        "addCodeEditor",
+        "getTransientModelProperty",
+        "onCodeEditorRemove",
+        "getActiveCodeEditor",
+        "willCreateDiffEditor",
+        "addDiffEditor",
+        "getFocusedCodeEditor",
+        "onCodeEditorAdd",
+        "resolveDecorationOptions",
+        "removeCodeEditor",
+        "removeDiffEditor",
+        "constructor",
+        "removeDecorationType"
+      ]
+    },
+    "preferencesService": {
+      "className": "bound Xno",
+      "keys": [
+        "getFolderSettingsResource",
+        "onDidDefaultSettingsContentChanged",
+        "hasDefaultSettingsContent",
+        "constructor",
+        "createPreferencesEditorModel"
+      ]
+    },
+    "jsonEditingService": {
+      "className": "bound Qno",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "textModelService": {
+      "className": "bound tso",
+      "keys": [
+        "registerTextModelContentProvider",
+        "createModelReference",
+        "constructor"
+      ]
+    },
+    "editorResolverService": {
+      "className": "iso",
+      "keys": [
+        "_store",
+        "editorGroupService",
+        "instantiationService",
+        "configurationService",
+        "quickInputService",
+        "notificationService",
+        "storageService",
+        "extensionService",
+        "logService",
+        "_onDidChangeEditorRegistrations",
+        "onDidChangeEditorRegistrations",
+        "_editors",
+        "_flattenedEditors",
+        "_shouldReFlattenEditors",
+        "cache"
+      ]
+    },
+    "IAiRelatedInformationService": {
+      "className": "bound sso",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "historyService": {
+      "className": "rso",
+      "keys": [
+        "_store",
+        "editorService",
+        "editorGroupService",
+        "contextService",
+        "storageService",
+        "configurationService",
+        "fileService",
+        "workspacesService",
+        "instantiationService",
+        "layoutService",
+        "contextKeyService",
+        "logService",
+        "activeEditorListeners",
+        "lastActiveEditor",
+        "_onDidChangeEditorNavigationStack",
+        "onDidChangeEditorNavigationStack",
+        "defaultScopedEditorNavigationStack",
+        "editorGroupScopedNavigationStacks",
+        "editorScopedNavigationStacks",
+        "editorNavigationScope",
+        "recentlyUsedEditorsStack",
+        "recentlyUsedEditorsStackIndex",
+        "recentlyUsedEditorsInGroupStack",
+        "recentlyUsedEditorsInGroupStackIndex",
+        "navigatingInRecentlyUsedEditorsStack",
+        "navigatingInRecentlyUsedEditorsInGroupStack",
+        "recentlyClosedEditors",
+        "ignoreEditorCloseEvent",
+        "history",
+        "editorHistoryListeners"
+      ]
+    },
+    "activityService": {
+      "className": "bound aso",
+      "keys": [
+        "getViewContainerActivities",
+        "onDidChangeActivity",
+        "showViewContainerActivity",
+        "showViewActivity",
+        "showAccountsActivity",
+        "showGlobalActivity",
+        "constructor"
+      ]
+    },
+    "keybindingService": {
+      "className": "tzt",
+      "keys": [
+        "_store",
+        "_contextKeyService",
+        "_commandService",
+        "_telemetryService",
+        "_notificationService",
+        "_logService",
+        "_onDidUpdateKeybindings",
+        "_currentChords",
+        "_currentChordChecker",
+        "_currentChordStatusMessage",
+        "_ignoreSingleModifiers",
+        "_currentSingleModifier",
+        "_currentSingleModifierClearTimeout",
+        "_currentlyDispatchingCommandId",
+        "_logging",
+        "contextKeyService",
+        "hostService",
+        "keyboardLayoutService",
+        "_contributions",
+        "_agentLayoutActionIdServerAllowlist",
+        "_agentLayoutActionIdServerDenylist",
+        "isComposingGlobalContextKey",
+        "kbsJsonSchema",
+        "_keyboardMapper",
+        "_keybindingHoldMode",
+        "_cachedResolver",
+        "userKeybindings"
+      ]
+    },
+    "textResourcePropertiesService": {
+      "className": "bound cso",
+      "keys": [
+        "getEOL",
+        "constructor"
+      ]
+    },
+    "modelService": {
+      "className": "bound uso",
+      "keys": [
+        "onModelRemoved",
+        "onModelAdded",
+        "onModelLanguageChanged",
+        "getModel",
+        "getModels",
+        "createModel",
+        "syncModelWithLSP",
+        "onModelSyncRequested",
+        "destroyModel",
+        "constructor"
+      ]
+    },
+    "commandService": {
+      "className": "bound dso",
+      "keys": [
+        "executeCommand",
+        "onDidExecuteCommand",
+        "constructor"
+      ]
+    },
+    "themeService": {
+      "className": "bso",
+      "keys": [
+        "_store",
+        "storageService",
+        "configurationService",
+        "telemetryService",
+        "environmentService",
+        "extensionResourceLoaderService",
+        "logService",
+        "hostColorService",
+        "userDataInitializationService",
+        "languageService",
+        "contextKeyService",
+        "reactiveStorageService",
+        "themeExtensionsActivated",
+        "container",
+        "settings",
+        "colorThemeRegistry",
+        "colorThemeWatcher",
+        "onColorThemeChange",
+        "currentColorTheme",
+        "colorThemeSequencer",
+        "fileIconThemeWatcher",
+        "fileIconThemeRegistry",
+        "fileIconThemeLoader",
+        "onFileIconThemeChange",
+        "currentFileIconTheme",
+        "fileIconThemeSequencer",
+        "productIconThemeWatcher",
+        "productIconThemeRegistry",
+        "onProductIconThemeChange",
+        "currentProductIconTheme"
+      ]
+    },
+    "labelService": {
+      "className": "bound _so",
+      "keys": [
+        "registerFormatter",
+        "onDidChangeFormatters",
+        "getWorkspaceLabel",
+        "getUriBasenameLabel",
+        "getUriLabel",
+        "getSeparator",
+        "getHostLabel",
+        "constructor"
+      ]
+    },
+    "extensionGalleryService": {
+      "className": "bound Nso",
+      "keys": [
+        "registerBearerTokenProvider",
+        "isEnabled",
+        "setIsPylanceInstalled",
+        "getExtensions",
+        "isExtensionCompatible",
+        "constructor"
+      ]
+    },
+    "IExtensionBisectService": {
+      "className": "bound Uso",
+      "keys": [
+        "isDisabledByBisect",
+        "constructor"
+      ]
+    },
+    "extensionEnablementService": {
+      "className": "bound Vso",
+      "keys": [
+        "onEnablementChanged",
+        "getEnablementStates",
+        "isEnabledEnablementState",
+        "getEnablementState",
+        "isEnabled",
+        "constructor"
+      ]
+    },
+    "IBuiltinExtensionsScannerService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "IExtensionIgnoredRecommendationsService": {
+      "className": "bound Jso",
+      "keys": [
+        "onDidChangeIgnoredRecommendations",
+        "constructor"
+      ]
+    },
+    "IExtensionFeaturesManagementService": {
+      "className": "bound zso",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "notificationService": {
+      "className": "bound Xso",
+      "keys": [
+        "onDidChangeFilter",
+        "getFilter",
+        "notify",
+        "constructor"
+      ]
+    },
+    "IUserDataSyncUtilService": {
+      "className": "bound Qso",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IUserDataProfileImportExportService": {
+      "className": "bound aro",
+      "keys": [
+        "registerProfileContentHandler",
+        "constructor"
+      ]
+    },
+    "IUserDataProfileManagementService": {
+      "className": "uro",
+      "keys": [
+        "_store",
+        "userDataProfilesService",
+        "userDataProfileService",
+        "hostService",
+        "dialogService",
+        "workspaceContextService",
+        "extensionService",
+        "environmentService",
+        "productService",
+        "requestService",
+        "configurationService",
+        "uriIdentityService",
+        "logService"
+      ]
+    },
+    "IRemoteUserDataProfilesService": {
+      "className": "bound fro",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IRemoteExtensionsScannerService": {
+      "className": "bound gro",
+      "keys": [
+        "whenExtensionsReady",
+        "constructor"
+      ]
+    },
+    "embedderTerminalService": {
+      "className": "bound upf",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "viewDescriptorService": {
+      "className": "bound vro",
+      "keys": [
+        "getViewContainerLocation",
+        "getViewContainerModel",
+        "getViewLocationById",
+        "getDefaultContainerById",
+        "getDefaultViewContainerLocation",
+        "onDidChangeViewContainers",
+        "onDidChangeContainerLocation",
+        "getViewContainerById",
+        "getDefaultViewContainer",
+        "getViewContainersByLocation",
+        "onDidChangeLocation",
+        "getViewDescriptorById",
+        "getViewContainerByViewId",
+        "getViewContainerBadgeEnablementState",
+        "isViewContainerRemovedPermanently",
+        "onDidChangeContainer",
+        "constructor"
+      ]
+    },
+    "quickInputService": {
+      "className": "bound xro",
+      "keys": [
+        "onShow",
+        "onHide",
+        "constructor"
+      ]
+    },
+    "IUserDataSyncWorkbenchService": {
+      "className": "Oro",
+      "keys": [
+        "_store",
+        "userDataSyncService",
+        "uriIdentityService",
+        "authenticationService",
+        "userDataSyncAccountService",
+        "quickInputService",
+        "storageService",
+        "userDataSyncEnablementService",
+        "userDataAutoSyncService",
+        "logService",
+        "productService",
+        "extensionService",
+        "environmentService",
+        "secretStorageService",
+        "notificationService",
+        "progressService",
+        "dialogService",
+        "viewsService",
+        "viewDescriptorService",
+        "userDataSyncStoreManagementService",
+        "lifecycleService",
+        "instantiationService",
+        "editorService",
+        "userDataInitializationService",
+        "fileService",
+        "fileDialogService",
+        "userDataSyncMachinesService",
+        "_authenticationProviders",
+        "_accountStatus",
+        "_onDidChangeAccountStatus"
+      ]
+    },
+    "IAuthenticationExtensionsService": {
+      "className": "bound Bro",
+      "keys": [
+        "getAccountPreference",
+        "getSessionPreference",
+        "requestNewSession",
+        "constructor"
+      ]
+    },
+    "hoverService": {
+      "className": "bound Vro",
+      "keys": [
+        "setupManagedHover",
+        "hideHover",
+        "setupDelayedHoverAtMouse",
+        "showInstantHover",
+        "constructor"
+      ]
+    },
+    "IOutlineService": {
+      "className": "bound Npf",
+      "keys": [
+        "createOutline",
+        "onDidChange",
+        "registerOutlineCreator",
+        "constructor"
+      ]
+    },
+    "ILanguageDetectionService": {
+      "className": "zro",
+      "keys": [
+        "_store",
+        "_environmentService",
+        "_configurationService",
+        "_diagnosticsService",
+        "_workspaceContextService",
+        "_editorService",
+        "_logService",
+        "hasResolvedWorkspaceLanguageIds",
+        "workspaceLanguageIds",
+        "sessionOpenedLanguageIds",
+        "historicalGlobalOpenedLanguageIds",
+        "historicalWorkspaceOpenedLanguageIds",
+        "dirtyBiases",
+        "langBiases",
+        "_languageDetectionWorkerClient"
+      ]
+    },
+    "ILanguageFeaturesService": {
+      "className": "bound qpf",
+      "keys": [
+        "setNotebookTypeResolver",
+        "constructor"
+      ]
+    },
+    "semanticTokensStylingService": {
+      "className": "bound jro",
+      "keys": [
+        "getStyling",
+        "constructor"
+      ]
+    },
+    "textMateTokenizationFeature": {
+      "className": "Xro",
+      "keys": [
+        "_store",
+        "_languageService",
+        "_themeService",
+        "_extensionResourceLoaderService",
+        "_notificationService",
+        "_logService",
+        "_configurationService",
+        "_progressService",
+        "_environmentService",
+        "_instantiationService",
+        "_telemetryService",
+        "_createdModes",
+        "_encounteredLanguages",
+        "_debugMode",
+        "_debugModePrintFunc",
+        "_grammarDefinitions",
+        "_grammarFactory",
+        "_tokenizersRegistrations",
+        "_currentTheme",
+        "_currentTokenColorMap",
+        "_threadedBackgroundTokenizerFactory",
+        "_vscodeOniguruma",
+        "_styleElement"
+      ]
+    },
+    "metricsService": {
+      "className": "bound too",
+      "keys": [
+        "distribution",
+        "increment",
+        "setPrivacyMode",
+        "registerMetricsProvider",
+        "setMetricsConfig",
+        "constructor"
+      ]
+    },
+    "structuredLogService": {
+      "className": "bound ioo",
+      "keys": [
+        "registerProvider",
+        "error",
+        "info",
+        "debug",
+        "warn",
+        "constructor"
+      ]
+    },
+    "aiUtilsService": {
+      "className": "bound Ypt",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "composerEnhancerService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "aiService": {
+      "className": "bound soo",
+      "keys": [
+        "getPersonalContext",
+        "getModelDetails",
+        "getLastActiveFileEditor",
+        "getPreviousPrompts",
+        "availableDocs",
+        "uploadClient",
+        "refreshDefaultModels",
+        "performDefaultModelRequest",
+        "backgroundComposerClient",
+        "aiClient",
+        "addToPromptHistory",
+        "registerNewGeneration",
+        "getCurrentFileInfo",
+        "getExplicitContext",
+        "streamResponse",
+        "getGenerationMetadata",
+        "removeInprogressAIGeneration",
+        "constructor",
+        "reportAiCodeChangeMetrics"
+      ]
+    },
+    "aiClientService": {
+      "className": "bound roo",
+      "keys": [
+        "aiClient",
+        "forceRefreshAiClient",
+        "constructor"
+      ]
+    },
+    "fastContextService": {
+      "className": "bound ooo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "aiFeatureStatusService": {
+      "className": "bound aoo",
+      "keys": [
+        "getCachedFeatureStatus",
+        "getCachedConfig",
+        "getLatestConfig",
+        "constructor"
+      ]
+    },
+    "appLayoutService": {
+      "className": "bound loo",
+      "keys": [
+        "registerOverlayCallbacks",
+        "constructor"
+      ]
+    },
+    "agentLayoutService": {
+      "className": "bound foo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "reviewChangesService": {
+      "className": "bound Pye",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "lexicalReducerService": {
+      "className": "bound uyf",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "projectLayoutService": {
+      "className": "bound moo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "composerMigrationService": {
+      "className": "pao",
+      "keys": [
+        "_store",
+        "_reactiveStorageService",
+        "_composerModesService",
+        "_storageService",
+        "_experimentService",
+        "migrations"
+      ]
+    },
+    "composerService": {
+      "className": "bound _C",
+      "keys": [
+        "canComposerSubmit",
+        "shouldShowAcceptReject",
+        "cancelCurrentStep",
+        "constructor"
+      ]
+    },
+    "composerFileChangeHandlerService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "composerAgentService": {
+      "className": "bound Cao",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "composerViewsService": {
+      "className": "xao",
+      "keys": [
+        "_store",
+        "instantiationService",
+        "workbenchLayoutService",
+        "layoutService",
+        "viewDescriptorService",
+        "composerDataService",
+        "reactiveStorageService",
+        "viewsService",
+        "terminalService",
+        "editorService",
+        "editorGroupsService",
+        "storageService",
+        "contextKeyService",
+        "workspaceContextService",
+        "composerEventService",
+        "commandService",
+        "configurationService",
+        "backgroundComposerDataService",
+        "appLayoutService",
+        "analyticsService",
+        "voiceInputService",
+        "experimentService",
+        "_inputDelegates",
+        "_prevPaneViewVisibility",
+        "_skipReactToLocationOpening",
+        "_cameFromTerminal",
+        "_editors",
+        "_trackedGroups",
+        "_composerContainers",
+        "_addPillMenuTriggers"
+      ]
+    },
+    "browserOriginAllowlistService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "voiceInputService": {
+      "className": "bound Dao",
+      "keys": [
+        "getState",
+        "onPartial",
+        "onFinal",
+        "onStateChanged",
+        "constructor"
+      ]
+    },
+    "prettyDialogService": {
+      "className": "bound avt",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "analyticsService": {
+      "className": "Lao",
+      "keys": [
+        "_store",
+        "cursorAuthenticationService",
+        "reactiveStorageService",
+        "instantiationService",
+        "outputService",
+        "experimentService",
+        "loggerService",
+        "environmentService",
+        "gitContextService",
+        "eventQueue",
+        "FLUSH_INTERVAL_MS",
+        "analyticsOutputChannelLoaded",
+        "_onEvent",
+        "onEvent",
+        "backendClient",
+        "flushInterval",
+        "gitAttributesLastUpdatedTimestamp",
+        "clientContext"
+      ]
+    },
+    "aiCodeTrackingService": {
+      "className": "Bao",
+      "keys": [
+        "_store",
+        "storageService",
+        "editorWorkerService",
+        "gitContextService",
+        "aiService",
+        "cppEventLoggerService",
+        "cursorAuthenticationService",
+        "inlineDiffService",
+        "workspaceContextService",
+        "aiFeatureStatusService",
+        "experimentService",
+        "analyticsService",
+        "aiServerConfigService",
+        "outputService",
+        "composerDataService",
+        "composerChatService",
+        "composerCodeBlockService",
+        "composerEventService",
+        "environmentService",
+        "textFileService",
+        "codeAnalyticsListener",
+        "shouldLog",
+        "generatedHashesDirty",
+        "_onDidScoreCommit",
+        "onDidScoreCommit",
+        "generatedContentHashes",
+        "scoredCommits",
+        "processedEvents",
+        "recentHashes",
+        "composerTally"
+      ]
+    },
+    "selectedContextService": {
+      "className": "bound Uao",
+      "keys": [
+        "getUndoRedoUri",
+        "addContext",
+        "removeAllListContext",
+        "removeContext",
+        "getLinterErrorsForFiles",
+        "getCodeChunks",
+        "getCodeChunksFromTerminalSelections",
+        "getCurrentFileLocationData",
+        "getCommitDetailsFromPartialCommits",
+        "getPullRequestDetailsFromPartialPullRequests",
+        "constructor"
+      ]
+    },
+    "cmdKService": {
+      "className": "bound Hao",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "cmdKService2": {
+      "className": "bound $ao",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "jsService": {
+      "className": "Jao",
+      "keys": [
+        "_configurationService",
+        "_storageService",
+        "_statusbarVisibleKey"
+      ]
+    },
+    "treeSitterTokenizationFeature": {
+      "className": "Kao",
+      "keys": [
+        "_store",
+        "_treeSitterImporter",
+        "_languageService",
+        "_configurationService",
+        "_instantiationService",
+        "_fileService",
+        "_tokenizersRegistrations"
+      ]
+    },
+    "treeSitterImporter": {
+      "className": "KHl",
+      "keys": []
+    },
+    "treeSitterParserService": {
+      "className": "zao",
+      "keys": [
+        "_store",
+        "_modelService",
+        "_configurationService",
+        "_environmentService",
+        "_treeSitterImporter",
+        "_instantiationService",
+        "_textModelTreeSitters",
+        "_registeredLanguages",
+        "_onDidUpdateTree",
+        "onDidUpdateTree",
+        "isTest",
+        "_hasInit",
+        "_treeSitterLanguages",
+        "onDidAddLanguage",
+        "_init"
+      ]
+    },
+    "editorPaneService": {
+      "className": "bound vEf",
+      "keys": [
+        "didInstantiateEditorPane",
+        "onWillInstantiateEditorPane",
+        "constructor"
+      ]
+    },
+    "repositoryTrackerService": {
+      "className": "bound Zao",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "packageLocatorService": {
+      "className": "bound elo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "cronService": {
+      "className": "bound tlo",
+      "keys": [
+        "registerTask",
+        "constructor"
+      ]
+    },
+    "worktreeManagerService": {
+      "className": "bound slo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "traceSpanService": {
+      "className": "bound rlo",
+      "keys": [
+        "getSampleRate",
+        "constructor"
+      ]
+    },
+    "cursorHooksService": {
+      "className": "bound Nlo",
+      "keys": [
+        "onDidHooksChange",
+        "getAllConfiguredHooks",
+        "hasHookForStep",
+        "executeHookForStep",
+        "constructor"
+      ]
+    },
+    "preferencesSearchService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "experimentRefreshService": {
+      "className": "Nco",
+      "keys": [
+        "_store",
+        "environmentService",
+        "authService",
+        "aiServerConfigService",
+        "metricsService",
+        "experimentService",
+        "productService",
+        "_dataAdapter",
+        "_refreshing",
+        "_pollInterval",
+        "_basePollIntervalMs",
+        "_cachedAuthId",
+        "_ignoreDevStatus",
+        "_isDevUserContext",
+        "_backendClient"
+      ]
+    },
+    "notebookService": {
+      "className": "bound Jco",
+      "keys": [
+        "getContributedNotebookType",
+        "onWillAddNotebookDocument",
+        "onDidRemoveNotebookDocument",
+        "listNotebookDocuments",
+        "onDidAddNotebookDocument",
+        "onWillRemoveNotebookDocument",
+        "constructor"
+      ]
+    },
+    "notebookEditorWorkerService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "INotebookModelResolverService": {
+      "className": "bound Zco",
+      "keys": [
+        "onDidChangeDirty",
+        "onDidSaveNotebook",
+        "onWillFailWithConflict",
+        "constructor"
+      ]
+    },
+    "notebookCellStatusBarService": {
+      "className": "bound iDf",
+      "keys": [
+        "registerCellStatusBarItemProvider",
+        "constructor"
+      ]
+    },
+    "INotebookEditorWidgetService": {
+      "className": "bound zco",
+      "keys": [
+        "listNotebookEditors",
+        "onDidAddNotebookEditor",
+        "onDidRemoveNotebookEditor",
+        "constructor"
+      ]
+    },
+    "INotebookKernelService": {
+      "className": "bound euo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "INotebookKernelHistoryService": {
+      "className": "bound iho",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "INotebookExecutionService": {
+      "className": "bound Zdo",
+      "keys": [
+        "registerExecutionParticipant",
+        "constructor"
+      ]
+    },
+    "INotebookExecutionStateService": {
+      "className": "bound jdo",
+      "keys": [
+        "onDidChangeExecution",
+        "constructor"
+      ]
+    },
+    "INotebookRendererMessagingService": {
+      "className": "bound tuo",
+      "keys": [
+        "onShouldPostMessage",
+        "constructor"
+      ]
+    },
+    "notebookKeymapService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "INotebookLoggingService": {
+      "className": "bound nho",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "INotebookCellOutlineDataSourceFactory": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "INotebookOutlineEntryFactory": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "speechService": {
+      "className": "dho",
+      "keys": [
+        "_store",
+        "logService",
+        "hostService",
+        "telemetryService",
+        "configurationService",
+        "extensionService",
+        "_onDidChangeHasSpeechProvider",
+        "onDidChangeHasSpeechProvider",
+        "providers",
+        "providerDescriptors",
+        "_onDidStartSpeechToTextSession",
+        "onDidStartSpeechToTextSession",
+        "_onDidEndSpeechToTextSession",
+        "onDidEndSpeechToTextSession",
+        "activeSpeechToTextSessions",
+        "_onDidStartTextToSpeechSession",
+        "onDidStartTextToSpeechSession",
+        "_onDidEndTextToSpeechSession",
+        "onDidEndTextToSpeechSession",
+        "activeTextToSpeechSessions",
+        "_onDidStartKeywordRecognition",
+        "onDidStartKeywordRecognition",
+        "_onDidEndKeywordRecognition",
+        "onDidEndKeywordRecognition",
+        "activeKeywordRecognitionSessions",
+        "hasSpeechProviderContext",
+        "textToSpeechInProgress",
+        "speechToTextInProgress"
+      ]
+    },
+    "IChatService": {
+      "className": "bound Rjt",
+      "keys": [
+        "onDidSubmitRequest",
+        "constructor"
+      ]
+    },
+    "chatWidgetService": {
+      "className": "bound S$l",
+      "keys": [
+        "onDidAddWidget",
+        "getWidgetsByLocations",
+        "constructor"
+      ]
+    },
+    "quickChatService": {
+      "className": "bound Yho",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "chatAccessibilityService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "IChatWidgetHistoryService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "ILanguageModelsService": {
+      "className": "bound Kts",
+      "keys": [
+        "getLanguageModelIds",
+        "onDidChangeLanguageModels",
+        "constructor"
+      ]
+    },
+    "ILanguageModelStatsService": {
+      "className": "bound tis",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "chatSlashCommandService": {
+      "className": "bound lts",
+      "keys": [
+        "registerSlashCommand",
+        "constructor"
+      ]
+    },
+    "chatAgentService": {
+      "className": "bound Ves",
+      "keys": [
+        "getDefaultAgent",
+        "onDidChangeAgents",
+        "constructor"
+      ]
+    },
+    "chatAgentNameService": {
+      "className": "bound Hes",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IChatVariablesService": {
+      "className": "bound Qho",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "ILanguageModelToolsService": {
+      "className": "bound afo",
+      "keys": [
+        "registerToolData",
+        "onDidChangeTools",
+        "getTools",
+        "registerToolImplementation",
+        "constructor"
+      ]
+    },
+    "voiceChatService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "chatCodeBlockContextProviderService": {
+      "className": "bound vMf",
+      "keys": [
+        "registerProvider",
+        "constructor"
+      ]
+    },
+    "codeMapperService": {
+      "className": "bound oXh",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "chatEditingService": {
+      "className": "bound Gho",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "chatMarkdownAnchorService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "languageModelIgnoredFilesService": {
+      "className": "bound u7l",
+      "keys": [
+        "fileIsIgnored",
+        "constructor"
+      ]
+    },
+    "chatEntitlementService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "IPromptsService": {
+      "className": "bound Eho",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "chatTransferService": {
+      "className": "bound mho",
+      "keys": [
+        "checkAndSetWorkspaceTrust",
+        "constructor"
+      ]
+    },
+    "IInlineChatSessionService": {
+      "className": "bound muo",
+      "keys": [
+        "getSession",
+        "getSession2",
+        "onDidChangeSessions",
+        "onDidEndSession",
+        "onDidMoveSession",
+        "constructor"
+      ]
+    },
+    "mcpRegistry": {
+      "className": "bound ffo",
+      "keys": [
+        "registerDelegate",
+        "constructor"
+      ]
+    },
+    "IMcpService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "IMcpConfigPathsService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "IInteractiveHistoryService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "IInteractiveDocumentService": {
+      "className": "bound nQh",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "testService": {
+      "className": "bound Zgo",
+      "keys": [
+        "registerExtHost",
+        "onDidCancelTestRun",
+        "registerTestController",
+        "publishDiff",
+        "constructor"
+      ]
+    },
+    "ITestResultStorage": {
+      "className": "bound Lto",
+      "keys": [
+        "constructor",
+        "read"
+      ]
+    },
+    "testProfileService": {
+      "className": "bound kto",
+      "keys": [
+        "addProfile",
+        "getGroupDefaultProfiles",
+        "constructor"
+      ]
+    },
+    "testCoverageService": {
+      "className": "bound Mfo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "testingContinuousRunService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "testResultService": {
+      "className": "bound Ato",
+      "keys": [
+        "onResultsChanged",
+        "onTestChanged",
+        "constructor"
+      ]
+    },
+    "testingFilterState": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "testingPeekOpener": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "testingDecorationService": {
+      "className": "bound kgo",
+      "keys": [
+        "syncDecorations",
+        "onDidChange",
+        "constructor",
+        "updateDecorationsAlternateAction"
+      ]
+    },
+    "IDefaultLogLevelsService": {
+      "className": "bound tmo",
+      "keys": [
+        "onDidChangeDefaultLogLevels",
+        "getDefaultLogLevel",
+        "constructor"
+      ]
+    },
+    "explorerService": {
+      "className": "bound mmo",
+      "keys": [
+        "registerView",
+        "findClosest",
+        "getEditable",
+        "isEditable",
+        "select",
+        "getEditableData",
+        "isCut",
+        "findClosestRoot",
+        "constructor"
+      ]
+    },
+    "IWorkspaceEditService": {
+      "className": "bound Tmo",
+      "keys": [
+        "setPreviewHandler",
+        "constructor"
+      ]
+    },
+    "searchViewModelWorkbenchService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "searchHistoryService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "replaceService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "notebookSearchService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "bugbotAutoRunService": {
+      "className": "Tvo",
+      "keys": [
+        "_store",
+        "composerEventService",
+        "composerDataService",
+        "composerCodeBlockService",
+        "storageService",
+        "experimentService",
+        "instantiationService",
+        "bugbotResultsService",
+        "workspaceContextService",
+        "viewsService",
+        "viewDescriptorService",
+        "notificationService",
+        "everythingProviderService",
+        "cursorIgnoreService",
+        "logService",
+        "analyticsService"
+      ]
+    },
+    "scm": {
+      "className": "bound Gpo",
+      "keys": [
+        "getRepository",
+        "onDidAddRepository",
+        "onDidRemoveRepository",
+        "onDidUpdateRepository",
+        "registerSCMProvider",
+        "constructor"
+      ]
+    },
+    "scmView": {
+      "className": "bound EIs",
+      "keys": [
+        "onDidFocusRepository",
+        "constructor"
+      ]
+    },
+    "quickDiff": {
+      "className": "bound gvo",
+      "keys": [
+        "getQuickDiffs",
+        "addQuickDiffProvider",
+        "constructor",
+        "onDidChangeQuickDiffProviders"
+      ]
+    },
+    "IQuickDiffModelService": {
+      "className": "bound NQr",
+      "keys": [
+        "createQuickDiffModelReference",
+        "constructor"
+      ]
+    },
+    "debugService": {
+      "className": "bound uyo",
+      "keys": [
+        "getViewModel",
+        "getModel",
+        "onDidChangeState",
+        "getAdapterManager",
+        "onDidNewSession",
+        "onWillNewSession",
+        "onDidEndSession",
+        "getConfigurationManager",
+        "constructor",
+        "canSetBreakpointsIn"
+      ]
+    },
+    "debugVisualizerService": {
+      "className": "bound LQr",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "multiDiffSourceResolverService": {
+      "className": "bound WJl",
+      "keys": [
+        "registerResolver",
+        "constructor"
+      ]
+    },
+    "commentService": {
+      "className": "bound gas",
+      "keys": [
+        "resourceHasCommentingRanges",
+        "onDidUpdateCommentThreads",
+        "getDocumentComments",
+        "registerContinueOnCommentProvider",
+        "unregisterCommentController",
+        "onDidChangeActiveEditingCommentThread",
+        "onDidSetAllCommentThreads",
+        "onDidChangeCurrentCommentThread",
+        "onDidDeleteDataProvider",
+        "onDidSetDataProvider",
+        "onDidUpdateCommentingRanges",
+        "onDidSetResourceCommentInfos",
+        "onDidChangeCommentingEnabled",
+        "constructor"
+      ]
+    },
+    "ITrustedDomainService": {
+      "className": "bound Vos",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "webviewEditorService": {
+      "className": "bound JQr",
+      "keys": [
+        "registerResolver",
+        "onDidChangeActiveWebviewEditor",
+        "constructor"
+      ]
+    },
+    "webviewViewService": {
+      "className": "bound ZZh",
+      "keys": [
+        "register",
+        "constructor"
+      ]
+    },
+    "customEditorService": {
+      "className": "bound sbo",
+      "keys": [
+        "registerCustomEditorCapabilities",
+        "constructor"
+      ]
+    },
+    "externalUriOpenerService": {
+      "className": "bound keo",
+      "keys": [
+        "registerExternalOpenerProvider",
+        "constructor"
+      ]
+    },
+    "extensionsWorkbenchService": {
+      "className": "Xbo",
+      "keys": [
+        "_store",
+        "instantiationService",
+        "editorService",
+        "extensionManagementService",
+        "galleryService",
+        "extensionGalleryManifestService",
+        "configurationService",
+        "telemetryService",
+        "notificationService",
+        "extensionEnablementService",
+        "hostService",
+        "progressService",
+        "extensionManagementServerService",
+        "languageService",
+        "extensionsSyncManagementService",
+        "userDataAutoSyncService",
+        "productService",
+        "extensionManifestPropertiesService",
+        "logService",
+        "extensionService",
+        "localeService",
+        "lifecycleService",
+        "fileService",
+        "userDataProfileService",
+        "storageService",
+        "dialogService",
+        "userDataSyncEnablementService",
+        "updateService",
+        "uriIdentityService",
+        "workspaceContextService"
+      ]
+    },
+    "IExtensionRecommendationNotificationService": {
+      "className": "bound Qbo",
+      "keys": [
+        "hasToIgnoreRecommendationNotifications",
+        "constructor"
+      ]
+    },
+    "extensionRecommendationsService": {
+      "className": "zbo",
+      "keys": [
+        "_store",
+        "lifecycleService",
+        "galleryService",
+        "telemetryService",
+        "environmentService",
+        "extensionManagementService",
+        "extensionRecommendationsManagementService",
+        "extensionRecommendationNotificationService",
+        "extensionsWorkbenchService",
+        "remoteExtensionsScannerService",
+        "userDataInitializationService",
+        "_onDidChangeRecommendations",
+        "onDidChangeRecommendations",
+        "workspaceRecommendations",
+        "fileBasedRecommendations",
+        "configBasedRecommendations",
+        "exeBasedRecommendations",
+        "keymapRecommendations",
+        "webRecommendations",
+        "languageRecommendations",
+        "remoteRecommendations",
+        "sessionSeed",
+        "activationPromise"
+      ]
+    },
+    "outputService": {
+      "className": "bound wwo",
+      "keys": [
+        "getChannel",
+        "onActiveOutputChannel",
+        "getChannelDescriptors",
+        "getChannelDescriptor",
+        "showChannel",
+        "getActiveChannel",
+        "constructor"
+      ]
+    },
+    "terminalInstanceService": {
+      "className": "bound zDs",
+      "keys": [
+        "didRegisterBackend",
+        "onDidCreateInstance",
+        "getBackend",
+        "convertProfileToShellLaunchConfig",
+        "createInstance",
+        "getRegisteredBackends",
+        "onDidRegisterBackend",
+        "constructor"
+      ]
+    },
+    "terminalLogService": {
+      "className": "bound kwo",
+      "keys": [
+        "debug",
+        "trace",
+        "getLevel",
+        "onDidChangeLogLevel",
+        "constructor"
+      ]
+    },
+    "terminalConfigurationService": {
+      "className": "bound Pwo",
+      "keys": [
+        "setPanelContainer",
+        "getFont",
+        "constructor"
+      ]
+    },
+    "terminalService": {
+      "className": "bound P7",
+      "keys": [
+        "getActiveInstance",
+        "onDidRegisterProcessSupport",
+        "onDidChangeInstances",
+        "onAnyInstanceAddedCapabilityType",
+        "resolveLocation",
+        "onAnyInstanceIconChange",
+        "getPrimaryBackend",
+        "onAnyInstanceTitleChange",
+        "onAnyInstancePrimaryStatusChange",
+        "onDidChangeConnectionState",
+        "isEditable",
+        "onHighlightRequest",
+        "setContainers",
+        "onDidCreateInstance",
+        "onDidChangeInstanceCapability",
+        "onDidChangeActiveInstance",
+        "getInstanceFromResource",
+        "onDidDisposeInstance",
+        "onAnyInstanceProcessIdReady",
+        "onDidChangeInstanceDimensions",
+        "onAnyInstanceMaximumDimensionsChange",
+        "onDidRequestStartExtensionTerminal",
+        "onAnyInstanceDataInput",
+        "onAnyInstanceSelectionChange",
+        "onAnyInstanceShellTypeChanged",
+        "createOnInstanceEvent",
+        "createOnInstanceCapabilityEvent",
+        "registerProcessSupport",
+        "getReconnectedTerminals",
+        "setNativeDelegate"
+      ]
+    },
+    "terminalEditorService": {
+      "className": "bound Nwo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "terminalGroupService": {
+      "className": "bound Owo",
+      "keys": [
+        "onDidChangeGroups",
+        "onDidChangeInstances",
+        "onDidShow",
+        "onDidChangeInstanceCapability",
+        "onDidChangeActiveInstance",
+        "setContainer",
+        "onDidChangePanelOrientation",
+        "showPanel",
+        "updateVisibility",
+        "createGroup",
+        "getGroupForInstance",
+        "constructor"
+      ]
+    },
+    "terminalProfileService": {
+      "className": "bound KDs",
+      "keys": [
+        "getDefaultProfileName",
+        "onDidChangeAvailableProfiles",
+        "getDefaultProfile",
+        "getContributedDefaultProfile",
+        "refreshAvailableProfiles",
+        "constructor"
+      ]
+    },
+    "environmentVariableService": {
+      "className": "bound GKt",
+      "keys": [
+        "onDidChangeCollections",
+        "delete",
+        "set",
+        "constructor"
+      ]
+    },
+    "terminalContributionsService": {
+      "className": "bound lUf",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "terminalLinkProviderService": {
+      "className": "bound d8f",
+      "keys": [
+        "onDidAddLinkProvider",
+        "onDidRemoveLinkProvider",
+        "registerLinkProvider",
+        "constructor"
+      ]
+    },
+    "terminalQuickFixService": {
+      "className": "bound ASo",
+      "keys": [
+        "onDidRegisterCommandSelector",
+        "onDidUnregisterProvider",
+        "registerQuickFixProvider",
+        "constructor"
+      ]
+    },
+    "terminalCompletionService": {
+      "className": "bound meo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "walkthroughsService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "snippetService": {
+      "className": "bound Ots",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "aiDocsService": {
+      "className": "bound $Co",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "quickInputService2": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "semSearchService": {
+      "className": "bound JCo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "simpleChunkingService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "aiContextSessionService": {
+      "className": "bound r0o",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "authenticationService": {
+      "className": "bound h0o",
+      "keys": [
+        "addLoginChangedListener",
+        "privacyMode",
+        "granularPrivacyModeRawEnum",
+        "getEmailAndSignUpType",
+        "dashboardClient",
+        "getAccessToken",
+        "getAuthIdFromToken",
+        "isBackgroundComposerEnabled",
+        "refreshAuthService",
+        "isAuthenticated",
+        "membershipType",
+        "onDidChangeSubscription",
+        "addSubscriptionChangedListener",
+        "getTeamId",
+        "onDidPotentiallyChangePrivacyMode",
+        "refreshPrivacyMode",
+        "setCppSessionId",
+        "getApiKeyForModel",
+        "addSubscriptionStatusChangedListener",
+        "subscriptionStatus",
+        "reactiveMembershipType",
+        "reactivePrivacyMode",
+        "onDidChangeSnippetLearningEligibility",
+        "refreshMembership",
+        "eligibleForSnippetLearning",
+        "waitForTeamPrivacyModeFetched",
+        "getStripeProfile",
+        "adminBlocklistPath",
+        "adminUnifiedJsonBlocklistPath",
+        "removeSubscriptionChangedListener"
+      ]
+    },
+    "IWorkspaceIdentityService": {
+      "className": "bound d1o",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IEditSessionsLogService": {
+      "className": "bound o1o",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IEditSessionsStorageService": {
+      "className": "bound r1o",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "timeline": {
+      "className": "bound w1o",
+      "keys": [
+        "registerTimelineProvider",
+        "onDidChangeProviders",
+        "getSources",
+        "onDidChangeTimeline",
+        "onDidChangeUri",
+        "constructor"
+      ]
+    },
+    "accessibilitySignalService": {
+      "className": "bound q7n",
+      "keys": [
+        "getEnabledState",
+        "onSoundEnabledChanged",
+        "isSoundEnabled",
+        "playSignal",
+        "constructor"
+      ]
+    },
+    "accessibleViewService": {
+      "className": "bound Y1o",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "accessibleViewInformationService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "shareService": {
+      "className": "bound tko",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IUserDataSyncLogService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "fileSyncService": {
+      "className": "bound Ems",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IAllowedExtensionsService": {
+      "className": "bound rko",
+      "keys": [
+        "isAllowed",
+        "onDidChangeAllowedExtensionsConfigValue",
+        "constructor"
+      ]
+    },
+    "IIgnoredExtensionsManagementService": {
+      "className": "bound Elo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IGlobalExtensionEnablementService": {
+      "className": "bound czt",
+      "keys": [
+        "getDisabledExtensions",
+        "constructor"
+      ]
+    },
+    "IExtensionStorageService": {
+      "className": "bound WJt",
+      "keys": [
+        "getSourceExtensionToMigrate",
+        "getExtensionStateRaw",
+        "setExtensionState",
+        "setKeysForSync",
+        "constructor"
+      ]
+    },
+    "contextViewService": {
+      "className": "bound Lpf",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "listService": {
+      "className": "bound Bfl",
+      "keys": [
+        "register",
+        "constructor"
+      ]
+    },
+    "editorWorkerService": {
+      "className": "mlo",
+      "keys": [
+        "_store",
+        "_languageConfigurationService",
+        "_modelService",
+        "_workerManager",
+        "_logService"
+      ]
+    },
+    "markerDecorationsService": {
+      "className": "bound plo",
+      "keys": [
+        "getLiveMarkers",
+        "onDidChangeMarker",
+        "constructor"
+      ]
+    },
+    "markerService": {
+      "className": "bound Uwt",
+      "keys": [
+        "onMarkerChanged",
+        "read",
+        "changeOne",
+        "getStatistics",
+        "constructor"
+      ]
+    },
+    "contextKeyService": {
+      "className": "bound blo",
+      "keys": [
+        "getContextKeyValue",
+        "onDidChangeContext",
+        "createKey",
+        "bufferChangeEvents",
+        "contextMatchesRules",
+        "createScoped",
+        "getContext",
+        "constructor"
+      ]
+    },
+    "textResourceConfigurationService": {
+      "className": "bound wlo",
+      "keys": [
+        "getValue",
+        "onDidChangeConfiguration",
+        "inspect",
+        "constructor"
+      ]
+    },
+    "downloadService": {
+      "className": "bound Slo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "openerService": {
+      "className": "bound klo",
+      "keys": [
+        "registerOpener",
+        "setDefaultExternalOpener",
+        "registerExternalUriResolver",
+        "registerExternalOpener",
+        "registerValidator",
+        "constructor"
+      ]
+    },
+    "reactiveStorageService": {
+      "className": "bound zzt",
+      "keys": [
+        "createScoped",
+        "setApplicationUserPersistentStorage",
+        "onChangeEffectManuallyDisposed",
+        "constructor"
+      ]
+    },
+    "clientLoggerService": {
+      "className": "bound oko",
+      "keys": [
+        "getDebuggingDataUploadUrl",
+        "constructor"
+      ]
+    },
+    "INativeShadowWorkspaceManager": {
+      "className": "bound xko",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "onFirstStartupService": {
+      "className": "Tko",
+      "keys": [
+        "_storageService",
+        "configurationService",
+        "keybindingService",
+        "keybindingEditingService",
+        "_reactiveStorageService",
+        "_environmentService",
+        "_instantiationService",
+        "clientLoggerService",
+        "previousKeyChord"
+      ]
+    },
+    "trayService": {
+      "type": "function"
+    },
+    "textFileService": {
+      "className": "rEo",
+      "keys": [
+        "_store",
+        "fileService",
+        "lifecycleService",
+        "instantiationService",
+        "modelService",
+        "environmentService",
+        "dialogService",
+        "fileDialogService",
+        "textResourceConfigurationService",
+        "filesConfigurationService",
+        "codeEditorService",
+        "pathService",
+        "workingCopyFileService",
+        "uriIdentityService",
+        "languageService",
+        "logService",
+        "elevatedFileService",
+        "decorationsService",
+        "files",
+        "untitled",
+        "_encoding"
+      ]
+    },
+    "fileDialogService": {
+      "className": "bound lEo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "workspacesService": {
+      "type": "function"
+    },
+    "menubarService": {
+      "type": "function"
+    },
+    "updateService": {
+      "className": "bound xjf",
+      "keys": [
+        "onStateChange",
+        "isLatestVersion",
+        "constructor"
+      ]
+    },
+    "urlService": {
+      "className": "dEo",
+      "keys": [
+        "_store",
+        "handlers",
+        "productService",
+        "nativeHostService",
+        "logService",
+        "urlService"
+      ]
+    },
+    "lifecycleService": {
+      "className": "fEo",
+      "keys": [
+        "_store",
+        "logService",
+        "storageService",
+        "_onBeforeShutdown",
+        "onBeforeShutdown",
+        "_onWillShutdown",
+        "onWillShutdown",
+        "_onDidShutdown",
+        "onDidShutdown",
+        "_onBeforeShutdownError",
+        "onBeforeShutdownError",
+        "_onShutdownVeto",
+        "onShutdownVeto",
+        "_phase",
+        "_willShutdown",
+        "phaseWhen",
+        "_startupKind",
+        "nativeHostService"
+      ]
+    },
+    "titleService": {
+      "className": "Fjf",
+      "keys": [
+        "_store",
+        "themeService",
+        "theme",
+        "id",
+        "memento",
+        "_parts",
+        "instantiationService",
+        "properties",
+        "variables",
+        "mainPart",
+        "onMenubarVisibilityChange"
+      ]
+    },
+    "hostService": {
+      "className": "bound $Ls",
+      "keys": [
+        "onDidChangeFocus",
+        "onDidChangeActiveWindow",
+        "onDidChangeFullScreen",
+        "cursorGetWindows",
+        "hadLastFocus",
+        "constructor",
+        "moveTop"
+      ]
+    },
+    "nativeHostService": {
+      "type": "function"
+    },
+    "requestService": {
+      "className": "bound TEo",
+      "keys": [
+        "resolveProxy",
+        "loadCertificates",
+        "request",
+        "constructor"
+      ]
+    },
+    "clipboardService": {
+      "className": "bound IEo",
+      "keys": [
+        "readText",
+        "onDidChangeClipboard",
+        "constructor"
+      ]
+    },
+    "contextMenuService": {
+      "className": "bound REo",
+      "keys": [
+        "onDidShowContextMenu",
+        "onDidHideContextMenu",
+        "constructor"
+      ]
+    },
+    "workspaceEditingService": {
+      "className": "bound AEo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "shellEnvironmentService": {
+      "className": "bound Yjf",
+      "keys": [
+        "getShellEnv",
+        "constructor"
+      ]
+    },
+    "configurationResolverService": {
+      "className": "bound MEo",
+      "keys": [
+        "resolveWithEnvironment",
+        "resolveAsync",
+        "contributeVariable",
+        "constructor"
+      ]
+    },
+    "accessibilityService": {
+      "className": "bound FEo",
+      "keys": [
+        "isScreenReaderOptimized",
+        "onDidChangeScreenReaderOptimized",
+        "getAccessibilitySupport",
+        "isMotionReduced",
+        "constructor"
+      ]
+    },
+    "keyboardLayoutService": {
+      "className": "bound UEo",
+      "keys": [
+        "getKeyboardMapper",
+        "onDidChangeKeyboardLayout",
+        "validateCurrentKeyboardMapping",
+        "constructor"
+      ]
+    },
+    "pathService": {
+      "className": "bound WEo",
+      "keys": [
+        "userHome",
+        "constructor"
+      ]
+    },
+    "hostColorSchemeService": {
+      "className": "bound VEo",
+      "keys": [
+        "onDidChangeColorScheme",
+        "constructor"
+      ]
+    },
+    "terminalExecutionServiceV2": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "IShadowWorkspaceServerService": {
+      "className": "bound qEo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "extensionManagementService": {
+      "className": "bound XEo",
+      "keys": [
+        "getInstalled",
+        "onDidChangeProfile",
+        "onDidEnableExtensions",
+        "onDidInstallExtensions",
+        "onDidUninstallExtension",
+        "onInstallExtension",
+        "onUninstallExtension",
+        "getInstalledWorkspaceExtensions",
+        "getExtensionsControlManifest",
+        "constructor"
+      ]
+    },
+    "encryptionService": {
+      "type": "function"
+    },
+    "secretStorageService": {
+      "className": "bound QEo",
+      "keys": [
+        "onDidChangeSecret",
+        "get",
+        "constructor"
+      ]
+    },
+    "languagePackService": {
+      "type": "function"
+    },
+    "telemetryService": {
+      "className": "bound exo",
+      "keys": [
+        "publicLog2",
+        "registerAuthId",
+        "publicLog",
+        "publicLogCapture",
+        "constructor"
+      ]
+    },
+    "extensionHostStarter": {
+      "type": "function"
+    },
+    "extensionResourceLoaderService": {
+      "className": "bound txo",
+      "keys": [
+        "readExtensionResource",
+        "constructor"
+      ]
+    },
+    "localizationService": {
+      "className": "bound ixo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "activeLanguageService": {
+      "className": "bound nxo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IExtensionsScannerService": {
+      "className": "bound sxo",
+      "keys": [
+        "scanSystemExtensions",
+        "scanUserExtensions",
+        "scanExtensionsUnderDevelopment",
+        "onDidChangeCache",
+        "constructor"
+      ]
+    },
+    "extensionManagementServerService": {
+      "className": "bound cxo",
+      "keys": [
+        "getExtensionManagementServer",
+        "constructor"
+      ]
+    },
+    "IExtensionGalleryManifestService": {
+      "className": "dxo",
+      "keys": [
+        "_store",
+        "productService",
+        "onDidChangeExtensionGalleryManifest",
+        "configurationService",
+        "requestService",
+        "defaultAccountService",
+        "dialogService",
+        "hostService",
+        "logService",
+        "extensionGalleryManifest",
+        "_onDidChangeExtensionGalleryManifest",
+        "commonHeadersPromise",
+        "extensionGalleryManifestPromise"
+      ]
+    },
+    "IExtensionTipsService": {
+      "className": "bound fxo",
+      "keys": [
+        "getConfigBasedTips",
+        "constructor"
+      ]
+    },
+    "IUserDataSyncService": {
+      "className": "bound gxo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IUserDataSyncResourceProviderService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "IUserDataSyncMachinesService": {
+      "type": "function"
+    },
+    "IUserDataSyncAccountService": {
+      "className": "bound CKf",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IUserDataSyncStoreManagementService": {
+      "className": "bound mxo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "IUserDataAutoSyncService": {
+      "className": "bound pxo",
+      "keys": [
+        "onError",
+        "constructor"
+      ]
+    },
+    "timerService": {
+      "className": "bound vxo",
+      "keys": [
+        "setPerformanceMarks",
+        "whenReady",
+        "constructor"
+      ]
+    },
+    "integrityService": {
+      "className": "bound nAs",
+      "keys": [
+        "isPure",
+        "constructor"
+      ]
+    },
+    "workingCopyBackupService": {
+      "className": "bxo",
+      "keys": [
+        "_store",
+        "fileService",
+        "logService",
+        "impl",
+        "lifecycleService"
+      ]
+    },
+    "checksumService": {
+      "type": "function"
+    },
+    "sharedProcessTunnelService": {
+      "type": "function"
+    },
+    "tunnelService": {
+      "className": "bound _xo",
+      "keys": [
+        "onTunnelOpened",
+        "onTunnelClosed",
+        "constructor"
+      ]
+    },
+    "diagnosticsService": {
+      "type": "function"
+    },
+    "IV8InspectProfilingService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "customEndpointTelemetryService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "IRemoteTunnelService": {
+      "type": "function"
+    },
+    "continuousProfilingMainService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "pathInspectionMainService": {
+      "type": "function"
+    },
+    "systemNotificationRendererService": {
+      "className": "bound AKf",
+      "keys": [
+        "isSupported",
+        "hasPermission",
+        "constructor"
+      ]
+    },
+    "elevatedFileService": {
+      "className": "bound Exo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "searchService": {
+      "className": "bound xxo",
+      "keys": [
+        "fileSearch",
+        "registerSearchResultProvider",
+        "clearCache",
+        "constructor"
+      ]
+    },
+    "workingCopyHistoryService": {
+      "className": "bound Rxo",
+      "keys": [
+        "addEntry",
+        "constructor"
+      ]
+    },
+    "IUserDataSyncEnablementService": {
+      "className": "bound MKf",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "extensionService": {
+      "className": "qxo",
+      "keys": [
+        "_store",
+        "_extensionsProposedApi",
+        "_extensionHostFactory",
+        "_extensionHostKindPicker",
+        "_instantiationService",
+        "_notificationService",
+        "_environmentService",
+        "_telemetryService",
+        "_extensionEnablementService",
+        "_fileService",
+        "_productService",
+        "_extensionManagementService",
+        "_contextService",
+        "_configurationService",
+        "_extensionManifestPropertiesService",
+        "_logService",
+        "_remoteAgentService",
+        "_remoteExtensionsScannerService",
+        "_lifecycleService",
+        "_remoteAuthorityResolverService",
+        "_dialogService",
+        "_onDidRegisterExtensions",
+        "onDidRegisterExtensions",
+        "_onDidChangeExtensionsStatus",
+        "onDidChangeExtensionsStatus",
+        "_onDidChangeExtensions",
+        "onDidChangeExtensions",
+        "_onWillActivateByEvent",
+        "onWillActivateByEvent",
+        "_onDidChangeResponsiveChange"
+      ]
+    },
+    "IUserDataProfileStorageService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "IExtensionsProfileScannerService": {
+      "className": "bound Xxo",
+      "keys": [
+        "scanProfileExtensions",
+        "constructor"
+      ]
+    },
+    "IWebContentExtractorService": {
+      "type": "function"
+    },
+    "ISharedWebContentExtractorService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "tracingService": {
+      "type": "function"
+    },
+    "abuseService": {
+      "type": "function"
+    },
+    "cursorCommandsService": {
+      "className": "bound Qxo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "teamCommandsService": {
+      "className": "bound Zxo",
+      "keys": [
+        "onDidChangeTeamCommands",
+        "getTeamCommands",
+        "constructor"
+      ]
+    },
+    "onboardingService": {
+      "className": "bound lTo",
+      "keys": [
+        "maybeOnboard",
+        "constructor"
+      ]
+    },
+    "backgroundComposerService": {
+      "className": "bound fTo",
+      "keys": [
+        "bcIdForThisWindow",
+        "isAllowedFreeTrialUsage",
+        "isBackgroundComposerInstallationEnv",
+        "waitForSCMRepositories",
+        "getAvailableRemotes",
+        "hasGithubAccess",
+        "constructor"
+      ]
+    },
+    "onlineMetricsService": {
+      "className": "bound gTo",
+      "keys": [
+        "startTrackingRequest",
+        "constructor"
+      ]
+    },
+    "aiServerConfigService": {
+      "className": "bound mTo",
+      "keys": [
+        "onDidRefreshServerConfig",
+        "constructor"
+      ]
+    },
+    "cppTypeService": {
+      "className": "bound yTo",
+      "keys": [
+        "setSuggestionHintsConfig",
+        "constructor"
+      ]
+    },
+    "linterListenerService": {
+      "className": "bound bTo",
+      "keys": [
+        "registerLinterListener",
+        "constructor"
+      ]
+    },
+    "cppBadHeuristics": {
+      "className": "bound CTo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "cppSuggestionService": {
+      "className": "bound kTo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "aiAssertService": {
+      "className": "bound xTo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "cppService": {
+      "className": "bound PTo",
+      "keys": [
+        "getRedDecorationIds",
+        "isTextFocusedOrSimilarlyFocused",
+        "registerDiffingProvider",
+        "constructor"
+      ]
+    },
+    "cursorPredictionBadHeuristics": {
+      "className": "bound CZf",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "cursorPredictionService": {
+      "className": "bound ATo",
+      "keys": [
+        "isShowingCursorPrediction",
+        "isShowingCursorPredictionForDifferentFile",
+        "constructor"
+      ]
+    },
+    "importPredictionService": {
+      "className": "bound FTo",
+      "keys": [
+        "registerCppMethods",
+        "isShowingImportSuggestion",
+        "onDidChangeImportPrediction",
+        "constructor"
+      ]
+    },
+    "telemService": {
+      "className": "bound BTo",
+      "keys": [
+        "recordCppSessionEvent",
+        "onDidChangeCppSessionId",
+        "getCurrentSessionId",
+        "onDidChangeCppTelemEnabled",
+        "onStartupChangeWatcher",
+        "registerCppTelemProvider",
+        "isModelTooBigFullCheck",
+        "constructor"
+      ]
+    },
+    "clipboardListenerService": {
+      "className": "bound UTo",
+      "keys": [
+        "registerClipboardListener",
+        "constructor"
+      ]
+    },
+    "quickActionListenerService": {
+      "className": "bound WTo",
+      "keys": [
+        "registerQuickActionListener",
+        "constructor"
+      ]
+    },
+    "telemStartupService": {
+      "className": "bound VTo",
+      "keys": [
+        "onStartup",
+        "constructor"
+      ]
+    },
+    "modelMigrationService": {
+      "className": "bound GTo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "vscodeProfileService": {
+      "className": "bound zTo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "FeedbackService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "cursorUpdateService": {
+      "className": "XTo",
+      "keys": [
+        "productService",
+        "instantiationService",
+        "storageSerivce"
+      ]
+    },
+    "extensionHostDebugService": {
+      "className": "bound Jng",
+      "keys": [
+        "onClose",
+        "onReload",
+        "onAttachSession",
+        "onTerminateSession",
+        "constructor"
+      ]
+    },
+    "extensionHostProfileService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "ITroubleshootIssueService": {
+      "className": "bound OAs",
+      "keys": [
+        "isActive",
+        "constructor"
+      ]
+    },
+    "workbenchIssueService": {
+      "className": "bound BAs",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "processService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "issueFormService": {
+      "className": "bound TIo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "workbenchProcessService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "extensionMonitorWorkbenchService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "extensionMonitorMainService": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "terminalExecutionServiceV1": {
+      "className": "ic",
+      "keys": [
+        "ctor",
+        "staticArguments",
+        "supportsDelayedInstantiation"
+      ]
+    },
+    "terminalExecutionServiceV3": {
+      "className": "UIo",
+      "keys": [
+        "_store",
+        "_terminalService",
+        "_shellExecService",
+        "_composerTerminalService",
+        "_configurationService",
+        "_historyService",
+        "_remoteAgentService",
+        "_nativeEnvironmentService",
+        "_terminalInstanceService",
+        "_terminalProfileResolverService",
+        "_composerDataService",
+        "_sessionInstances",
+        "_composerPersistentSessionId",
+        "_mirrorTerminals",
+        "_sessionCommands",
+        "_executionAbortControllers",
+        "_sessionOutputBuffers",
+        "_sessionCommandOutputs",
+        "_sessionPseudoTerminals",
+        "_onDidDisposeSession",
+        "onDidDisposeSession"
+      ]
+    },
+    "terminalExecutionService": {
+      "className": "WIo",
+      "keys": [
+        "_store",
+        "_instantiationService",
+        "_experimentService",
+        "_metricsService",
+        "_remoteAgentService",
+        "_reactiveStorageService",
+        "_shellExecService",
+        "_storageService",
+        "_isInitialized",
+        "_onDidChangeServiceVersion",
+        "onDidChangeServiceVersion",
+        "_delegate",
+        "_delegateVersion",
+        "_initializationPromise"
+      ]
+    },
+    "localPtyService": {
+      "type": "function"
+    },
+    "terminalProfileResolverService": {
+      "className": "bound FIo",
+      "keys": [
+        "getEnvironment",
+        "resolveIcon",
+        "getDefaultProfile",
+        "getDefaultShell",
+        "constructor"
+      ]
+    },
+    "workspaceTagsService": {
+      "className": "bound qIo",
+      "keys": [
+        "getTelemetryWorkspaceId",
+        "getTags",
+        "getHashedRemotesFromUri",
+        "constructor"
+      ]
+    },
+    "IProfileAnalysisWorkerService": {
+      "className": "bound zIo",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "taskService": {
+      "className": "bound KIo",
+      "keys": [
+        "registerSupportedExecutions",
+        "registerTaskSystem",
+        "onDidStateChange",
+        "registerTaskProvider",
+        "getWorkspaceTasks",
+        "onDidChangeTaskConfig",
+        "getKnownTasks",
+        "constructor"
+      ]
+    },
+    "externalTerminal": {
+      "type": "function"
+    },
+    "webviewService": {
+      "className": "bound Qsg",
+      "keys": [
+        "constructor"
+      ]
+    },
+    "ISplashStorageService": {
+      "className": "bound sDo",
+      "keys": [
+        "saveWindowSplash",
+        "constructor"
+      ]
+    },
+    "continuousProfilingService": {
+      "className": "bound yDo",
+      "keys": [
+        "getIsPrivacyMode",
+        "constructor"
+      ]
+    },
+    "smoothnessService": {
+      "className": "bound SDo",
+      "keys": [
+        "isDebugBuild",
+        "constructor"
+      ]
+    },
+    "browserViewService": {
+      "className": "bound eTo",
+      "keys": [
+        "onBrowserMessage",
+        "onDidFocus",
+        "onDidBlur",
+        "onCertificateError",
+        "executeJavaScript",
+        "constructor"
+      ]
+    },
+    "cursorProclistService": {
+      "className": "bound tTo",
+      "keys": [
+        "applyConfig",
+        "constructor",
+        "createSample",
+        "writeSample"
+      ]
+    },
+    "IUserDataInitializationService": {
+      "className": "bound hmf",
+      "keys": [
+        "whenInitializationFinished",
+        "constructor"
+      ]
+    },
+    "instantiationService": {
+      "className": "yLo",
+      "keys": [
+        "_services",
+        "_strict",
+        "_parent",
+        "_enableTracing",
+        "_isDisposed",
+        "_servicesToMaybeDispose",
+        "_children",
+        "_activeInstantiations",
+        "_globalGraph"
+      ]
+    }
+  },
+  "editorGroupsService": {
+    "className": "ano",
+    "count": 1,
+    "groups": [
+      {
+        "id": 1,
+        "index": 0,
+        "label": "Group 1",
+        "editorCount": 4,
+        "activeEditor": {
+          "name": "vscode-services.json",
+          "resource": "file:///Users/mbrock/conf/vscode-linen-glow/src/superpower/vscode-services.json",
+          "typeId": "workbench.editors.files.fileEditorInput"
+        },
+        "editors": [
+          {
+            "name": "debugger-explore.ts",
+            "resource": "file:///Users/mbrock/conf/vscode-linen-glow/src/superpower/debugger-explore.ts"
+          },
+          {
+            "name": "vscode-services.json",
+            "resource": "file:///Users/mbrock/conf/vscode-linen-glow/src/superpower/vscode-services.json"
+          },
+          {
+            "name": "cdp.ts",
+            "resource": "file:///Users/mbrock/conf/vscode-linen-glow/src/superpower/cdp.ts"
+          },
+          {
+            "name": "demo.ts",
+            "resource": "file:///Users/mbrock/conf/vscode-linen-glow/src/superpower/demo.ts"
+          }
+        ]
+      }
+    ]
+  },
+  "contextKeyService": {
+    "className": "bound blo",
+    "keys": [
+      "getContextKeyValue",
+      "onDidChangeContext",
+      "createKey",
+      "bufferChangeEvents",
+      "contextMatchesRules",
+      "createScoped",
+      "getContext",
+      "constructor"
+    ],
+    "contextValues": {
+      "inputFocus": false,
+      "activeEditor": "workbench.editors.files.textFileEditor",
+      "resourceScheme": "file",
+      "resourcePath": "/Users/mbrock/conf/vscode-linen-glow/src/superpower/vscode-services.json",
+      "inDebugMode": false,
+      "debugState": "inactive"
+    }
+  },
+  "layoutService": {
+    "className": "OGf",
+    "keys": [
+      "_store",
+      "parent",
+      "_onDidChangeZenMode",
+      "onDidChangeZenMode",
+      "_onDidChangeMainEditorCenteredLayout",
+      "onDidChangeMainEditorCenteredLayout",
+      "_onDidChangePanelAlignment",
+      "onDidChangePanelAlignment",
+      "_onDidChangeWindowMaximized",
+      "onDidChangeWindowMaximized",
+      "_onDidChangePanelPosition",
+      "onDidChangePanelPosition",
+      "_onDidChangePartVisibility",
+      "onDidChangePartVisibility",
+      "_onDidChangeNotificationsVisibility",
+      "onDidChangeNotificationsVisibility",
+      "_onDidLayoutMainContainer",
+      "onDidLayoutMainContainer",
+      "_onDidChangeWorkbenchInsets",
+      "onDidChangeWorkbenchInsets",
+      "_onDidLayoutActiveContainer",
+      "onDidLayoutActiveContainer",
+      "_onDidLayoutContainer",
+      "onDidLayoutContainer",
+      "_onDidAddContainer",
+      "onDidAddContainer",
+      "_onDidChangeActiveContainer",
+      "onDidChangeActiveContainer",
+      "wasMaximized",
+      "panelHeightPercentageBeforeMaximize"
+    ]
+  },
+  "storageService": {
+    "className": "czf",
+    "keys": [
+      "_store",
+      "_onDidChangeValue",
+      "_onDidChangeTarget",
+      "onDidChangeTarget",
+      "_onWillSaveState",
+      "onWillSaveState",
+      "runFlushWhenIdle",
+      "_workspaceKeyTargets",
+      "_profileKeyTargets",
+      "_applicationKeyTargets",
+      "onDiskShouldSaveCallbacks",
+      "flushWhenIdleScheduler",
+      "remoteService",
+      "environmentService",
+      "profileStorageDisposables",
+      "workspaceStorageDisposables",
+      "isSmokeTest",
+      "applicationStorageProfile",
+      "applicationStorage",
+      "profileStorageProfile",
+      "profileStorage",
+      "workspaceStorageId",
+      "workspaceStorage",
+      "userDataProfileService",
+      "initializationPromise"
+    ]
+  },
+  "logService": {
+    "className": "Ezf",
+    "keys": [
+      "_store",
+      "logger"
+    ]
+  }
+}

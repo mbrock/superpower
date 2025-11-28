@@ -1,11 +1,20 @@
 /**
- * Minimal CDP (Chrome DevTools Protocol) client for injecting into Cursor/VS Code
+ * CDP (Chrome DevTools Protocol) client
  *
- * Launch Cursor with: --remote-debugging-port=9222
- * Then use this to inject JS/CSS into the renderer.
+ * @example
+ * ```ts
+ * const client = await CDP.connect(t => t.url.includes("myapp"))
+ * const title = await client.run((g) => g.document.title)
+ * client.close()
+ * ```
  */
 
-const CDP_PORT = 9222
+const DEFAULT_HOST = "localhost"
+const DEFAULT_PORT = 9222
+
+// ============================================================================
+// Types
+// ============================================================================
 
 export interface CDPTarget {
   id: string
@@ -15,184 +24,433 @@ export interface CDPTarget {
   webSocketDebuggerUrl: string
 }
 
+interface CDPMessage {
+  id?: number
+  method?: string
+  params?: unknown
+  error?: { message: string }
+  result?: unknown
+}
+
+interface EvalResult {
+  result?: { value: unknown; objectId?: string; type: string; className?: string; description?: string }
+  exceptionDetails?: { text: string; exception?: { description: string } }
+}
+
+type PendingRequest = {
+  resolve: (value: unknown) => void
+  reject: (error: Error) => void
+}
+
+type EventHandler = (params: unknown) => void
+
+// ============================================================================
+// Debugger Types
+// ============================================================================
+
+export interface RemoteObject {
+  type: "object" | "function" | "undefined" | "string" | "number" | "boolean" | "symbol" | "bigint"
+  subtype?: string
+  className?: string
+  value?: unknown
+  description?: string
+  objectId?: string
+}
+
+export interface Scope {
+  type: string
+  object: RemoteObject
+  name?: string
+}
+
+export interface CallFrame {
+  callFrameId: string
+  functionName: string
+  location: { scriptId: string; lineNumber: number; columnNumber: number }
+  url: string
+  scopeChain: Scope[]
+  this: RemoteObject
+}
+
+export interface PausedEvent {
+  callFrames: CallFrame[]
+  reason: string
+  data?: unknown
+}
+
+export interface PropertyDescriptor {
+  name: string
+  value?: RemoteObject
+  configurable: boolean
+  enumerable: boolean
+}
+
+// ============================================================================
+// Low-level functions
+// ============================================================================
+
 /** Get list of debuggable targets */
-export async function getTargets(): Promise<CDPTarget[]> {
-  const res = await fetch(`http://localhost:${CDP_PORT}/json/list`)
+export async function getTargets(
+  host = DEFAULT_HOST,
+  port = DEFAULT_PORT
+): Promise<CDPTarget[]> {
+  const res = await fetch(`http://${host}:${port}/json/list`)
   return res.json()
 }
 
-/** Find the main workbench window */
-export async function findWorkbench(): Promise<CDPTarget | undefined> {
-  const targets = await getTargets()
-  return targets.find(
-    (t) => t.type === "page" && t.url.includes("workbench.html"),
-  )
+/** Find a target by predicate */
+export async function findTarget(
+  predicate: (target: CDPTarget) => boolean,
+  host = DEFAULT_HOST,
+  port = DEFAULT_PORT
+): Promise<CDPTarget | undefined> {
+  const targets = await getTargets(host, port)
+  return targets.find(predicate)
 }
 
-/** Evaluate JS in a target */
-export async function evaluate(
-  wsUrl: string,
-  expression: string,
-): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const ws = new WebSocket(wsUrl)
+// ============================================================================
+// CDP Client class
+// ============================================================================
 
-    ws.onopen = () => {
-      ws.send(
-        JSON.stringify({
-          id: 1,
-          method: "Runtime.evaluate",
-          params: {
-            expression,
-            returnByValue: true,
-            awaitPromise: true,
-          },
-        }),
-      )
-    }
+export interface CDPOptions {
+  host?: string
+  port?: number
+}
 
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data.toString())
-      if (data.id === 1) {
-        ws.close()
-        if (data.error) {
-          reject(new Error(data.error.message))
-        } else if (data.result.exceptionDetails) {
-          reject(new Error(data.result.exceptionDetails.text))
-        } else {
-          resolve(data.result.result?.value)
+/**
+ * CDP client with persistent WebSocket connection
+ */
+export class CDP<TRemote = typeof globalThis> {
+  private ws: WebSocket
+  private nextId = 1
+  private pending = new Map<number, PendingRequest>()
+  private eventHandlers = new Map<string, EventHandler[]>()
+  private ready: Promise<void>
+
+  private constructor(
+    public readonly target: CDPTarget,
+    ws: WebSocket,
+  ) {
+    this.ws = ws
+
+    // Set up message handler
+    this.ws.onmessage = (event) => {
+      const data: CDPMessage = JSON.parse(event.data.toString())
+
+      // Handle responses to our requests
+      if (data.id !== undefined) {
+        const request = this.pending.get(data.id)
+        if (request) {
+          this.pending.delete(data.id)
+          if (data.error) {
+            request.reject(new Error(data.error.message))
+          } else {
+            request.resolve(data.result)
+          }
+        }
+      }
+
+      // Handle events from the browser
+      if (data.method) {
+        const handlers = this.eventHandlers.get(data.method)
+        if (handlers) {
+          for (const handler of handlers) {
+            handler(data.params)
+          }
         }
       }
     }
 
-    ws.onerror = (err) => reject(err)
-  })
-}
-
-/** Inject CSS into a target */
-export async function injectCSS(wsUrl: string, css: string): Promise<void> {
-  const escaped = css.replace(/\\/g, "\\\\").replace(/`/g, "\\`")
-  await evaluate(
-    wsUrl,
-    `
-    (() => {
-      let style = document.getElementById('superpower-css');
-      if (!style) {
-        style = document.createElement('style');
-        style.id = 'superpower-css';
-        document.head.appendChild(style);
+    this.ws.onerror = () => {
+      // Reject all pending requests
+      for (const request of this.pending.values()) {
+        request.reject(new Error("WebSocket error"))
       }
-      style.textContent = \`${escaped}\`;
-    })()
-  `,
-  )
+      this.pending.clear()
+    }
+
+    // Wait for connection to be ready
+    this.ready = new Promise((resolve, reject) => {
+      if (this.ws.readyState === WebSocket.OPEN) {
+        resolve()
+      } else {
+        this.ws.onopen = () => resolve()
+        this.ws.onerror = () => reject(new Error("Failed to connect"))
+      }
+    })
+  }
+
+  /** Connect to a target matching a predicate */
+  static async connect<T = typeof globalThis>(
+    predicate: (target: CDPTarget) => boolean,
+    options: CDPOptions = {}
+  ): Promise<CDP<T>> {
+    const { host = DEFAULT_HOST, port = DEFAULT_PORT } = options
+    const target = await findTarget(predicate, host, port)
+    if (!target) {
+      throw new Error(`No matching CDP target found at ${host}:${port}`)
+    }
+
+    const ws = new WebSocket(target.webSocketDebuggerUrl)
+    const client = new CDP<T>(target, ws)
+    await client.ready
+    return client
+  }
+
+  /** Connect to the first page target */
+  static async connectPage<T = typeof globalThis>(
+    options: CDPOptions = {}
+  ): Promise<CDP<T>> {
+    return CDP.connect<T>((t) => t.type === "page", options)
+  }
+
+  // ============================================================================
+  // Core methods
+  // ============================================================================
+
+  /** Send a CDP command */
+  send<T = unknown>(method: string, params: Record<string, unknown> = {}): Promise<T> {
+    return new Promise((resolve, reject) => {
+      const id = this.nextId++
+      this.pending.set(id, { resolve: resolve as (v: unknown) => void, reject })
+      this.ws.send(JSON.stringify({ id, method, params }))
+    })
+  }
+
+  /** Subscribe to a CDP event */
+  on(event: string, handler: EventHandler): () => void {
+    if (!this.eventHandlers.has(event)) {
+      this.eventHandlers.set(event, [])
+    }
+    this.eventHandlers.get(event)!.push(handler)
+    return () => {
+      const handlers = this.eventHandlers.get(event)
+      if (handlers) {
+        const idx = handlers.indexOf(handler)
+        if (idx !== -1) handlers.splice(idx, 1)
+      }
+    }
+  }
+
+  /** Wait for a CDP event once */
+  once<T = unknown>(event: string, timeout = 5000): Promise<T> {
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        unsubscribe()
+        reject(new Error(`Timeout waiting for ${event}`))
+      }, timeout)
+      const unsubscribe = this.on(event, (params) => {
+        clearTimeout(timer)
+        unsubscribe()
+        resolve(params as T)
+      })
+    })
+  }
+
+  /** Close the WebSocket connection */
+  close(): void {
+    this.ws.close()
+    for (const request of this.pending.values()) {
+      request.reject(new Error("Connection closed"))
+    }
+    this.pending.clear()
+  }
+
+  /** Check if connected */
+  get connected(): boolean {
+    return this.ws.readyState === WebSocket.OPEN
+  }
+
+  // ============================================================================
+  // Runtime domain
+  // ============================================================================
+
+  /** Evaluate a raw JS expression */
+  async eval<T = unknown>(expression: string): Promise<T> {
+    const result = await this.send<EvalResult>("Runtime.evaluate", {
+      expression,
+      returnByValue: true,
+      awaitPromise: true,
+    })
+    if (result.exceptionDetails) {
+      const d = result.exceptionDetails
+      throw new Error(d.exception?.description || d.text)
+    }
+    return result.result?.value as T
+  }
+
+  /**
+   * Run a function in the remote context.
+   * The function receives `globalThis` as its first argument.
+   */
+  async run<T, A extends unknown[]>(
+    fn: (remote: TRemote, ...args: A) => T,
+    ...args: A
+  ): Promise<Awaited<T>> {
+    const serializedArgs = JSON.stringify(args)
+    const expression = `(${fn.toString()}).apply(null, [globalThis, ...${serializedArgs}])`
+    return this.eval<Awaited<T>>(expression)
+  }
+
+  /** Get properties of a remote object */
+  async getProperties(
+    objectId: string,
+    options: { ownProperties?: boolean; includeInternal?: boolean } = {},
+  ): Promise<{ result: PropertyDescriptor[]; internalProperties?: PropertyDescriptor[] }> {
+    const result = await this.send<{
+      result: PropertyDescriptor[]
+      internalProperties?: PropertyDescriptor[]
+    }>("Runtime.getProperties", {
+      objectId,
+      ownProperties: options.ownProperties ?? true,
+      generatePreview: true,
+    })
+    return { result: result.result, internalProperties: result.internalProperties }
+  }
+
+  // ============================================================================
+  // Debugger domain
+  // ============================================================================
+
+  /** Enable the Debugger domain */
+  async debuggerEnable(): Promise<void> {
+    await this.send("Debugger.enable")
+  }
+
+  /** Pause execution */
+  async debuggerPause(): Promise<void> {
+    await this.send("Debugger.pause")
+  }
+
+  /** Resume execution */
+  async debuggerResume(): Promise<void> {
+    await this.send("Debugger.resume")
+  }
+
+  /** Wait for pause and get call frames */
+  async waitForPause(timeout = 5000): Promise<PausedEvent> {
+    return this.once<PausedEvent>("Debugger.paused", timeout)
+  }
+
+  /** Evaluate expression on a specific call frame */
+  async evalOnFrame<T = unknown>(callFrameId: string, expression: string): Promise<T> {
+    const result = await this.send<EvalResult>("Debugger.evaluateOnCallFrame", {
+      callFrameId,
+      expression,
+      returnByValue: true,
+    })
+    if (result.exceptionDetails) {
+      const d = result.exceptionDetails
+      throw new Error(d.exception?.description || d.text)
+    }
+    return result.result?.value as T
+  }
+
+  /**
+   * Run a function on a specific call frame.
+   * The function receives `this` from that frame as its first argument.
+   */
+  async runOnFrame<T, A extends unknown[]>(
+    callFrameId: string,
+    fn: (frameThis: unknown, ...args: A) => T,
+    ...args: A
+  ): Promise<Awaited<T>> {
+    const serializedArgs = JSON.stringify(args)
+    const expression = `(${fn.toString()}).apply(null, [this, ...${serializedArgs}])`
+    return this.evalOnFrame<Awaited<T>>(callFrameId, expression)
+  }
 }
 
-/** Inject JS into a target (runs once) */
-export async function injectJS(wsUrl: string, code: string): Promise<any> {
-  return evaluate(wsUrl, code)
-}
+// ============================================================================
+// CLI
+// ============================================================================
 
-/** Bootstrap superpower API in the renderer */
-export async function bootstrap(wsUrl: string): Promise<void> {
-  await evaluate(
-    wsUrl,
-    `
-    if (!window.superpower) {
-      window.superpower = {
-        version: '1.0.0',
+if (import.meta.main) {
+  const [cmd, ...rest] = Bun.argv.slice(2)
+  const arg = rest.join(" ")
 
-        injectCSS(id, css) {
-          let style = document.getElementById('superpower-' + id);
-          if (!style) {
-            style = document.createElement('style');
-            style.id = 'superpower-' + id;
-            document.head.appendChild(style);
-          }
-          style.textContent = css;
-          return style;
-        },
+  const commands: Record<string, () => Promise<void>> = {
+    async list() {
+      const targets = await getTargets()
+      for (const t of targets) {
+        const icon =
+          t.type === "page" ? "📄" : t.type === "worker" ? "⚙️" : "❓"
+        console.log(`${icon} ${t.type.padEnd(8)} ${t.title}`)
+        console.log(`   ${t.url}`)
+      }
+    },
 
-        removeCSS(id) {
-          document.getElementById('superpower-' + id)?.remove();
-        },
+    async eval() {
+      const client = await CDP.connectPage()
+      try {
+        const result = await client.eval(arg)
+        if (result !== undefined) {
+          console.log(
+            typeof result === "object" ? JSON.stringify(result, null, 2) : result
+          )
+        }
+      } finally {
+        client.close()
+      }
+    },
 
-        query(selector) {
-          return [...document.querySelectorAll(selector)];
-        },
+    async repl() {
+      const client = await CDP.connectPage()
+      console.log(`Connected to: ${client.target.title}`)
+      console.log("Type JS to evaluate. Ctrl+D to exit.\n")
 
-        // Access monaco if available
-        get monaco() { return window.monaco; },
+      const prompt = "\x1b[36m❯\x1b[0m "
+      process.stdout.write(prompt)
 
-        // Access VS Code's token styles
-        get tokenStyles() {
-          return document.querySelector('.vscode-tokens-styles')?.textContent;
-        },
-
-        // Get theme CSS variables
-        getThemeVars() {
-          const el = document.querySelector('.monaco-workbench');
-          if (!el) return {};
-          const computed = getComputedStyle(el);
-          const vars = {};
-          for (const prop of computed) {
-            if (prop.startsWith('--vscode-')) {
-              vars[prop] = computed.getPropertyValue(prop).trim();
+      try {
+        for await (const line of console) {
+          if (line.trim()) {
+            try {
+              const result = await client.eval(line)
+              if (result !== undefined) {
+                console.log(
+                  typeof result === "object"
+                    ? JSON.stringify(result, null, 2)
+                    : result
+                )
+              }
+            } catch (e) {
+              console.error(
+                "\x1b[31m" + (e instanceof Error ? e.message : e) + "\x1b[0m"
+              )
             }
           }
-          return vars;
+          process.stdout.write(prompt)
         }
-      };
-      console.log('[Superpower] Bootstrapped!');
-    }
-    'ok'
-  `,
-  )
-}
+      } finally {
+        client.close()
+      }
+    },
 
-// CLI usage
-if (import.meta.main) {
-  const cmd = Bun.argv[2]
+    async help() {
+      console.log(`
+\x1b[1mCDP - Chrome DevTools Protocol client\x1b[0m
 
-  if (cmd === "list") {
-    const targets = await getTargets()
-    console.log(JSON.stringify(targets, null, 2))
-  } else if (cmd === "inject") {
-    const code = Bun.argv[3]
-    const target = await findWorkbench()
-    if (!target) {
-      console.error("No workbench found. Is Cursor running with --remote-debugging-port=9222?")
-      process.exit(1)
-    }
-    const result = await evaluate(target.webSocketDebuggerUrl, code)
-    console.log("Result:", result)
-  } else if (cmd === "bootstrap") {
-    const target = await findWorkbench()
-    if (!target) {
-      console.error("No workbench found.")
-      process.exit(1)
-    }
-    await bootstrap(target.webSocketDebuggerUrl)
-    console.log("Bootstrapped superpower in:", target.title)
-  } else if (cmd === "css") {
-    const css = Bun.argv[3]
-    const target = await findWorkbench()
-    if (!target) {
-      console.error("No workbench found.")
-      process.exit(1)
-    }
-    await injectCSS(target.webSocketDebuggerUrl, css)
-    console.log("Injected CSS")
-  } else {
-    console.log(`
-Usage:
-  bun src/superpower/cdp.ts list                    - List CDP targets
-  bun src/superpower/cdp.ts inject <js-code>        - Evaluate JS
-  bun src/superpower/cdp.ts bootstrap               - Install window.superpower
-  bun src/superpower/cdp.ts css <css-string>        - Inject CSS
+\x1b[33mCLI:\x1b[0m
+  bun cdp.ts list              List CDP targets
+  bun cdp.ts eval <expr>       Evaluate JS in first page
+  bun cdp.ts repl              Interactive REPL
 
-First launch Cursor with:
-  /Applications/Cursor.app/Contents/MacOS/Cursor --remote-debugging-port=9222
+\x1b[33mAPI:\x1b[0m
+  import { CDP } from "./cdp"
+
+  const client = await CDP.connect(t => t.url.includes("myapp"))
+  await client.run((g) => g.document.title)
+  await client.run((g, msg) => g.console.log(msg), "Hello!")
+  client.close()
+
+\x1b[90mTarget must have remote debugging enabled (--remote-debugging-port=9222)\x1b[0m
 `)
+    },
   }
+
+  commands.ls = commands.list
+  commands.e = commands.eval
+
+  await (commands[cmd] || commands.help)()
 }
