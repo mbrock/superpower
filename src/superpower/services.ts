@@ -20,28 +20,29 @@ export async function getServices() {
 }
 
 async function extractAndCache(cdp: CDP<CursorRenderer>) {
-  await cdp.enableDOM()
-  await cdp.enableDebugger()
+  await cdp.DOM.enable()
+  await cdp.Runtime.enable()
+  await cdp.Debugger.enable()
 
   const docId = await cdp.getObjectId((g) => g.document)
-  const listeners = await cdp.getEventListeners(docId)
+  const listeners = await cdp.DOMDebugger.getEventListeners(docId)
 
   const target = listeners.find((l) => l.type === "mouseout")
   if (!target) throw new Error("No mouseout listener found")
 
-  const breakpointId = await cdp.setBreakpoint(target.scriptId, target.lineNumber, target.columnNumber)
+  const breakpointId = await cdp.Debugger.setBreakpoint(target.scriptId, target.lineNumber, target.columnNumber)
 
   try {
     await cdp.run((g) => {
       setTimeout(() => g.document.dispatchEvent(new MouseEvent("mouseout", { bubbles: true })), 50)
     })
 
-    const { callFrames } = await cdp.waitForPause()
+    const { callFrames } = await cdp.Debugger.waitForPause()
     await cdp.runOnFrame(callFrames[0].callFrameId, (g, frameThis: { instantiationService: unknown }) => {
       g.instantiationService = frameThis.instantiationService
     })
   } finally {
-    await cdp.removeBreakpoint(breakpointId)
-    await cdp.resume()
+    await cdp.Debugger.removeBreakpoint(breakpointId)
+    await cdp.Debugger.resume()
   }
 }
