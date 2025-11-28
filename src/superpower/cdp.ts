@@ -131,6 +131,19 @@ export class CDP {
     if (r.exceptionDetails) throw new Error(r.exceptionDetails.exception?.description || r.exceptionDetails.text)
     return r.result?.value
   }
+
+  async runOnFrame<T, A extends unknown[]>(frameId: string, fn: (frameThis: unknown, ...args: A) => T, ...args: A): Promise<Awaited<T>> {
+    return this.evalOnFrame(frameId, `(${fn.toString()}).apply(null, [this, ...${JSON.stringify(args)}])`) as Promise<Awaited<T>>
+  }
+
+  async getObjectId<T>(fn: (g: typeof globalThis) => T): Promise<string> {
+    const r = await this.send<EvalResult>("Runtime.evaluate", {
+      expression: `(${fn.toString()})(globalThis)`,
+      returnByValue: false,
+    })
+    if (r.exceptionDetails) throw new Error(r.exceptionDetails.exception?.description || r.exceptionDetails.text)
+    return r.result?.objectId!
+  }
 }
 
 if (import.meta.main) {
