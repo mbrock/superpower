@@ -1,12 +1,5 @@
 /**
  * CDP (Chrome DevTools Protocol) client
- *
- * @example
- * ```ts
- * const client = await CDP.connect(t => t.url.includes("myapp"))
- * const title = await client.run((g) => g.document.title)
- * client.close()
- * ```
  */
 
 const DEFAULT_HOST = "localhost"
@@ -29,169 +22,63 @@ interface CDPMessage {
 }
 
 interface EvalResult {
-  result?: { value: unknown; objectId?: string; type: string; className?: string; description?: string }
+  result?: { value: unknown; objectId?: string; type: string }
   exceptionDetails?: { text: string; exception?: { description: string } }
 }
 
-type PendingRequest = {
-  resolve: (value: unknown) => void
-  reject: (error: Error) => void
-}
-
+type PendingRequest = { resolve: (value: unknown) => void; reject: (error: Error) => void }
 type EventHandler = (params: unknown) => void
 
-export interface RemoteObject {
-  type: "object" | "function" | "undefined" | "string" | "number" | "boolean" | "symbol" | "bigint"
-  subtype?: string
-  className?: string
-  value?: unknown
-  description?: string
-  objectId?: string
-}
-
-export interface Scope {
-  type: string
-  object: RemoteObject
-  name?: string
-}
-
-export interface CallFrame {
-  callFrameId: string
-  functionName: string
-  location: { scriptId: string; lineNumber: number; columnNumber: number }
-  url: string
-  scopeChain: Scope[]
-  this: RemoteObject
-}
-
 export interface PausedEvent {
-  callFrames: CallFrame[]
+  callFrames: { callFrameId: string; functionName: string }[]
   reason: string
-  data?: unknown
 }
 
-export interface PropertyDescriptor {
-  name: string
-  value?: RemoteObject
-  configurable: boolean
-  enumerable: boolean
+export async function getTargets(host = DEFAULT_HOST, port = DEFAULT_PORT): Promise<CDPTarget[]> {
+  return (await fetch(`http://${host}:${port}/json/list`)).json()
 }
 
-export async function getTargets(
-  host = DEFAULT_HOST,
-  port = DEFAULT_PORT
-): Promise<CDPTarget[]> {
-  const res = await fetch(`http://${host}:${port}/json/list`)
-  return res.json()
-}
-
-/** Find a target by predicate */
-export async function findTarget(
-  predicate: (target: CDPTarget) => boolean,
-  host = DEFAULT_HOST,
-  port = DEFAULT_PORT
-): Promise<CDPTarget | undefined> {
-  const targets = await getTargets(host, port)
-  return targets.find(predicate)
-}
-
-export interface CDPOptions {
-  host?: string
-  port?: number
-}
-
-/**
- * CDP client with persistent WebSocket connection
- */
-export class CDP<TRemote = typeof globalThis> {
+export class CDP {
   private ws: WebSocket
   private nextId = 1
   private pending = new Map<number, PendingRequest>()
-  private eventHandlers = new Map<string, EventHandler[]>()
+  private events = new Map<string, EventHandler[]>()
   private ready: Promise<void>
 
-  private constructor(
-    public readonly target: CDPTarget,
-    ws: WebSocket,
-  ) {
+  private constructor(public readonly target: CDPTarget, ws: WebSocket) {
     this.ws = ws
-
-    // Set up message handler
-    this.ws.onmessage = (event) => {
-      const data: CDPMessage = JSON.parse(event.data.toString())
-
-      // Handle responses to our requests
-      if (data.id !== undefined) {
-        const request = this.pending.get(data.id)
-        if (request) {
-          this.pending.delete(data.id)
-          if (data.error) {
-            request.reject(new Error(data.error.message))
-          } else {
-            request.resolve(data.result)
-          }
+    this.ws.onmessage = (e) => {
+      const msg: CDPMessage = JSON.parse(e.data.toString())
+      if (msg.id !== undefined) {
+        const req = this.pending.get(msg.id)
+        if (req) {
+          this.pending.delete(msg.id)
+          msg.error ? req.reject(new Error(msg.error.message)) : req.resolve(msg.result)
         }
       }
-
-      // Handle events from the browser
-      if (data.method) {
-        const handlers = this.eventHandlers.get(data.method)
-        if (handlers) {
-          for (const handler of handlers) {
-            handler(data.params)
-          }
-        }
+      if (msg.method) {
+        for (const h of this.events.get(msg.method) || []) h(msg.params)
       }
     }
-
     this.ws.onerror = () => {
-      // Reject all pending requests
-      for (const request of this.pending.values()) {
-        request.reject(new Error("WebSocket error"))
-      }
+      for (const r of this.pending.values()) r.reject(new Error("WebSocket error"))
       this.pending.clear()
     }
-
-    // Wait for connection to be ready
     this.ready = new Promise((resolve, reject) => {
-      if (this.ws.readyState === WebSocket.OPEN) {
-        resolve()
-      } else {
-        this.ws.onopen = () => resolve()
-        this.ws.onerror = () => reject(new Error("Failed to connect"))
-      }
+      if (this.ws.readyState === WebSocket.OPEN) resolve()
+      else { this.ws.onopen = () => resolve(); this.ws.onerror = () => reject(new Error("Failed to connect")) }
     })
   }
 
-  /** Connect to a target matching a predicate */
-  static async connect<T = typeof globalThis>(
-    predicate: (target: CDPTarget) => boolean,
-    options: CDPOptions = {}
-  ): Promise<CDP<T>> {
-    const { host = DEFAULT_HOST, port = DEFAULT_PORT } = options
-    const target = await findTarget(predicate, host, port)
-    if (!target) {
-      throw new Error(`No matching CDP target found at ${host}:${port}`)
-    }
-
-    const ws = new WebSocket(target.webSocketDebuggerUrl)
-    const client = new CDP<T>(target, ws)
+  static async connect(predicate: (t: CDPTarget) => boolean, host = DEFAULT_HOST, port = DEFAULT_PORT): Promise<CDP> {
+    const targets = await getTargets(host, port)
+    const target = targets.find(predicate)
+    if (!target) throw new Error(`No matching target at ${host}:${port}`)
+    const client = new CDP(target, new WebSocket(target.webSocketDebuggerUrl))
     await client.ready
     return client
   }
 
-  /** Connect to the first page target */
-  static async connectPage<T = typeof globalThis>(
-    options: CDPOptions = {}
-  ): Promise<CDP<T>> {
-    return CDP.connect<T>((t) => t.type === "page", options)
-  }
-
-  // ============================================================================
-  // Core methods
-  // ============================================================================
-
-  /** Send a CDP command */
   send<T = unknown>(method: string, params: Record<string, unknown> = {}): Promise<T> {
     return new Promise((resolve, reject) => {
       const id = this.nextId++
@@ -200,279 +87,49 @@ export class CDP<TRemote = typeof globalThis> {
     })
   }
 
-  /** Subscribe to a CDP event */
   on(event: string, handler: EventHandler): () => void {
-    if (!this.eventHandlers.has(event)) {
-      this.eventHandlers.set(event, [])
-    }
-    this.eventHandlers.get(event)!.push(handler)
+    if (!this.events.has(event)) this.events.set(event, [])
+    this.events.get(event)!.push(handler)
     return () => {
-      const handlers = this.eventHandlers.get(event)
+      const handlers = this.events.get(event)
       if (handlers) {
-        const idx = handlers.indexOf(handler)
-        if (idx !== -1) handlers.splice(idx, 1)
+        const i = handlers.indexOf(handler)
+        if (i !== -1) handlers.splice(i, 1)
       }
     }
   }
 
-  /** Wait for a CDP event once */
   once<T = unknown>(event: string, timeout = 5000): Promise<T> {
     return new Promise((resolve, reject) => {
-      const timer = setTimeout(() => {
-        unsubscribe()
-        reject(new Error(`Timeout waiting for ${event}`))
-      }, timeout)
-      const unsubscribe = this.on(event, (params) => {
-        clearTimeout(timer)
-        unsubscribe()
-        resolve(params as T)
-      })
+      const timer = setTimeout(() => { unsub(); reject(new Error(`Timeout: ${event}`)) }, timeout)
+      const unsub = this.on(event, (p) => { clearTimeout(timer); unsub(); resolve(p as T) })
     })
   }
 
-  /** Close the WebSocket connection */
-  close(): void {
+  close() {
     this.ws.close()
-    for (const request of this.pending.values()) {
-      request.reject(new Error("Connection closed"))
-    }
+    for (const r of this.pending.values()) r.reject(new Error("Connection closed"))
     this.pending.clear()
   }
 
-  /** Check if connected */
-  get connected(): boolean {
-    return this.ws.readyState === WebSocket.OPEN
-  }
-
   async eval<T = unknown>(expression: string): Promise<T> {
-    const result = await this.send<EvalResult>("Runtime.evaluate", {
-      expression,
-      returnByValue: true,
-      awaitPromise: true,
-    })
-    if (result.exceptionDetails) {
-      const d = result.exceptionDetails
-      throw new Error(d.exception?.description || d.text)
-    }
-    return result.result?.value as T
+    const r = await this.send<EvalResult>("Runtime.evaluate", { expression, returnByValue: true, awaitPromise: true })
+    if (r.exceptionDetails) throw new Error(r.exceptionDetails.exception?.description || r.exceptionDetails.text)
+    return r.result?.value as T
   }
 
-  /**
-   * Run a function in the remote context.
-   * The function receives `globalThis` as its first argument.
-   */
-  async run<T, A extends unknown[]>(
-    fn: (remote: TRemote, ...args: A) => T,
-    ...args: A
-  ): Promise<Awaited<T>> {
-    const serializedArgs = JSON.stringify(args)
-    const expression = `(${fn.toString()}).apply(null, [globalThis, ...${serializedArgs}])`
-    return this.eval<Awaited<T>>(expression)
+  async run<T, A extends unknown[]>(fn: (g: typeof globalThis, ...args: A) => T, ...args: A): Promise<Awaited<T>> {
+    return this.eval(`(${fn.toString()}).apply(null, [globalThis, ...${JSON.stringify(args)}])`)
   }
 
-  /** Get properties of a remote object */
-  async getProperties(
-    objectId: string,
-    options: { ownProperties?: boolean; includeInternal?: boolean } = {},
-  ): Promise<{ result: PropertyDescriptor[]; internalProperties?: PropertyDescriptor[] }> {
-    const result = await this.send<{
-      result: PropertyDescriptor[]
-      internalProperties?: PropertyDescriptor[]
-    }>("Runtime.getProperties", {
-      objectId,
-      ownProperties: options.ownProperties ?? true,
-      generatePreview: true,
-    })
-    return { result: result.result, internalProperties: result.internalProperties }
-  }
+  async enableDebugger() { await this.send("Runtime.enable"); await this.send("Debugger.enable") }
+  async resume() { await this.send("Debugger.resume") }
+  async waitForPause(timeout = 5000) { return this.once<PausedEvent>("Debugger.paused", timeout) }
 
-  async debuggerEnable(): Promise<void> {
-    await this.send("Debugger.enable")
-  }
-
-  async debuggerPause(): Promise<void> {
-    await this.send("Debugger.pause")
-  }
-
-  async debuggerResume(): Promise<void> {
-    await this.send("Debugger.resume")
-  }
-
-  async waitForPause(timeout = 5000): Promise<PausedEvent> {
-    return this.once<PausedEvent>("Debugger.paused", timeout)
-  }
-
-  async evalOnFrame<T = unknown>(callFrameId: string, expression: string): Promise<T> {
-    const result = await this.send<EvalResult>("Debugger.evaluateOnCallFrame", {
-      callFrameId,
-      expression,
-      returnByValue: true,
-    })
-    if (result.exceptionDetails) {
-      const d = result.exceptionDetails
-      throw new Error(d.exception?.description || d.text)
-    }
-    return result.result?.value as T
-  }
-
-  /**
-   * Run a function on a specific call frame.
-   * The function receives `this` from that frame as its first argument.
-   */
-  async runOnFrame<T, A extends unknown[]>(
-    callFrameId: string,
-    fn: (frameThis: unknown, ...args: A) => T,
-    ...args: A
-  ): Promise<Awaited<T>> {
-    const serializedArgs = JSON.stringify(args)
-    const expression = `(${fn.toString()}).apply(null, [this, ...${serializedArgs}])`
-    return this.evalOnFrame<Awaited<T>>(callFrameId, expression)
-  }
-
-  /** Pause on an event handler, run extraction function, resume. Safe cleanup on error. */
-  async extractOnEvent<T>(
-    eventType: string,
-    extract: (frameThis: unknown) => T,
-    options: { timeout?: number } = {}
-  ): Promise<Awaited<T>> {
-    const { timeout = 5000 } = options
-
-    await this.send("Runtime.enable")
-    await this.send("DOM.enable")
-    await this.debuggerEnable()
-
-    // Find the event listener
-    const docResult = await this.send<{ result: { objectId: string } }>(
-      "Runtime.evaluate",
-      { expression: "document", returnByValue: false }
-    )
-
-    const { listeners } = await this.send<{
-      listeners: { type: string; scriptId: string; lineNumber: number; columnNumber: number }[]
-    }>("DOMDebugger.getEventListeners", {
-      objectId: docResult.result.objectId,
-      depth: 1,
-    })
-
-    const target = listeners.find((l) => l.type === eventType)
-    if (!target) {
-      throw new Error(`No "${eventType}" listener found on document`)
-    }
-
-    // Set breakpoint
-    const bp = await this.send<{ breakpointId: string }>("Debugger.setBreakpoint", {
-      location: {
-        scriptId: target.scriptId,
-        lineNumber: target.lineNumber,
-        columnNumber: target.columnNumber,
-      },
-    })
-
-    try {
-      // Dispatch synthetic event
-      await this.run(
-        (g, et) => {
-          setTimeout(() => {
-            g.document.dispatchEvent(new MouseEvent(et, { bubbles: true, clientX: 100, clientY: 100 }))
-          }, 50)
-        },
-        eventType
-      )
-
-      // Wait for pause
-      const paused = await this.waitForPause(timeout)
-      const frameId = paused.callFrames[0].callFrameId
-
-      // Run extraction
-      return await this.runOnFrame(frameId, extract)
-    } finally {
-      // Always clean up
-      await this.send("Debugger.removeBreakpoint", { breakpointId: bp.breakpointId }).catch(() => {})
-      await this.debuggerResume().catch(() => {})
-    }
-  }
-
-  /** Cache `this` from an event handler to a global. Only extracts once unless force=true. */
-  async cacheFromEvent(
-    globalName: string,
-    eventType: string,
-    options: { timeout?: number; force?: boolean } = {}
-  ): Promise<void> {
-    const { force = false } = options
-
-    // Check if already cached
-    if (!force) {
-      const exists = await this.eval<boolean>(`typeof ${globalName} !== 'undefined'`)
-      if (exists) return
-    }
-
-    // Extract and cache - use evalOnFrame directly to interpolate globalName
-    const { timeout = 5000 } = options
-
-    await this.send("Runtime.enable")
-    await this.send("DOM.enable")
-    await this.debuggerEnable()
-
-    const docResult = await this.send<{ result: { objectId: string } }>(
-      "Runtime.evaluate",
-      { expression: "document", returnByValue: false }
-    )
-
-    const { listeners } = await this.send<{
-      listeners: { type: string; scriptId: string; lineNumber: number; columnNumber: number }[]
-    }>("DOMDebugger.getEventListeners", {
-      objectId: docResult.result.objectId,
-      depth: 1,
-    })
-
-    const target = listeners.find((l) => l.type === eventType)
-    if (!target) {
-      throw new Error(`No "${eventType}" listener found on document`)
-    }
-
-    const bp = await this.send<{ breakpointId: string }>("Debugger.setBreakpoint", {
-      location: {
-        scriptId: target.scriptId,
-        lineNumber: target.lineNumber,
-        columnNumber: target.columnNumber,
-      },
-    })
-
-    try {
-      await this.run(
-        (g, et) => {
-          setTimeout(() => {
-            g.document.dispatchEvent(new MouseEvent(et, { bubbles: true, clientX: 100, clientY: 100 }))
-          }, 50)
-        },
-        eventType
-      )
-
-      const paused = await this.waitForPause(timeout)
-      const frameId = paused.callFrames[0].callFrameId
-
-      // Cache `this` to the global - don't return by value (it's huge)
-      await this.send("Debugger.evaluateOnCallFrame", {
-        callFrameId: frameId,
-        expression: `globalThis.${globalName} = this`,
-        returnByValue: false,
-      })
-    } finally {
-      await this.send("Debugger.removeBreakpoint", { breakpointId: bp.breakpointId }).catch(() => {})
-      await this.debuggerResume().catch(() => {})
-    }
-  }
-
-  /** Run a function with access to a cached global variable. */
-  async runWithGlobal<T, A extends unknown[]>(
-    globalName: string,
-    fn: (cached: unknown, ...args: A) => T,
-    ...args: A
-  ): Promise<Awaited<T>> {
-    const serializedArgs = JSON.stringify(args)
-    return this.eval<Awaited<T>>(
-      `(${fn.toString()})(${globalName}, ...${serializedArgs})`
-    )
+  async evalOnFrame(frameId: string, expression: string, returnByValue = true) {
+    const r = await this.send<EvalResult>("Debugger.evaluateOnCallFrame", { callFrameId: frameId, expression, returnByValue })
+    if (r.exceptionDetails) throw new Error(r.exceptionDetails.exception?.description || r.exceptionDetails.text)
+    return r.result?.value
   }
 }
 
@@ -480,60 +137,22 @@ if (import.meta.main) {
   const [cmd, ...rest] = Bun.argv.slice(2)
   const arg = rest.join(" ")
 
-  const commands: Record<string, () => Promise<void>> = {
-    async list() {
-      const targets = await getTargets()
-      for (const t of targets) {
-        console.log(`[${t.type}] ${t.title}`)
-        console.log(`  ${t.url}`)
-      }
-    },
-
-    async eval() {
-      const client = await CDP.connectPage()
-      try {
-        const result = await client.eval(arg)
-        if (result !== undefined) {
-          console.log(typeof result === "object" ? JSON.stringify(result, null, 2) : result)
-        }
-      } finally {
-        client.close()
-      }
-    },
-
-    async repl() {
-      const client = await CDP.connectPage()
-      console.log(`Connected: ${client.target.title}\n`)
+  if (cmd === "list" || cmd === "ls") {
+    for (const t of await getTargets()) console.log(`[${t.type}] ${t.title}\n  ${t.url}`)
+  } else if (cmd === "eval" || cmd === "e") {
+    const c = await CDP.connect((t) => t.type === "page")
+    try { const r = await c.eval(arg); if (r !== undefined) console.log(typeof r === "object" ? JSON.stringify(r, null, 2) : r) }
+    finally { c.close() }
+  } else if (cmd === "repl") {
+    const c = await CDP.connect((t) => t.type === "page")
+    console.log(`Connected: ${c.target.title}\n`)
+    process.stdout.write("> ")
+    for await (const line of console) {
+      if (line.trim()) try { const r = await c.eval(line); if (r !== undefined) console.log(typeof r === "object" ? JSON.stringify(r, null, 2) : r) } catch (e) { console.error(e instanceof Error ? e.message : e) }
       process.stdout.write("> ")
-      try {
-        for await (const line of console) {
-          if (line.trim()) {
-            try {
-              const result = await client.eval(line)
-              if (result !== undefined) {
-                console.log(typeof result === "object" ? JSON.stringify(result, null, 2) : result)
-              }
-            } catch (e) {
-              console.error(e instanceof Error ? e.message : e)
-            }
-          }
-          process.stdout.write("> ")
-        }
-      } finally {
-        client.close()
-      }
-    },
-
-    async help() {
-      console.log(`CDP client
-
-  bun cdp.ts list          List targets
-  bun cdp.ts eval <expr>   Evaluate JS
-  bun cdp.ts repl          Interactive REPL`)
-    },
+    }
+    c.close()
+  } else {
+    console.log("CDP client\n  bun cdp.ts list|eval <expr>|repl")
   }
-
-  commands.ls = commands.list
-  commands.e = commands.eval
-  await (commands[cmd] || commands.help)()
 }
