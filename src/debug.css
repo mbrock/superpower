@@ -1,0 +1,40 @@
+.vs-dark.monaco-editor .ced-2-TextEditorDecorationType40-0, .hc-black.monaco-editor .ced-2-TextEditorDecorationType40-0 { background-color: rgba(128, 128, 128, 0.1); }
+.vs.monaco-editor .ced-2-TextEditorDecorationType40-0, .hc-light.monaco-editor .ced-2-TextEditorDecorationType40-0 { background-color: rgba(160, 160, 160, 0.1); }
+.monaco-editor .ced-2-TextEditorDecorationType37-4::after { content: " (Incoming Change)"; color: rgb(170, 170, 170) !important; }
+.monaco-editor .ced-2-TextEditorDecorationType37-1 { color: rgb(250, 240, 230) !important; }
+.monaco-editor .ced-2-TextEditorDecorationType37-0 { background-color: rgba(64, 166, 255, 0.5); outline: transparent solid 1pt; }
+.monaco-editor .ced-2-TextEditorDecorationType36-1 { color: rgb(250, 240, 230) !important; }
+.monaco-editor .ced-2-TextEditorDecorationType36-0 { outline: transparent solid 1pt; }
+.monaco-editor .ced-2-TextEditorDecorationType35-1 { color: rgb(250, 240, 230) !important; }
+.monaco-editor .ced-2-TextEditorDecorationType35-0 { background-color: rgba(96, 96, 96, 0.4); outline: transparent solid 1pt; }
+.monaco-editor .ced-2-TextEditorDecorationType34-4::after { content: " (Current Change)"; color: rgb(170, 170, 170) !important; }
+.monaco-editor .ced-2-TextEditorDecorationType34-1 { color: rgb(250, 240, 230) !important; }
+.monaco-editor .ced-2-TextEditorDecorationType34-0 { background-color: rgba(64, 200, 174, 0.5); outline: transparent solid 1pt; }
+.monaco-editor .ced-2-TextEditorDecorationType33-0 { background-color: rgba(96, 96, 96, 0.16); }
+.monaco-editor .ced-2-TextEditorDecorationType32-0 { background-color: rgba(64, 166, 255, 0.2); }
+.monaco-editor .ced-2-TextEditorDecorationType31-0 { background-color: rgba(64, 200, 174, 0.2); }
+.monaco-editor .ced-2-TextEditorDecorationType30-1 { text-decoration: none; background-color: oklch(0.7 0.18 55 / 0.12); }
+.monaco-editor .ced-2-TextEditorDecorationType29-1 { text-decoration: none; background-color: oklch(0.9 0 0 / 0.04); }
+.monaco-editor .ced-2-TextEditorDecorationType28-1 { text-decoration: none; background-color: oklch(0.75 0.08 85 / 0.05); }
+.monaco-editor .ced-2-TextEditorDecorationType27-1 { text-decoration: none; background-color: oklch(0.75 0.08 85 / 0.08); }
+.monaco-editor .ced-2-TextEditorDecorationType26-1 { text-decoration: none; background-color: oklch(0.7 0.15 165 / 0.12); }
+.monaco-editor .ced-2-TextEditorDecorationType25-1 { text-decoration: none; background-color: oklch(0.75 0.15 195 / 0.08); }
+.monaco-editor .ced-2-TextEditorDecorationType24-1 { text-decoration: none; background-color: oklch(0.75 0.15 195 / 0.12); }
+.monaco-editor .ced-2-TextEditorDecorationType23-1 { text-decoration: none; background-color: oklch(0.75 0.15 195 / 0.12); }
+.monaco-editor .ced-2-TextEditorDecorationType22-1 { text-decoration: none; background-color: oklch(0.75 0.15 195 / 0.12); }
+.monaco-editor .ced-2-TextEditorDecorationType21-1 { text-decoration: none; background-color: oklch(0.75 0.15 195 / 0.12); }
+.monaco-editor .ced-2-TextEditorDecorationType20-1 { text-decoration: none; background-color: oklch(0.65 0.25 300 / 0.17); }
+.monaco-editor .ced-2-TextEditorDecorationType19-1 {
+  text-decoration: none; background-color: oklch(0.65 0.25 300 / 0.15); box-shadow: oklch(0.65 0.25 300 / 0.17) 0px 0px 2ch 0ch;
+  .view-line & { }
+}
+.monaco-editor .ced-2-TextEditorDecorationType18-2 { background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><polygon fill='rgb(241,76,76)' points='13,10 13,18 17,14'/></svg>") center center / contain no-repeat; }
+.monaco-editor .ced-2-TextEditorDecorationType17-2 { background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><rect fill='rgb(27,129,168)' x='13' y='0' width='3' height='18'/></svg>") center center / contain no-repeat; }
+.monaco-editor .ced-2-TextEditorDecorationType17-0 { background-color: rgba(27, 129, 168, 0.4); }
+.monaco-editor .ced-2-TextEditorDecorationType16-2 { background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><rect fill='rgb(72,126,2)' x='13' y='0' width='3' height='18'/></svg>") center center / contain no-repeat; }
+.monaco-editor .ced-2-TextEditorDecorationType16-0 { background-color: rgba(72, 126, 2, 0.4); }
+.monaco-editor .ced-2-TextEditorDecorationType15-2 { background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><rect fill='%2300bcf2' fill-opacity='0.6' x='7' y='0' width='3' height='18'/></svg>") center center / contain no-repeat; }
+.monaco-editor .ced-2-TextEditorDecorationType15-0 { background-color: rgba(0, 188, 242, 0.2); }
+.monaco-editor .ced-2-TextEditorDecorationType3-4::after { text-decoration: none; margin: 0px 0px 0px 3em; }
+.monaco-editor .ced-2-TextEditorDecorationType2-1 { text-decoration: none; }
+.monaco-editor .ced-2-TextEditorDecorationType1-1 { text-decoration: none; cursor: pointer; color: rgb(218, 165, 32) !important; }

@@ -1,0 +1,11 @@
+.vscode/**
+node_modules/**
+src/**
+*.lock
+*.ts
+!out/**/*.js
+out/**/*.d.ts
+out/**/*.d.ts.map
+.prettierrc
+example.*
+gen.*
