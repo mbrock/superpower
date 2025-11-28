@@ -122,9 +122,31 @@ export class CDP<TRemote = typeof globalThis> {
     return this.eval(`(${fn.toString()}).apply(null, [globalThis, ...${JSON.stringify(args)}])`)
   }
 
+  // DOM
+  async enableDOM() { await this.send("DOM.enable") }
+
+  async getEventListeners(objectId: string) {
+    const { listeners } = await this.send<{
+      listeners: { type: string; scriptId: string; lineNumber: number; columnNumber: number }[]
+    }>("DOMDebugger.getEventListeners", { objectId, depth: 1 })
+    return listeners
+  }
+
+  // Debugger
   async enableDebugger() { await this.send("Runtime.enable"); await this.send("Debugger.enable") }
   async resume() { await this.send("Debugger.resume") }
   async waitForPause(timeout = 5000) { return this.once<PausedEvent>("Debugger.paused", timeout) }
+
+  async setBreakpoint(scriptId: string, lineNumber: number, columnNumber: number) {
+    const { breakpointId } = await this.send<{ breakpointId: string }>("Debugger.setBreakpoint", {
+      location: { scriptId, lineNumber, columnNumber },
+    })
+    return breakpointId
+  }
+
+  async removeBreakpoint(breakpointId: string) {
+    await this.send("Debugger.removeBreakpoint", { breakpointId }).catch(() => {})
+  }
 
   async evalOnFrame(frameId: string, expression: string, returnByValue = true) {
     const r = await this.send<EvalResult>("Debugger.evaluateOnCallFrame", { callFrameId: frameId, expression, returnByValue })

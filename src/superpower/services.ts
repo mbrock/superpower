@@ -20,21 +20,16 @@ export async function getServices() {
 }
 
 async function extractAndCache(cdp: CDP<CursorRenderer>) {
-  await cdp.send("DOM.enable")
+  await cdp.enableDOM()
   await cdp.enableDebugger()
 
   const docId = await cdp.getObjectId((g) => g.document)
-
-  const { listeners } = await cdp.send<{
-    listeners: { type: string; scriptId: string; lineNumber: number; columnNumber: number }[]
-  }>("DOMDebugger.getEventListeners", { objectId: docId, depth: 1 })
+  const listeners = await cdp.getEventListeners(docId)
 
   const target = listeners.find((l) => l.type === "mouseout")
   if (!target) throw new Error("No mouseout listener found")
 
-  const { breakpointId } = await cdp.send<{ breakpointId: string }>("Debugger.setBreakpoint", {
-    location: { scriptId: target.scriptId, lineNumber: target.lineNumber, columnNumber: target.columnNumber },
-  })
+  const breakpointId = await cdp.setBreakpoint(target.scriptId, target.lineNumber, target.columnNumber)
 
   try {
     await cdp.run((g) => {
@@ -46,7 +41,7 @@ async function extractAndCache(cdp: CDP<CursorRenderer>) {
       g.instantiationService = frameThis.instantiationService
     })
   } finally {
-    await cdp.send("Debugger.removeBreakpoint", { breakpointId }).catch(() => {})
-    await cdp.resume().catch(() => {})
+    await cdp.removeBreakpoint(breakpointId)
+    await cdp.resume()
   }
 }
