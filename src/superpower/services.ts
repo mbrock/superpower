@@ -42,8 +42,8 @@ async function extractAndCache(cdp: CDP<CursorRenderer>) {
     })
 
     const { callFrames } = await cdp.waitForPause()
-    await cdp.runOnFrame(callFrames[0].callFrameId, (frameThis) => {
-      ;(globalThis as typeof frameThis).instantiationService = frameThis.instantiationService
+    await cdp.runOnFrame(callFrames[0].callFrameId, (g, frameThis: { instantiationService: unknown }) => {
+      g.instantiationService = frameThis.instantiationService
     })
   } finally {
     await cdp.send("Debugger.removeBreakpoint", { breakpointId }).catch(() => {})
