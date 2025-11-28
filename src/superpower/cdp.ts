@@ -38,7 +38,7 @@ export async function getTargets(host = DEFAULT_HOST, port = DEFAULT_PORT): Prom
   return (await fetch(`http://${host}:${port}/json/list`)).json()
 }
 
-export class CDP {
+export class CDP<TRemote = typeof globalThis> {
   private ws: WebSocket
   private nextId = 1
   private pending = new Map<number, PendingRequest>()
@@ -70,11 +70,11 @@ export class CDP {
     })
   }
 
-  static async connect(predicate: (t: CDPTarget) => boolean, host = DEFAULT_HOST, port = DEFAULT_PORT): Promise<CDP> {
+  static async connect<T = typeof globalThis>(predicate: (t: CDPTarget) => boolean, host = DEFAULT_HOST, port = DEFAULT_PORT): Promise<CDP<T>> {
     const targets = await getTargets(host, port)
     const target = targets.find(predicate)
     if (!target) throw new Error(`No matching target at ${host}:${port}`)
-    const client = new CDP(target, new WebSocket(target.webSocketDebuggerUrl))
+    const client = new CDP<T>(target, new WebSocket(target.webSocketDebuggerUrl))
     await client.ready
     return client
   }
@@ -118,7 +118,7 @@ export class CDP {
     return r.result?.value as T
   }
 
-  async run<T, A extends unknown[]>(fn: (g: typeof globalThis, ...args: A) => T, ...args: A): Promise<Awaited<T>> {
+  async run<T, A extends unknown[]>(fn: (g: TRemote, ...args: A) => T, ...args: A): Promise<Awaited<T>> {
     return this.eval(`(${fn.toString()}).apply(null, [globalThis, ...${JSON.stringify(args)}])`)
   }
 
@@ -132,11 +132,11 @@ export class CDP {
     return r.result?.value
   }
 
-  async runOnFrame<T, A extends unknown[]>(frameId: string, fn: (frameThis: unknown, ...args: A) => T, ...args: A): Promise<Awaited<T>> {
+  async runOnFrame<T, A extends unknown[]>(frameId: string, fn: (frameThis: TRemote, ...args: A) => T, ...args: A): Promise<Awaited<T>> {
     return this.evalOnFrame(frameId, `(${fn.toString()}).apply(null, [this, ...${JSON.stringify(args)}])`) as Promise<Awaited<T>>
   }
 
-  async getObjectId<T>(fn: (g: typeof globalThis) => T): Promise<string> {
+  async getObjectId<T>(fn: (g: TRemote) => T): Promise<string> {
     const r = await this.send<EvalResult>("Runtime.evaluate", {
       expression: `(${fn.toString()})(globalThis)`,
       returnByValue: false,
