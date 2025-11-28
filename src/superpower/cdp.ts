@@ -119,7 +119,7 @@ export class CDP<TRemote = typeof globalThis> {
   }
 
   async run<T, A extends unknown[]>(fn: (g: TRemote, ...args: A) => T, ...args: A): Promise<Awaited<T>> {
-    return this.eval(`(${fn.toString()}).apply(null, [globalThis, ...${JSON.stringify(args)}])`)
+    return this.eval<Awaited<T>>(`(${fn.toString()}).apply(null, [globalThis, ...${JSON.stringify(args)}])`)
   }
 
   async runOnFrame<T, A extends unknown[]>(frameId: string, fn: (g: TRemote, frameThis: unknown, ...args: A) => T, ...args: A): Promise<Awaited<T>> {

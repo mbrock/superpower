@@ -7,8 +7,8 @@ import { CDP } from "./cdp"
 import type { CursorRenderer } from "./cursor-renderer"
 
 // Connect to Cursor's workbench with full typing
-const cursor = await CDP.connect<CursorRenderer>(
-  (t) => t.url.includes("workbench.html")
+const cursor = await CDP.connect<CursorRenderer>((t) =>
+  t.url.includes("workbench.html"),
 )
 
 console.log("Connected to:", cursor.target.title)
@@ -29,7 +29,7 @@ console.log(info)
 // Pass additional arguments after the function
 await cursor.run(
   (r, msg) => r.console.log(`%c${msg}`, "color: #ff69b4; font-size: 20px"),
-  "Hello from CDP! 🎉"
+  "Hello from CDP! 🎉",
 )
 
 console.log("\n📝 Logged a message to the Cursor console")

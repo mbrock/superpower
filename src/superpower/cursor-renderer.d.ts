@@ -46,15 +46,15 @@ interface VSCodeIpcRenderer {
   invoke(channel: string, ...args: unknown[]): Promise<unknown>
   on(
     channel: string,
-    listener: (event: Electron.IpcRendererEvent, ...args: unknown[]) => void
+    listener: (event: Electron.IpcRendererEvent, ...args: unknown[]) => void,
   ): VSCodeIpcRenderer
   once(
     channel: string,
-    listener: (event: Electron.IpcRendererEvent, ...args: unknown[]) => void
+    listener: (event: Electron.IpcRendererEvent, ...args: unknown[]) => void,
   ): VSCodeIpcRenderer
   removeListener(
     channel: string,
-    listener: (event: Electron.IpcRendererEvent, ...args: unknown[]) => void
+    listener: (event: Electron.IpcRendererEvent, ...args: unknown[]) => void,
   ): VSCodeIpcRenderer
 }
 
@@ -184,7 +184,7 @@ export interface CursorRenderer {
     load(
       modulePaths: string[],
       resultCallback: (result: unknown) => void,
-      options?: { forceEnableDeveloperKeybindings?: boolean }
+      options?: { forceEnableDeveloperKeybindings?: boolean },
     ): void
   }
 
@@ -207,7 +207,7 @@ export interface CursorRenderer {
     render(
       id: string,
       text: string,
-      container?: Element
+      container?: Element,
     ): Promise<{ svg: string }>
     parse(text: string): Promise<boolean>
     initialize(config: Record<string, unknown>): void

@@ -4,7 +4,12 @@
  * Run with: bun src/superpower/debugger-explore.ts
  */
 
-import { CDP, type CallFrame, type RemoteObject, type PropertyDescriptor } from "./cdp"
+import {
+  CDP,
+  type CallFrame,
+  type RemoteObject,
+  type PropertyDescriptor,
+} from "./cdp"
 
 interface EventListener {
   type: string
@@ -24,7 +29,10 @@ function printRemoteObject(obj: RemoteObject, indent = "") {
   if (obj.subtype) console.log(`${indent}subtype: ${obj.subtype}`)
   if (obj.className) console.log(`${indent}className: ${obj.className}`)
   if (obj.description) {
-    const desc = obj.description.length > 100 ? obj.description.slice(0, 100) + "..." : obj.description
+    const desc =
+      obj.description.length > 100
+        ? obj.description.slice(0, 100) + "..."
+        : obj.description
     console.log(`${indent}description: ${desc}`)
   }
 }
@@ -33,16 +41,23 @@ async function printScopeChain(client: CDP, frame: CallFrame) {
   for (const scope of frame.scopeChain) {
     if (scope.type === "global") continue // skip global, too big
 
-    console.log(`\n      🔗 ${scope.type}${scope.name ? ` "${scope.name}"` : ""}:`)
+    console.log(
+      `\n      🔗 ${scope.type}${scope.name ? ` "${scope.name}"` : ""}:`,
+    )
 
     if (scope.object.objectId) {
       try {
-        const { result: props } = await client.getProperties(scope.object.objectId)
-        const interesting = props.filter(p =>
-          p.value &&
-          p.value.type !== "undefined" &&
-          !p.name.startsWith("__")
-        ).slice(0, 10)
+        const { result: props } = await client.getProperties(
+          scope.object.objectId,
+        )
+        const interesting = props
+          .filter(
+            (p) =>
+              p.value &&
+              p.value.type !== "undefined" &&
+              !p.name.startsWith("__"),
+          )
+          .slice(0, 10)
 
         for (const p of interesting) {
           if (p.value) {
@@ -61,7 +76,7 @@ async function printScopeChain(client: CDP, frame: CallFrame) {
 async function explore() {
   console.log("\n🔍 CDP Breakpoint Explorer\n")
 
-  const client = await CDP.connect(t => t.url.includes("workbench.html"))
+  const client = await CDP.connect((t) => t.url.includes("workbench.html"))
   console.log(`✅ Connected to: ${client.target.title}\n`)
 
   await client.send("Runtime.enable")
@@ -69,15 +84,21 @@ async function explore() {
   await client.debuggerEnable()
 
   // Get document's event listeners
-  const docResult = await client.send<{ result: { objectId: string } }>("Runtime.evaluate", {
-    expression: "document",
-    returnByValue: false,
-  })
+  const docResult = await client.send<{ result: { objectId: string } }>(
+    "Runtime.evaluate",
+    {
+      expression: "document",
+      returnByValue: false,
+    },
+  )
 
-  const { listeners } = await client.send<{ listeners: EventListener[] }>("DOMDebugger.getEventListeners", {
-    objectId: docResult.result.objectId,
-    depth: 1,
-  })
+  const { listeners } = await client.send<{ listeners: EventListener[] }>(
+    "DOMDebugger.getEventListeners",
+    {
+      objectId: docResult.result.objectId,
+      depth: 1,
+    },
+  )
 
   console.log(`📋 Document has ${listeners.length} event listeners:\n`)
 
@@ -91,15 +112,18 @@ async function explore() {
   for (const [type, handlers] of byType) {
     console.log(`   ${type}: ${handlers.length} handler(s)`)
     for (const h of handlers.slice(0, 2)) {
-      console.log(`      script:${h.scriptId} @ ${h.lineNumber}:${h.columnNumber}`)
+      console.log(
+        `      script:${h.scriptId} @ ${h.lineNumber}:${h.columnNumber}`,
+      )
     }
   }
 
   // Find handler with services - mouseout/mousemove on document have the service container
-  const target = listeners.find(l => l.type === "mouseout")
-    || listeners.find(l => l.type === "mousemove")
-    || listeners.find(l => l.type === "focusin")
-    || listeners[0]
+  const target =
+    listeners.find((l) => l.type === "mouseout") ||
+    listeners.find((l) => l.type === "mousemove") ||
+    listeners.find((l) => l.type === "focusin") ||
+    listeners[0]
 
   if (!target) {
     console.log("\n❌ No listeners found!")
@@ -109,29 +133,41 @@ async function explore() {
 
   console.log(`\n🎯 Setting breakpoint on "${target.type}" handler:`)
   console.log(`   scriptId: ${target.scriptId}`)
-  console.log(`   location: line ${target.lineNumber}, column ${target.columnNumber}`)
-
-  // Set the breakpoint
-  const bp = await client.send<{ breakpointId: string; actualLocation: { scriptId: string; lineNumber: number; columnNumber: number } }>(
-    "Debugger.setBreakpoint",
-    {
-      location: {
-        scriptId: target.scriptId,
-        lineNumber: target.lineNumber,
-        columnNumber: target.columnNumber,
-      },
-    },
+  console.log(
+    `   location: line ${target.lineNumber}, column ${target.columnNumber}`,
   )
 
+  // Set the breakpoint
+  const bp = await client.send<{
+    breakpointId: string
+    actualLocation: {
+      scriptId: string
+      lineNumber: number
+      columnNumber: number
+    }
+  }>("Debugger.setBreakpoint", {
+    location: {
+      scriptId: target.scriptId,
+      lineNumber: target.lineNumber,
+      columnNumber: target.columnNumber,
+    },
+  })
+
   console.log(`   ✅ Breakpoint set: ${bp.breakpointId}`)
-  console.log(`   actual location: ${bp.actualLocation.lineNumber}:${bp.actualLocation.columnNumber}`)
+  console.log(
+    `   actual location: ${bp.actualLocation.lineNumber}:${bp.actualLocation.columnNumber}`,
+  )
 
   console.log(`\n⏳ Waiting for ${target.type} event (3s timeout)...\n`)
 
   // Schedule event dispatch in the browser (will fire after we start waiting)
   await client.run((g, eventType) => {
     setTimeout(() => {
-      const event = new MouseEvent(eventType, { bubbles: true, clientX: 100, clientY: 100 })
+      const event = new MouseEvent(eventType, {
+        bubbles: true,
+        clientX: 100,
+        clientY: 100,
+      })
       g.document.dispatchEvent(event)
     }, 50)
   }, target.type)
@@ -142,7 +178,9 @@ async function explore() {
     event = await client.waitForPause(3000)
   } catch (e) {
     console.log(`⏰ Timeout - removing breakpoint and exiting`)
-    await client.send("Debugger.removeBreakpoint", { breakpointId: bp.breakpointId })
+    await client.send("Debugger.removeBreakpoint", {
+      breakpointId: bp.breakpointId,
+    })
     await client.debuggerResume().catch(() => {})
     client.close()
     return
@@ -159,29 +197,45 @@ async function explore() {
     console.log(`\n📍 FRAME ${i}: ${frame.functionName || "(anonymous)"}`)
     console.log("-".repeat(50))
 
-    const urlPart = frame.url ? frame.url.split("/").slice(-2).join("/") : `script:${frame.location.scriptId}`
-    console.log(`   location: ${urlPart} @ ${frame.location.lineNumber}:${frame.location.columnNumber}`)
+    const urlPart = frame.url
+      ? frame.url.split("/").slice(-2).join("/")
+      : `script:${frame.location.scriptId}`
+    console.log(
+      `   location: ${urlPart} @ ${frame.location.lineNumber}:${frame.location.columnNumber}`,
+    )
 
     // Show `this`
     console.log(`\n   📌 this:`)
     printRemoteObject(frame.this, "      ")
 
     // If this is an interesting object, dig in
-    if (frame.this.objectId && frame.this.type === "object" && frame.this.subtype !== "null") {
+    if (
+      frame.this.objectId &&
+      frame.this.type === "object" &&
+      frame.this.subtype !== "null"
+    ) {
       try {
-        const { result: props } = await client.getProperties(frame.this.objectId)
-        const interesting = props.filter(p =>
-          p.name.startsWith("_") ||
-          p.name.includes("Service") ||
-          p.name.includes("Context") ||
-          p.name.includes("controller")
-        ).slice(0, 8)
+        const { result: props } = await client.getProperties(
+          frame.this.objectId,
+        )
+        const interesting = props
+          .filter(
+            (p) =>
+              p.name.startsWith("_") ||
+              p.name.includes("Service") ||
+              p.name.includes("Context") ||
+              p.name.includes("controller"),
+          )
+          .slice(0, 8)
 
         if (interesting.length > 0) {
           console.log(`\n   📦 this properties (${props.length} total):`)
           for (const p of interesting) {
             if (p.value) {
-              const desc = p.value.className || p.value.description?.slice(0, 40) || p.value.type
+              const desc =
+                p.value.className ||
+                p.value.description?.slice(0, 40) ||
+                p.value.type
               console.log(`      .${p.name}: ${desc}`)
             }
           }
@@ -279,7 +333,8 @@ async function explore() {
               const entries = services._entries || services
               const serviceMap: Record<string, any> = {}
 
-              const iterator = entries.entries?.() || entries[Symbol.iterator]?.()
+              const iterator =
+                entries.entries?.() || entries[Symbol.iterator]?.()
               if (iterator) {
                 for (const [key, value] of iterator) {
                   const keyStr = String(key)
@@ -313,11 +368,13 @@ async function explore() {
                 index: g.index,
                 label: g.label,
                 editorCount: g.count,
-                activeEditor: g.activeEditor ? {
-                  name: g.activeEditor.getName?.(),
-                  resource: g.activeEditor.resource?.toString(),
-                  typeId: g.activeEditor.typeId,
-                } : null,
+                activeEditor: g.activeEditor
+                  ? {
+                      name: g.activeEditor.getName?.(),
+                      resource: g.activeEditor.resource?.toString(),
+                      typeId: g.activeEditor.typeId,
+                    }
+                  : null,
                 editors: g.editors?.map((e: any) => ({
                   name: e.getName?.(),
                   resource: e.resource?.toString(),
@@ -342,10 +399,16 @@ async function explore() {
                   const contextValues: Record<string, any> = {}
                   // Common context keys
                   const commonKeys = [
-                    "editorFocus", "textInputFocus", "inputFocus",
-                    "editorTextFocus", "editorHasSelection",
-                    "activeEditor", "resourceScheme", "resourcePath",
-                    "inDebugMode", "debugState",
+                    "editorFocus",
+                    "textInputFocus",
+                    "inputFocus",
+                    "editorTextFocus",
+                    "editorHasSelection",
+                    "activeEditor",
+                    "resourceScheme",
+                    "resourcePath",
+                    "inDebugMode",
+                    "debugState",
                   ]
                   for (const k of commonKeys) {
                     try {
@@ -393,8 +456,9 @@ async function explore() {
       const outputPath = "src/superpower/vscode-services.json"
       await Bun.write(outputPath, JSON.stringify(fullInfo, null, 2))
       console.log(`✅ Wrote service info to ${outputPath}`)
-      console.log(`   ${Object.keys(fullInfo.registeredServices || {}).length} registered services found`)
-
+      console.log(
+        `   ${Object.keys(fullInfo.registeredServices || {}).length} registered services found`,
+      )
     } catch (e) {
       console.log(`   Error: ${e}`)
     }
@@ -403,13 +467,15 @@ async function explore() {
   console.log("\n" + "=".repeat(70))
 
   // Remove breakpoint and resume
-  await client.send("Debugger.removeBreakpoint", { breakpointId: bp.breakpointId })
+  await client.send("Debugger.removeBreakpoint", {
+    breakpointId: bp.breakpointId,
+  })
   console.log("\n🗑️  Breakpoint removed")
 
   await client.debuggerResume()
   console.log("▶️  Resumed")
 
-  await new Promise(r => setTimeout(r, 200))
+  await new Promise((r) => setTimeout(r, 200))
 
   console.log("👋 Done!\n")
   client.close()

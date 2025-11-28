@@ -12,7 +12,10 @@ const getService = (is: any, name: string) => {
 
 const editor = await svc.run((g) => {
   const find = (name: string) => {
-    for (const [k, v] of g.instantiationService._services._entries.entries()) {
+    for (const [
+      k,
+      v,
+    ] of g.instantiationService._services._entries.entries()) {
       if (String(k) === name) return (v as any)?.value || v
     }
   }

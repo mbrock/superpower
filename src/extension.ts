@@ -42,7 +42,7 @@ function setupSemanticDecorating(context: vscode.ExtensionContext) {
         createDecorationTypes()
         triggerUpdateDecorations()
       }
-    })
+    }),
   )
 
   context.subscriptions.push(
@@ -50,7 +50,7 @@ function setupSemanticDecorating(context: vscode.ExtensionContext) {
       if (editor) {
         triggerUpdateDecorations()
       }
-    })
+    }),
   )
 
   context.subscriptions.push(
@@ -59,7 +59,7 @@ function setupSemanticDecorating(context: vscode.ExtensionContext) {
       if (editor && event.document === editor.document) {
         triggerUpdateDecorations()
       }
-    })
+    }),
   )
 
   if (vscode.window.activeTextEditor) {
