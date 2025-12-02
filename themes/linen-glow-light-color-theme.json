@@ -2,28 +2,28 @@
   "name": "Linen Glow Light",
   "type": "light",
   "colors": {
-    "editor.foreground": "#010000",
-    "foreground": "#010000",
-    "terminal.foreground": "#010000",
-    "editorCursor.foreground": "#010000",
-    "editorLineNumber.foreground": "#777165",
-    "editorLineNumber.activeForeground": "#322d22",
+    "editor.foreground": "#130900",
+    "foreground": "#130900",
+    "terminal.foreground": "#130900",
+    "editorCursor.foreground": "#130900",
+    "editorLineNumber.foreground": "#7c7057",
+    "editorLineNumber.activeForeground": "#372c15",
     "list.activeSelectionForeground": "#00006b",
     "list.inactiveSelectionForeground": "#00006b",
-    "list.hoverForeground": "#010000",
-    "statusBar.foreground": "#010000",
-    "editor.background": "#fffef0",
-    "terminal.background": "#fffef0",
-    "sideBar.background": "#eee7d9",
-    "activityBar.background": "#eee7d9",
-    "panel.background": "#eee7d9",
-    "tab.inactiveBackground": "#eee7d9",
-    "tab.activeBackground": "#fffef0",
-    "statusBar.background": "#d7d0c3",
-    "titleBar.activeBackground": "#d7d0c3",
-    "input.background": "#d7d0c3",
-    "dropdown.background": "#d7d0c3",
-    "list.hoverBackground": "#d7d0c3",
+    "list.hoverForeground": "#130900",
+    "statusBar.foreground": "#130900",
+    "editor.background": "#ffffff",
+    "terminal.background": "#ffffff",
+    "sideBar.background": "#e8e8e8",
+    "activityBar.background": "#e8e8e8",
+    "panel.background": "#e8e8e8",
+    "tab.inactiveBackground": "#e8e8e8",
+    "tab.activeBackground": "#ffffff",
+    "statusBar.background": "#d1d1d1",
+    "titleBar.activeBackground": "#d1d1d1",
+    "input.background": "#d1d1d1",
+    "dropdown.background": "#d1d1d1",
+    "list.hoverBackground": "#d1d1d1",
     "button.background": "#3a000073",
     "errorForeground": "#510000",
     "editorError.foreground": "#510000",
@@ -59,7 +59,7 @@
         "punctuation.definition.comment"
       ],
       "settings": {
-        "foreground": "#3a0000",
+        "foreground": "#1e1400",
         "fontStyle": "bold"
       }
     },
@@ -73,6 +73,20 @@
       "settings": {
         "foreground": "#4c0000",
         "fontStyle": "bold"
+      }
+    },
+    {
+      "name": "keyword",
+      "scope": [
+        "keyword",
+        "keyword.control",
+        "keyword.operator.new",
+        "keyword.operator.expression",
+        "storage.type",
+        "storage.modifier"
+      ],
+      "settings": {
+        "foreground": "#1e1400"
       }
     },
     {
@@ -167,6 +181,16 @@
       ],
       "settings": {
         "foreground": "#002a10"
+      }
+    },
+    {
+      "name": "operator",
+      "scope": [
+        "keyword.operator",
+        "punctuation.accessor"
+      ],
+      "settings": {
+        "foreground": "#1e1400"
       }
     },
     {

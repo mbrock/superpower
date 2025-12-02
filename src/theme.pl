@@ -16,6 +16,7 @@ hue(blue,   250).
 hue(purple, 300).
 hue(magenta, 320).
 hue(neutral, 85).
+hue(gray, 0).
 
 alpha(hint,   0.15).
 alpha(soft,   0.30).
@@ -23,7 +24,7 @@ alpha(medium, 0.45).
 alpha(strong, 0.60).
 
 % Syntax
-color(fg(comment),       gold).
+color(fg(comment),       neutral).
 color(fg(doc_comment),   orange).
 color(fg(keyword),       neutral).
 color(fg(function),      blue).
@@ -77,9 +78,9 @@ color(fg(focus),    gold).
 color(fg(match),    gold).
 color(fg(bracket),  green).
 
-color(bg(base),      neutral).
-color(bg(surface),   neutral).
-color(bg(raised),    neutral).
+color(bg(base),      gray).
+color(bg(surface),   gray).
+color(bg(raised),    gray).
 color(bg(selection), blue).
 color(fg(selection), blue).
 color(bg(highlight), blue).
@@ -92,7 +93,7 @@ alpha(bg(match),     medium).
 alpha(bg(bracket),   hint).
 
 % Lightness overrides for neutral groups
-lightness(fg(text),   95).
+lightness(fg(text),   85).
 lightness(fg(muted),  45).
 lightness(fg(subtle), 70).
 lightness(bg(base),    0).
@@ -239,7 +240,7 @@ oklch(FgOrBg, Mode, L, C, H) :-
     color(FgOrBg, Hue),
     hue(Hue, H),
     ( lightness(FgOrBg, L0) -> L1 = L0 ; L1 = 80 ),
-    ( Hue = neutral -> C = 0.02 ; C = 0.20 ),
+    ( Hue = gray -> C = 0 ; Hue = neutral -> C = 0.04 ; C = 0.20 ),
     ( Mode = dark -> L = L1 ; L is 100 - L1 ).
 
 ui_color(Mode, Key, oklch(L, C, H, A)) :-
@@ -249,9 +250,7 @@ ui_color(Mode, Key, oklch(L, C, H, A)) :-
     ( alpha(Term, AlphaName) -> alpha(AlphaName, A) ; A = 1 ).
 
 token_style(Mode, Group, Scopes, oklch(L, C, H, 1), Bold) :-
-    color(fg(Group), Hue),
-    hue(Hue, _),
-    Hue \= neutral,
+    color(fg(Group), _),
     oklch(fg(Group), Mode, L, C, H),
     findall(S, scope(Group, S), Scopes),
     Scopes \= [],
