@@ -1,5 +1,5 @@
 import * as vscode from "vscode"
-import { cssToString, tokenStyles } from "./tokenStyles"
+import { getDecorationStyles } from "./tokenStyles"
 import { createSuperpowerLauncher } from "./createSuperpowerLauncher"
 import { getSemanticTokenRanges } from "./getSemanticTokenRanges"
 import {
@@ -16,7 +16,7 @@ export function log(message: string) {
   outputChannel.appendLine(message)
 }
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
   outputChannel = vscode.window.createOutputChannel("Linen Glow", {
     log: true,
   })
@@ -27,7 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
   superpowerClient = new SuperpowerClient(outputChannel)
   context.subscriptions.push(superpowerClient)
 
-  createDecorationTypes()
+  await createDecorationTypes()
   setupSemanticDecorating(context)
   registerCommands(context)
 
@@ -130,10 +130,10 @@ async function handleSuperpowerError(err: unknown) {
 
 function setupSemanticDecorating(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    vscode.workspace.onDidChangeConfiguration((e) => {
+    vscode.workspace.onDidChangeConfiguration(async (e) => {
       if (e.affectsConfiguration("linenGlow")) {
         disposeDecorations()
-        createDecorationTypes()
+        await createDecorationTypes()
         triggerUpdateDecorations()
       }
     }),
@@ -161,14 +161,17 @@ function setupSemanticDecorating(context: vscode.ExtensionContext) {
   }
 }
 
-function createDecorationTypes() {
+async function createDecorationTypes() {
   const config = vscode.workspace.getConfiguration("linenGlow")
   if (!config.get("enabled", true)) return
 
-  for (const [tokenType, css] of Object.entries(tokenStyles)) {
+  // Get styles from Prolog
+  const styles = await getDecorationStyles("dark")
+
+  for (const [tokenType, css] of styles) {
     // Inject arbitrary CSS via the textDecoration hack
     // VS Code doesn't sanitize the value, so "none; background: red" works
-    const injectedCSS = `none; ${cssToString(css)}`
+    const injectedCSS = `none; ${css}`
 
     decorations.set(
       tokenType,
@@ -178,6 +181,8 @@ function createDecorationTypes() {
       }),
     )
   }
+
+  log(`Created ${decorations.size} decoration types from Prolog`)
 }
 
 function disposeDecorations() {
@@ -210,7 +215,7 @@ async function updateDecorations() {
   const document = editor.document
   const fileName = document.fileName.split("/").pop()
 
-  const tokensByType = await getSemanticTokenRanges(document)
+  const tokensByType = await getSemanticTokenRanges(document, decorations.keys())
 
   if (tokensByType) {
     let total = 0

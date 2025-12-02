@@ -10,10 +10,13 @@ const themes = [
   { mode: "light" as const, file: "linen-glow-light-color-theme.json" },
 ]
 
-for (const { mode, file } of themes) {
-  const theme = generateThemeJSON(mode)
-  const path = `themes/${file}`
-  writeFileSync(path, JSON.stringify(theme, null, 2) + "\n")
-  console.log(`✓ ${path}`)
+async function main() {
+  for (const { mode, file } of themes) {
+    const theme = await generateThemeJSON(mode)
+    const path = `themes/${file}`
+    writeFileSync(path, JSON.stringify(theme, null, 2) + "\n")
+    console.log(`✓ ${path}`)
+  }
 }
 
+main()
