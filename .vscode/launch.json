@@ -1,13 +1,7 @@
 {
   "version": "0.2.0",
   "configurations": [
-    {
-      "name": "Attach to Cursor CDP",
-      "port": 9222,
-      "request": "attach",
-      "type": "chrome",
-      "webRoot": "/Applications/Cursor.app/Contents/Resources/app"
-    },
+
     {
       "name": "Run Extension",
       "type": "extensionHost",

@@ -1,5 +1,16 @@
 import type * as Monaco from "monaco-editor"
 
+// TextMate token color rule
+export interface ITokenColorRule {
+  name?: string
+  scope?: string | string[]
+  settings: {
+    foreground?: string
+    background?: string
+    fontStyle?: string
+  }
+}
+
 declare namespace Electron {
   interface IpcRendererEvent {
     sender: unknown

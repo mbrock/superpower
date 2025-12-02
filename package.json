@@ -1,7 +1,7 @@
 {
   "name": "linen-glow",
   "displayName": "Linen Glow",
-  "description": "Dark theme with semantic token background decorations for focus.",
+  "description": "Dark and light themes with semantic token background decorations for focus.",
   "version": "0.1.0",
   "publisher": "mbrock",
   "main": "./out/extension.js",
@@ -39,6 +39,11 @@
         "label": "Linen Glow",
         "uiTheme": "vs-dark",
         "path": "./themes/linen-glow-color-theme.json"
+      },
+      {
+        "label": "Linen Glow Light",
+        "uiTheme": "vs",
+        "path": "./themes/linen-glow-light-color-theme.json"
       }
     ],
     "configuration": {
@@ -71,7 +76,11 @@
   "scripts": {
     "build": "bun build ./src/extension.ts --outdir ./out --target=node --format=cjs --external=vscode --sourcemap=linked",
     "watch": "bun build ./src/extension.ts --outdir ./out --target=node --format=cjs --external=vscode --sourcemap=inline --watch",
+    "themes": "bun run scripts/generate-themes.ts",
     "format": "prettier --write src",
-    "package": "bun run build && vsce package --allow-missing-repository"
+    "package": "bun run themes && bun run build && vsce package --allow-missing-repository"
+  },
+  "dependencies": {
+    "culori": "^4.0.2"
   }
 }
